@@ -1,0 +1,9 @@
+.country-flag {
+  width: 16px;
+  height: 16px;
+}
+
+.country-flag img {
+  height: 100%;
+  width: 100%;
+}

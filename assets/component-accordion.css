@@ -1,0 +1,109 @@
+.accordion details[open] .icon-wrapper span:before {
+  content: '-';
+  font-size: 1.6875rem;
+  line-height: 1.75rem;
+  display: block;
+  text-align: center;
+}
+.icon-wrapper span:before {
+  content: '+';
+  font-size: 1.75rem;
+  line-height: 2rem;
+  color: #ffffff;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  margin: auto;
+  display: block;
+  text-align: center;
+  cursor: pointer;
+}
+.accordion__content p {
+  font-size: 0.9375rem;
+  color: rgb(var(--color-text));
+  line-height: 1.5;
+}
+.accordion .accordion__title {
+  font-size: 1.125rem;
+  color: rgb(var(--color-text));
+}
+.accordion {
+  margin-bottom: 0;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.accordion summary {
+  position: relative;
+  line-height: 1;
+  padding: 0.8rem 1rem;
+}
+.accordion + .accordion {
+  margin-top: 0;
+  border-top: none;
+}
+.accordion-wrapper {
+  max-width: 870px;
+  margin: 0 auto;
+}
+@media all and (max-width:768px) {
+  .accordion-wrapper {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+}
+.accordion-text p {
+  text-align: center;
+  font-size: 1.25rem;
+  color: rgb(var(--color-text));
+  font-weight: 700;
+  line-height: 1.5;
+}
+.accordion__title {
+  display: inline-block;
+  max-width: calc(100% - 3rem);
+  line-height: 1.2;
+  margin: 0;
+  padding: 0;
+  word-break: break-word;
+  font-style: normal;
+  font-weight: normal;
+  letter-spacing: 0;
+  vertical-align: middle;
+  margin-left: 10px;
+  cursor: pointer;
+}
+.accordion .icon-wrapper {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 5px;
+  vertical-align: middle;
+  display: inline-block;
+  position: relative;
+}
+.accordion summary .icon-arrow-angle {
+  height: 0.6rem;
+  transform: rotate(90deg);
+}
+.accordion details[open] > summary .icon-arrow-angle {
+  transform: rotate(270deg);
+}
+.accordion details[open] .accordion__content {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  margin-left: 4rem;
+}
+@media all and (max-width:600px) {
+  .accordion summary .h3 {
+    font-size: 1rem;
+    line-height: 1.3rem;
+  }
+  .faq__section {
+    padding: 0 20px 30px;
+  }
+  .accordion summary {
+    padding: 0.5rem;
+  }
+}

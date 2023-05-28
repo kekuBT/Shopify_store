@@ -1,0 +1,247 @@
+
+<div class="collection-list grid-style {% if section.blocks.size >= 6 %} more_three{% endif %}">
+<div class="jewel_list_mod columns">
+
+    {%- for block in section.blocks -%}
+        {% assign collection = block.settings.collection %}
+  {% if forloop.first  %}    
+    <div class="collection-item collection-column column is-12-mobile data-aos data-aos--fade-up data-aos--delay-200">
+        {%- if collection != blank -%}
+        <div class="is-relative">
+            <div class="collection__media">
+                    {% if block.settings.image_custom %}
+                        {% assign imagecustom = block.settings.image_custom %}
+                        <a href="{{collection.url}}">
+                        <img
+                        class="data-aos data-aos--fade-in"
+                        src="{{ image_custom | img_url: 'master'}}" 
+                        srcset="{%- if imagecustom.width >= 200 -%}{{ imagecustom | img_url: '200x' }} 200w,{%- endif -%}
+                                {%- if imagecustom.width >= 320 -%}{{ imagecustom | img_url: '320x' }} 320w,{%- endif -%}
+                                {%- if imagecustom.width >= 480 -%}{{ imagecustom | img_url: '480x' }} 480w,{%- endif -%}
+                                {%- if imagecustom.width >= 768 -%}{{ imagecustom | img_url: '768x' }} 768w,{%- endif -%}
+                                {%- if imagecustom.width >= 1024 -%}{{ imagecustom | img_url: '1024x' }} 1024w,{%- endif -%}
+                                {%- if imagecustom.width >= 1400 -%}{{ imagecustom | img_url: '1400x' }} 1400w,{%- endif -%}
+                                {%- if imagecustom.width >= 1920 -%}{{ imagecustom | img_url: '1920x' }} 1920w{%- endif -%}"
+                        src="{{ imagecustom | img_url: '700x' }}"
+                        sizes="(min-width: 1100px){% if section.blocks.size > 1 %}700px{% else %}1024px{% endif %}, (min-width: 750px) {% if section.blocks.size > 1 %}calc((100vw - 10rem) / 2){% else %}calc(100vw - 10rem){% endif %}, calc(100vw - 3rem)"
+                        height="{{ imagecustom.height }}"
+                        width="{{ imagecustom.width }}"
+                        loading="lazy" />
+                        </a>
+            {%- elsif collection.featured_image -%}
+            <a href="{{collection.url}}">
+            <img
+                class="data-aos data-aos--fade-in"
+                src="{{collection.featured_image | img_url: 'master'}}" 
+                srcset="{%- if collection.featured_image.width >= 200 -%}{{ collection.featured_image | img_url: '200x' }} 200w,{%- endif -%}
+                        {%- if collection.featured_image.width >= 320 -%}{{ collection.featured_image | img_url: '320x' }} 320w,{%- endif -%}
+                        {%- if collection.featured_image.width >= 480 -%}{{ collection.featured_image | img_url: '480x' }} 480w,{%- endif -%}
+                        {%- if collection.featured_image.width >= 768 -%}{{ collection.featured_image | img_url: '768x' }} 768w,{%- endif -%}
+                        {%- if collection.featured_image.width >= 1024 -%}{{ collection.featured_image | img_url: '1024x' }} 1024w,{%- endif -%}
+                        {%- if collection.featured_image.width >= 1400 -%}{{ collection.featured_image | img_url: '1400x' }} 1400w,{%- endif -%}
+                        {%- if collection.featured_image.width >= 1920 -%}{{ collection.featured_image | img_url: '1920x' }} 1920w{%- endif -%}"
+                src="{{ collection.featured_image | img_url: '700x' }}"
+                sizes="(min-width: 1100px){% if section.blocks.size > 1 %}700px{% else %}1024px{% endif %}, (min-width: 750px) {% if section.blocks.size > 1 %}calc((100vw - 10rem) / 2){% else %}calc(100vw - 10rem){% endif %}, calc(100vw - 3rem)"
+                height="{{ collection.featured_image.height }}"
+                width="{{ collection.featured_image.width }}"
+                alt="{{collection.title}}" 
+                loading="lazy" />
+            </a>
+            {% else %}
+                        {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                        {%- endif -%}   
+            </div>
+
+            
+          <div  class="collection__info padding">
+            <a href="{{collection.url}}" class="collection-info-wrapper" style="border-color: {{settings.colors_background_1}};">
+                <span class="button"  style="background-color: {{settings.colors_background_1}};color:{{settings.colors_text}};">{{ collection.title }}</span>
+            </a>
+          </div> 
+
+            
+        </div>
+
+        {%- else -%}
+            <div class="is-relative">
+            <div class="collection__media data-aos data-aos--fade-in">
+                {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+  <div  class="collection__info padding">
+            <a href="{{collection.url}}" class="collection-info-wrapper" style="border-color: {{settings.colors_background_1}};">
+              <span class="button"  style="background-color: {{settings.colors_background_1}};color:{{settings.colors_text}};">{{ collection.title }}</span>
+          </a>
+
+          </div>
+          <div  class="collection__info padding">
+            <a href="{{collection.url}}" class="collection-info-wrapper" style="border-color: {{settings.colors_background_1}};">
+              <span class="button"  style="background-color: {{settings.colors_background_1}};color:{{settings.colors_text}};">{{ 'onboarding.collection_title' | t }}</span>
+          </a>
+          </div>
+       
+            </div>
+        {%- endif -%}
+        </div>
+    {% endif %}
+{%- endfor -%}
+</div>
+
+<div class="jewel_list_mod{% if section.blocks.size >= 6 %} more_than_six{% endif %} columns is-multiline is-mobile">
+{%- for block in section.blocks -%}
+    {% assign collection = block.settings.collection %}
+        {% unless forloop.first %}     
+    <div class="collection-item collection-column column is-6-desktop is-6-tablet is-12-mobile data-aos data-aos--fade-up data-aos--delay-200">
+      {%- if collection != blank -%}
+      <div class="is-relative">
+        <div class="collection__media">
+                {% if block.settings.image_custom %}
+                    {% assign imagecustom = block.settings.image_custom %}
+                    <a href="{{collection.url}}">
+                    <img
+                    class="data-aos data-aos--fade-in"
+                    src="{{ image_custom | img_url: 'master'}}" 
+                    srcset="{%- if imagecustom.width >= 200 -%}{{ imagecustom | img_url: '200x' }} 200w,{%- endif -%}
+                            {%- if imagecustom.width >= 320 -%}{{ imagecustom | img_url: '320x' }} 320w,{%- endif -%}
+                            {%- if imagecustom.width >= 480 -%}{{ imagecustom | img_url: '480x' }} 480w,{%- endif -%}
+                            {%- if imagecustom.width >= 768 -%}{{ imagecustom | img_url: '768x' }} 768w,{%- endif -%}
+                            {%- if imagecustom.width >= 1024 -%}{{ imagecustom | img_url: '1024x' }} 1024w,{%- endif -%}
+                            {%- if imagecustom.width >= 1400 -%}{{ imagecustom | img_url: '1400x' }} 1400w,{%- endif -%}
+                            {%- if imagecustom.width >= 1920 -%}{{ imagecustom | img_url: '1920x' }} 1920w{%- endif -%}"
+                    src="{{ imagecustom | img_url: '700x' }}"
+                    sizes="(min-width: 1100px){% if section.blocks.size > 1 %}700px{% else %}1024px{% endif %}, (min-width: 750px) {% if section.blocks.size > 1 %}calc((100vw - 10rem) / 2){% else %}calc(100vw - 10rem){% endif %}, calc(100vw - 3rem)"
+                    height="{{ imagecustom.height }}"
+                    width="{{ imagecustom.width }}"
+                    loading="lazy" />
+                   </a>
+          {%- elsif collection.featured_image -%}
+          <a href="{{collection.url}}">
+          <img
+               class="data-aos data-aos--fade-in"
+               src="{{collection.featured_image | img_url: 'master'}}" 
+               srcset="{%- if collection.featured_image.width >= 200 -%}{{ collection.featured_image | img_url: '200x' }} 200w,{%- endif -%}
+                       {%- if collection.featured_image.width >= 320 -%}{{ collection.featured_image | img_url: '320x' }} 320w,{%- endif -%}
+                       {%- if collection.featured_image.width >= 480 -%}{{ collection.featured_image | img_url: '480x' }} 480w,{%- endif -%}
+                       {%- if collection.featured_image.width >= 768 -%}{{ collection.featured_image | img_url: '768x' }} 768w,{%- endif -%}
+                       {%- if collection.featured_image.width >= 1024 -%}{{ collection.featured_image | img_url: '1024x' }} 1024w,{%- endif -%}
+                       {%- if collection.featured_image.width >= 1400 -%}{{ collection.featured_image | img_url: '1400x' }} 1400w,{%- endif -%}
+                       {%- if collection.featured_image.width >= 1920 -%}{{ collection.featured_image | img_url: '1920x' }} 1920w{%- endif -%}"
+               src="{{ collection.featured_image | img_url: '700x' }}"
+               sizes="(min-width: 1100px){% if section.blocks.size > 1 %}700px{% else %}1024px{% endif %}, (min-width: 750px) {% if section.blocks.size > 1 %}calc((100vw - 10rem) / 2){% else %}calc(100vw - 10rem){% endif %}, calc(100vw - 3rem)"
+               height="{{ collection.featured_image.height }}"
+               width="{{ collection.featured_image.width }}"
+               alt="{{collection.title}}" 
+               loading="lazy" />
+          </a>
+         {% else %}
+                    {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {%- endif -%}   
+        </div>
+
+          <div  class="collection__info padding">
+            <a href="{{collection.url}}" class="collection-info-wrapper" style="border-color: {{settings.colors_background_1}};">
+              <span class="button"  style="background-color: {{settings.colors_background_1}};color:{{settings.colors_text}};">{{ collection.title }}</span>
+          </a>
+
+          </div>
+      </div>
+
+      {%- else -%}
+        <div class="is-relative">
+          <div class="collection__media data-aos data-aos--fade-in">
+            {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+
+            <div  class="collection__info padding">
+              <a href="{{collection.url}}" class="collection-info-wrapper" style="border-color: {{settings.colors_background_1}};">
+                <span class="button"  style="background-color: {{settings.colors_background_1}};color:{{settings.colors_text}};">{{ 'onboarding.collection_title' | t }}</span>
+            </a>
+            </div>
+         
+        </div>
+      {%- endif -%}
+    </div>
+        {% endunless %}
+    {%- endfor -%}
+</div>
+
+{% if section.blocks.size >= 6 %}
+<div class="jewel_list_mod columns">
+    {%- for block in section.blocks -%}
+        {% assign collection = block.settings.collection %}
+            {% if forloop.last %}
+            
+        <div class="collection-item collection-column column is-12-mobile data-aos data-aos--fade-up data-aos--delay-200">
+          {%- if collection != blank -%}
+          <div class="is-relative">
+            <div class="collection__media">
+                    {% if block.settings.image_custom %}
+                        {% assign imagecustom = block.settings.image_custom %}
+                        <a href="{{collection.url}}">
+                        <img
+                        class="data-aos data-aos--fade-in"
+                        src="{{ image_custom | img_url: 'master'}}" 
+                        srcset="{%- if imagecustom.width >= 200 -%}{{ imagecustom | img_url: '200x' }} 200w,{%- endif -%}
+                                {%- if imagecustom.width >= 320 -%}{{ imagecustom | img_url: '320x' }} 320w,{%- endif -%}
+                                {%- if imagecustom.width >= 480 -%}{{ imagecustom | img_url: '480x' }} 480w,{%- endif -%}
+                                {%- if imagecustom.width >= 768 -%}{{ imagecustom | img_url: '768x' }} 768w,{%- endif -%}
+                                {%- if imagecustom.width >= 1024 -%}{{ imagecustom | img_url: '1024x' }} 1024w,{%- endif -%}
+                                {%- if imagecustom.width >= 1400 -%}{{ imagecustom | img_url: '1400x' }} 1400w,{%- endif -%}
+                                {%- if imagecustom.width >= 1920 -%}{{ imagecustom | img_url: '1920x' }} 1920w{%- endif -%}"
+                        src="{{ imagecustom | img_url: '700x' }}"
+                        sizes="(min-width: 1100px){% if section.blocks.size > 1 %}700px{% else %}1024px{% endif %}, (min-width: 750px) {% if section.blocks.size > 1 %}calc((100vw - 10rem) / 2){% else %}calc(100vw - 10rem){% endif %}, calc(100vw - 3rem)"
+                        height="{{ imagecustom.height }}"
+                        width="{{ imagecustom.width }}"
+                        loading="lazy" />
+                       </a>
+              {%- elsif collection.featured_image -%}
+              <a href="{{collection.url}}">
+              <img
+                   class="data-aos data-aos--fade-in"
+                   src="{{collection.featured_image | img_url: 'master'}}" 
+                   srcset="{%- if collection.featured_image.width >= 200 -%}{{ collection.featured_image | img_url: '200x' }} 200w,{%- endif -%}
+                           {%- if collection.featured_image.width >= 320 -%}{{ collection.featured_image | img_url: '320x' }} 320w,{%- endif -%}
+                           {%- if collection.featured_image.width >= 480 -%}{{ collection.featured_image | img_url: '480x' }} 480w,{%- endif -%}
+                           {%- if collection.featured_image.width >= 768 -%}{{ collection.featured_image | img_url: '768x' }} 768w,{%- endif -%}
+                           {%- if collection.featured_image.width >= 1024 -%}{{ collection.featured_image | img_url: '1024x' }} 1024w,{%- endif -%}
+                           {%- if collection.featured_image.width >= 1400 -%}{{ collection.featured_image | img_url: '1400x' }} 1400w,{%- endif -%}
+                           {%- if collection.featured_image.width >= 1920 -%}{{ collection.featured_image | img_url: '1920x' }} 1920w{%- endif -%}"
+                   src="{{ collection.featured_image | img_url: '700x' }}"
+                   sizes="(min-width: 1100px){% if section.blocks.size > 1 %}700px{% else %}1024px{% endif %}, (min-width: 750px) {% if section.blocks.size > 1 %}calc((100vw - 10rem) / 2){% else %}calc(100vw - 10rem){% endif %}, calc(100vw - 3rem)"
+                   height="{{ collection.featured_image.height }}"
+                   width="{{ collection.featured_image.width }}"
+                   alt="{{collection.title}}" 
+                   loading="lazy" />
+              </a>
+             {% else %}
+                        {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                        {%- endif -%}   
+            </div>
+    
+              <div  class="collection__info padding">
+                <a href="{{collection.url}}" class="collection-info-wrapper" style="border-color: {{settings.colors_background_1}};">
+                  <span class="button"  style="background-color: {{settings.colors_background_1}};color:{{settings.colors_text}};">{{ collection.title }}</span>
+              </a>
+              </div>
+          </div>
+    
+          {%- else -%}
+            <div class="is-relative">
+              <div class="collection__media data-aos data-aos--fade-in">
+                {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+    
+                <div  class="collection__info padding">
+                  <a href="{{collection.url}}" class="collection-info-wrapper" style="border-color: {{settings.colors_background_1}};">
+                    <span class="button"  style="background-color: {{settings.colors_background_1}};color:{{settings.colors_text}};">{{ 'onboarding.collection_title' | t }}</span>
+                </a>
+                </div>
+             
+            </div>
+          {%- endif -%}
+        </div>
+            {% endif %}
+        {%- endfor -%}
+    </div>
+{% endif %}
+
+</div>

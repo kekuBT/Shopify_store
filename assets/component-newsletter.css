@@ -1,0 +1,77 @@
+.newsletter-form__field-wrapper-inner input:-webkit-autofill, .newsletter-form__field-wrapper-inner input:-webkit-autofill:hover, .newsletter-form__field-wrapper-inner input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #ffffff;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+.newsletter-form__field-wrapper-inner input {
+  font-size: 1.0625rem;
+  color: #ffffff;
+}
+.newsletter-form__field-wrapper-inner input::placeholder {
+  color: rgba(255, 255, 255, 0.702);
+}
+.newsletter__button {
+  color: rgb(var(--color-accent-1));
+}
+.newsletter-form .newsletter-form__field-wrapper .field {
+  display: flex;
+}
+.newsletter-section h2 {
+  font-size: calc(var(--font-heading-scale) * 1.5625rem);
+  line-height: 1.5;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+}
+.newsletter__text p, .newsletter__text p > a {
+  font-size: 1rem;
+  color: rgb(255, 255, 255);
+}
+.newsletter-form .newsletter-form__message--success.form__message svg {
+  fill: #00c700;
+  margin-right: 7px;
+}
+.newsletter-form .newsletter-form__message--success.form__message {
+  color: #00c700;
+  line-height: 1.7;
+}
+.newsletter-form .form__message {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 0.8125rem;
+  color: red !important;
+}
+.newsletter-form .form__message svg {
+  width: 15px;
+  height: 15px;
+  margin-right: 3px;
+  fill: red;
+}
+@media all and (max-width:480px) {
+  .newsletter-form .newsletter-form__field-wrapper .field {
+    flex-direction: column;
+  }
+}
+.newsletter-form .newsletter-form__field-wrapper .field button {
+  border-radius: 0;
+  border: none;
+  font-weight: bold;
+}
+.newsletter-form .field__input {
+  border: 1px solid var(--colorFooterBorder);
+  max-width: 8rem;
+  width: 100%;
+  margin-bottom: 1rem;
+  box-shadow: none;
+}
+.newsletter__button:hover {
+  opacity: 0.8;
+}
+@media all and (max-width:480px) {
+  .newsletter-form .field__input {
+    max-width: 100%;
+  }
+}
+.newsletter-form .field__label {
+  display: none;
+}

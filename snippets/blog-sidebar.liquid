@@ -1,0 +1,36 @@
+{{ 'component-blog-sidebar.css' | asset_url | stylesheet_tag }}
+<div class="blog__sidebar">
+  {%- for block in section.blocks -%}
+  {%- case block.type -%}
+
+
+    {%- when 'Sidebar_categories'-%}
+    <div class="widget_box">
+      <h3 class="widget__heading">{{ block.settings.category_heading }}</h3>
+      <ul>
+        {% for tag in blog.all_tags %}
+        {% if current_tags contains tag %}
+        <li>{{ tag }}</li>
+        {% else %}
+        <li>{{ tag | link_to_tag: tag }}</li>
+        {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+    {%- when 'Sidebar_recent_articles'-%}
+    <div class="widget_box">
+      <h3 class="widget__heading">{{ block.settings.article_heading }}</h3>
+      <ul>
+        {% for article in blogs.news.articles limit: 5 %} 
+        <li>
+          <a href="{{ article.url }}">{{ article.title }}</a>
+          <br>
+          {{ article.published_at | time_tag: format: 'date' }}
+        </li>
+        {% endfor %}
+      </ul>
+    </div>  
+    {%- endcase -%}
+    {%- endfor -%}
+  </div>
+  

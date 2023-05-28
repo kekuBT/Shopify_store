@@ -1,0 +1,481 @@
+{{ 'section-collection-list.css' | asset_url | stylesheet_tag }}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+
+<style>
+#shopify-section-{{ section.id }} .collection-list .collection__link {
+    background-color: {{ settings.colors_background_2 | color_modify: 'alpha', 0.6 }};
+}
+#shopify-section-{{ section.id }} .collection-list .collection__link:hover,
+  .collection-list-section .is-relative:hover .collection__link{
+    background-color: {{ settings.colors_accent_1 | color_modify: 'alpha', 0.6 }} !important;
+}
+
+#shopify-section-{{ section.id }} .collection-list .collection__link:hover h3{
+    color: {{settings.colors_solid_button_labels}} !important;
+}
+
+#shopify-section-{{ section.id }} .collection-list .collection__link h3 {
+   color: {{settings.colors_accent_1}}; 
+}
+#shopify-section-{{ section.id }} .collection-list-section:not(.style_fashion) .collection-list-section .collection-info-wrapper {
+  background-color:{{ settings.colors_background_2 | hex_to_rgba: 0.7 }};
+  backdrop-filter:blur({{ section.settings.blur_radius }}px);
+} 
+#shopify-section-{{ section.id }} .collection-list-section .text-color,#shopify-section-{{ section.id }} .collection-list-section .collection-description {
+  color:{{ settings.colors_accent_1 }};
+}
+#shopify-section-{{ section.id }} .collection-list-section .strip-color svg path {
+  fill:{{ section.settings.strip_color }};
+}
+
+#shopify-section-{{ section.id }} .collection-list-section.style_food .is-relative{
+  border-color: {{section.settings.food_border}};
+  border-radius: {{section.settings.border_radius_food}}px;
+}  
+#shopify-section-{{ section.id }} .collection-list-section.style_fashion .collection__media:after{
+  background: {{ settings.colors_solid_button_labels }};
+}
+{% if settings.style == 'electronic' %}
+  #shopify-section-{{ section.id }} .collection-list-section .view_all_top .button{
+    border: 1px solid {{ settings.colors_accent_1 }};
+    color: {{ settings.colors_accent_1 }};
+    background: transparent;
+  }
+  #shopify-section-{{ section.id }} .collection-list-section .view_all_top .button svg path{
+    fill: {{ settings.colors_accent_1 }};
+  }
+  #shopify-section-{{ section.id }} .collection-list-section .view_all_top .button:hover{
+    background: {{ settings.colors_accent_1 }};
+    border-color: {{ settings.colors_solid_button_labels }};
+    color: {{ settings.colors_solid_button_labels }};
+  }
+  #shopify-section-{{ section.id }} .collection-list-section .view_all_top .button:hover svg path{
+    fill: {{ settings.colors_solid_button_labels }};
+  }
+{% endif %}
+
+{% if settings.style == 'default' %}
+  #shopify-section-{{ section.id }} .collection-list-section .collection-list.grid-style {
+    display: grid;
+    grid-template-columns: repeat({{section.settings.column_product_no}}, 1fr);
+  }
+{% if section.settings.column_gap != 5 %}
+@media screen and (min-width: 767px) {
+  #shopify-section-{{ section.id }} .collection-list {
+    padding: 0 {{ section.settings.column_gap | times: 1.2 }}px;
+  }
+  #shopify-section-{{ section.id }} .collection-column {
+    padding: {{ section.settings.column_gap | times: 0.4 }}px {{ section.settings.column_gap | times: 0.8 }}px;
+  }
+}
+@media screen and (min-width: 990px) {
+  #shopify-section-{{ section.id }} .collection-list {
+    padding: 0 {{ section.settings.column_gap | times: 1.4 }}px;
+  }
+  #shopify-section-{{ section.id }} .collection-column {
+    padding: {{ section.settings.column_gap | times: 0.6 }}px {{ section.settings.column_gap }}px;
+  }
+}
+{% endif %}
+{% endif %}
+</style>
+
+<div class="collection-list-section section style_{{ settings.style }}" {%- if section.settings.bg_color != blank %} style="background:{{ section.settings.bg_color }};"{%- endif -%}>
+
+  <div class="page-width">
+    {%- if settings.style == 'electronic' or settings.style == 'food' -%}
+    <div class="flex view_all_top">
+      <div class="heading">
+       
+        {%- if section.settings.title != blank %}
+        <h2 class="collection-list-title style data-aos data-aos--fade-left data-aos--delay-200">{{ section.settings.title | escape }}</h2>
+        {%- endif -%}
+        {%- if section.settings.title != blank and section.settings.caption != blank %}
+          <div class="collection-list-caption data-aos data-aos--fade-left data-aos--delay-300">{{ section.settings.caption }}</div>
+        {%- endif -%}
+      </div>
+      {% if section.settings.btn_label != blank %}
+      <a href="{{ routes.collections_url }}" class="button button--primary">
+        {{ section.settings.btn_label }}
+        {% if settings.show_arrow %}<span class="btn-arrow">{% render 'btn-arrow' %}</span>{% endif %}
+      </a>
+      {% endif %}
+    </div>
+    {%- endif -%}
+  
+  
+    {%- if settings.style == 'jewel' %}
+      {% if section.settings.title != blank %}
+          <div class="btn-below-title">
+            <div class="heading">
+             
+              <h2 class="collection-list-title data-aos data-aos--fade-left data-aos--delay-200">{{ section.settings.title | escape }}</h2>
+              {%- if section.settings.title != blank and section.settings.caption != blank %}
+              <div class="collection-list-caption center data-aos data-aos--fade-left data-aos--delay-300">{{ section.settings.caption }}</div>
+              {%- endif -%}
+            </div>
+
+            {% if section.settings.btn_label != blank %}
+              <div class="link-buttom--wrapper">
+                {% render 'link-button', url: section.settings.btn_link, label: section.settings.btn_label %}
+                
+              </div>
+              {%style%}.btn-below-title .btn-arrow svg path{fill:#000;}{%endstyle%}
+            {% endif %}
+          </div>
+    {%- endif -%}
+  {%- endif -%}
+
+  {%- if settings.style == 'default' %}
+    {% if section.settings.title != blank %}
+        <div class="">
+          <div class="heading">
+           
+            <h2 class="collection-list-title data-aos data-aos--fade-left data-aos--delay-200">{{ section.settings.title | escape }}</h2>
+            {%- if section.settings.title != blank and section.settings.caption != blank %}
+            <div class="collection-list-caption center data-aos data-aos--fade-left data-aos--delay-300">{{ section.settings.caption }}</div>
+            {%- endif -%}
+          </div>
+        </div>
+  {%- endif -%}
+{%- endif -%}
+
+
+    {% if settings.style == 'fashion' %}
+      
+      {% render 'fashion-collection-list', section: section %}
+    
+   {% elsif settings.style == 'electronic' %}
+
+      {% render 'electronic-collection-list', section: section %}
+
+  {% elsif settings.style == 'jewel' %}
+
+      {% render 'jewel-collection-list', section: section %}
+
+  {% elsif settings.style == 'food' %}
+
+      {% render 'food-collection-list', section: section %}
+
+    {% else %}
+
+    <div class="collection-list columns grid-style is-mobile is-multiline {% if section.settings.column_product_no > 4 %}small-contents{% endif %}">
+
+      {%- for block in section.blocks -%}
+      {% assign collection = block.settings.collection %}
+      <div class="collection-item collection-column column is-12-mobile data-aos data-aos--fade-up data-aos--delay-200">
+        {%- if collection != blank -%}
+        <div class="is-relative">
+          <div class="collection__media">
+                  {% if block.settings.image_custom %}
+                      {% assign imagecustom = block.settings.image_custom %}
+                      <img
+                      class="data-aos data-aos--fade-in"
+                      src="{{ image_custom | img_url: 'master'}}" 
+                      srcset="{%- if imagecustom.width >= 200 -%}{{ imagecustom | img_url: '200x' }} 200w,{%- endif -%}
+                              {%- if imagecustom.width >= 320 -%}{{ imagecustom | img_url: '320x' }} 320w,{%- endif -%}
+                              {%- if imagecustom.width >= 480 -%}{{ imagecustom | img_url: '480x' }} 480w,{%- endif -%}
+                              {%- if imagecustom.width >= 768 -%}{{ imagecustom | img_url: '768x' }} 768w,{%- endif -%}
+                              {%- if imagecustom.width >= 1024 -%}{{ imagecustom | img_url: '1024x' }} 1024w,{%- endif -%}
+                              {%- if imagecustom.width >= 1400 -%}{{ imagecustom | img_url: '1400x' }} 1400w,{%- endif -%}
+                              {%- if imagecustom.width >= 1920 -%}{{ imagecustom | img_url: '1920x' }} 1920w{%- endif -%}"
+                      src="{{ imagecustom | img_url: '700x' }}"
+                      sizes="(min-width: 1100px){% if section.blocks.size > 1 %}700px{% else %}1024px{% endif %}, (min-width: 750px) {% if section.blocks.size > 1 %}calc((100vw - 10rem) / 2){% else %}calc(100vw - 10rem){% endif %}, calc(100vw - 3rem)"
+                      height="{{ imagecustom.height }}"
+                      width="{{ imagecustom.width }}"
+                      loading="lazy" />
+       
+            {%- elsif collection.featured_image -%}
+            <img
+                 class="data-aos data-aos--fade-in"
+                 src="{{collection.featured_image | img_url: 'master'}}" 
+                 srcset="{%- if collection.featured_image.width >= 200 -%}{{ collection.featured_image | img_url: '200x' }} 200w,{%- endif -%}
+                         {%- if collection.featured_image.width >= 320 -%}{{ collection.featured_image | img_url: '320x' }} 320w,{%- endif -%}
+                         {%- if collection.featured_image.width >= 480 -%}{{ collection.featured_image | img_url: '480x' }} 480w,{%- endif -%}
+                         {%- if collection.featured_image.width >= 768 -%}{{ collection.featured_image | img_url: '768x' }} 768w,{%- endif -%}
+                         {%- if collection.featured_image.width >= 1024 -%}{{ collection.featured_image | img_url: '1024x' }} 1024w,{%- endif -%}
+                         {%- if collection.featured_image.width >= 1400 -%}{{ collection.featured_image | img_url: '1400x' }} 1400w,{%- endif -%}
+                         {%- if collection.featured_image.width >= 1920 -%}{{ collection.featured_image | img_url: '1920x' }} 1920w{%- endif -%}"
+                 src="{{ collection.featured_image | img_url: '700x' }}"
+                 sizes="(min-width: 1100px){% if section.blocks.size > 1 %}700px{% else %}1024px{% endif %}, (min-width: 750px) {% if section.blocks.size > 1 %}calc((100vw - 10rem) / 2){% else %}calc(100vw - 10rem){% endif %}, calc(100vw - 3rem)"
+                 height="{{ collection.featured_image.height }}"
+                 width="{{ collection.featured_image.width }}"
+                 alt="{{collection.title}}" 
+                 loading="lazy" />
+           {% else %}
+                      {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                      {%- endif -%}   
+          </div>
+
+        
+          {% if section.settings.style_default == "style_1" %}
+            <a href="{{collection.url}}" class="collection__link">
+              <div class="collection__card">
+                <h3 style="color: {{settings.colors_solid_button_labels}};">
+                  {%- if collection.title != blank -%}
+                  {{- collection.title | escape -}}
+                  {%- else -%}
+                  {{ 'onboarding.collection_title' | t }}
+                  {%- endif -%}
+                </h3>
+              </div>
+            </a>
+          {% endif %}
+          {% if section.settings.style_default == "style_2" %}
+            <div  class="collection__info {% if section.settings.padding %}padding{% endif %}">
+                <a href="{{collection.url}}" class="collection-info-wrapper">
+                  {% if section.settings.strip %}
+                    <div class="strip strip-color">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="4" viewBox="0 0 32 4" fill="none">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M32 4H0V0H32V4Z" fill="#15171A"/>
+                        </svg>
+                    </div>
+                  {% endif %}
+                  <h4 class="collection-title text-color">{{ collection.title }}</h4>
+                  <div class="collection-size text-color">{{ collection.products.size }}
+                    {% if block.settings.size_label %}
+                      <span class="size-label">{{ block.settings.size_label }}</span>
+                    {% endif %}
+                  </div>
+                </a>
+              </div>
+          {% endif %}
+      
+        </div>
+
+        {%- else -%}
+          <div class="is-relative">
+            <div class="collection__media data-aos data-aos--fade-in">
+              {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+
+            {% if section.settings.style_default == "style_1" %}
+              <a href="#" class="collection__link">
+                  <div class="collection__card">
+                    <h3 style="color: {{settings.colors_solid_button_labels}};">{{ 'onboarding.collection_title' | t }}</h3>
+                  </div>
+              </a>
+            {% endif %}
+
+            {% if section.settings.style_default == "style_2" %}
+              <div  class="collection__info {% if section.settings.padding %}padding{% endif %}">
+                <a href="{{collection.url}}" class="collection-info-wrapper">
+                  <div class="strip strip-color">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="4" viewBox="0 0 32 4" fill="none">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M32 4H0V0H32V4Z" fill="#15171A"/>
+                      </svg>
+                  </div>
+                  <h4 class="collection-title text-color">{{ 'onboarding.collection_title' | t }}</h4>
+                </a>
+              </div>
+            {% endif %}
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- endfor -%}
+    </div>
+  {% endif %}
+
+    {%- if  settings.style == 'default' and section.settings.btn_label != blank -%}
+    <div class="has-text-centered mt-6">
+      <a href="{{ routes.collections_url }}" class="button button--primary">
+        {{ section.settings.btn_label }}
+        {% if settings.show_arrow %}<span class="btn-arrow">{% render 'btn-arrow' %}</span>{% endif %}
+      </a>
+    </div>
+    {%- endif -%}
+  </div>
+  
+</div>
+  
+
+{% schema %}
+{
+  "name": "t:sections.collection-list.name",
+  "tag": "section",
+  "class": "spaced-section collection-list-section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "t:sections.collection-list.settings.bg_color.label"
+    }, 
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Collections",
+      "label": "t:sections.collection-list.settings.title.label"
+    },
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "t:sections.collection-list.settings.caption.label"
+    },
+    {
+      "type": "text",
+      "id": "btn_label",
+      "label": "t:sections.collection-list.settings.btn_label.label"
+    },
+    {
+      "type": "url",
+      "id": "btn_link",
+      "label": "t:sections.collection-list.settings.btn_link.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "strip",
+      "label": "t:sections.collection-list.settings.strip.label",
+      "default": true,
+      "info": "t:sections.collection-list.settings.stripe_info.label"
+    },
+    {
+      "type": "color",
+      "id": "strip_color",
+      "label": "t:sections.collection-list.settings.strip_color.label",
+      "default": "#000"
+    }, 
+    {
+      "type":"header",
+      "content": "t:sections.collection-list.settings.default_style.label",
+      "info": "t:sections.collection-list.settings.default_style_info.label"
+    },
+    {
+      "type": "select",
+      "id": "style_default",
+      "label": "t:sections.collection-list.settings.style.label",
+      "options": [
+        {
+          "value": "style_1",
+          "label": "t:sections.collection-list.settings.style.options__1.label"
+        },
+        {
+          "value": "style_2",
+          "label": "t:sections.collection-list.settings.style.options__2.label"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "column_product_no",
+      "label": "t:sections.collection-list.settings.column_product_no.label",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "label": "t:sections.collection-list.settings.column_gap.label",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "default": 5,
+      "info": "t:sections.collection-list.settings.column_gap.info"
+    },
+    {
+      "type": "paragraph",
+      "content": "t:sections.collection-list.settings.header_2.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "padding",
+      "label": "t:sections.collection-list.settings.padding.label",
+      "default": true
+    },
+ 
+    {
+      "type": "range",
+      "id": "blur_radius",
+      "label": "t:sections.collection-list.settings.blur_radius.label",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "type":"header",
+      "content": "t:sections.collection-list.settings.electronic_style.label",
+      "info": "t:sections.collection-list.settings.electronic_style.info"
+    },
+    {
+      "type": "text",
+      "id": "btn_electronic_label",
+      "label": "t:sections.collection-list.settings.btn_label.label",
+      "default": "Go to collection"
+    },
+    {
+      "type":"header",
+      "content": "t:sections.collection-list.settings.food_style.label",
+      "info": "t:sections.collection-list.settings.food_style.info"
+    },
+    {
+      "type": "color",
+      "id": "food_background",
+      "default": "#ffffff",
+      "label": "t:sections.collection-list.settings.food_background.label"
+    },
+    {
+      "type": "color",
+      "id": "food_border",
+      "default": "#D6D8DC",
+      "label": "t:sections.collection-list.settings.food_border.label"
+    },
+    {
+      "type": "range",
+      "id": "border_radius_food",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.collection-list.settings.border_radius_food.label",
+      "default": 16
+    }
+  ],
+  "blocks": [
+    {
+      "type": "featured_collection",
+      "name": "t:sections.collection-list.blocks.featured_collection.name",
+      "settings": [
+        {
+        "type": "image_picker",
+        "id": "image_custom",
+        "label": "t:sections.collection-list.blocks.featured_collection.settings.image_custom.label",
+        "info": "t:sections.collection-list.blocks.featured_collection.settings.image_custom.info"
+      },
+      {
+        "type": "text", 
+        "id": "size_label",
+        "label": "t:sections.collection-list.blocks.featured_collection.settings.size_label.label",
+        "default": "styles"
+      },
+      {
+        "type": "collection",
+        "id": "collection",
+        "label": "t:sections.collection-list.blocks.featured_collection.settings.collection.label"
+      }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.collection-list.presets.name",
+      "blocks": [
+        {
+          "type": "featured_collection"
+        },
+        {
+          "type": "featured_collection"
+        },
+        {
+          "type": "featured_collection"
+        },
+        {
+          "type": "featured_collection"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %} 

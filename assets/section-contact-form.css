@@ -1,0 +1,140 @@
+.contact__button button.button.button--primary {
+  border-radius: 5px;
+  color: rgb(255, 255, 255);
+  font-weight: 500;
+  padding: 10px 40px;
+  height: 48px;
+}
+.contact.section .contact__wrapper p a {
+  color: rgb(var(--color-accent-1));
+}
+.contact.section .contact__wrapper p {
+  max-width: 740px;
+  font-size: 1.1875rem;
+  color: #2d2d2d;
+  font-weight: 700;
+  line-height: 1.6;
+}
+.contact.section.has-text-centered .contact__wrapper p {
+  margin: auto;
+}
+.contact .form-status {
+  outline: none;
+}
+.contact .field__input {
+  width: 100%;
+  font-size: 1rem;
+  color: rgba(35, 31, 32, 0.702);
+  line-height: 1.2;
+  border: 1px solid rgb(193, 193, 193);
+  box-shadow: none;
+  height: 48px;
+}
+.contact textarea {
+  padding: 1rem;
+  min-height: 7rem;
+}
+.contact .contact__field-error {
+  display: block;
+  text-align: left;
+  margin-top: 2px;
+}
+span.form__message {
+  font-size: 0.8125rem;
+}
+.field--with-error .field__input[aria-describedby=ContactForm-email-error] {
+  border: 1px solid red !important;
+  box-shadow: none !important;
+}
+.contact .form-status-list {
+  margin-bottom: 1.5rem;
+}
+.contact .form-status-list li {
+  list-style: none;
+  text-align: left;
+  color: red;
+  font-size: 0.8125rem;
+}
+.contact .form-status-list li .link {
+  color: rgb(var(--color-text));
+}
+.contact .form--narrow {
+  width: 50%;
+  margin: 0 auto;
+}
+p.form-status {
+  font-size: 0.875rem;
+}
+span.form__message, .form-status {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: red !important;
+}
+span.form__message svg, .form-status svg {
+  width: 23px;
+  height: 17px;
+  margin-right: 3px;
+  fill: red;
+}
+span.form__message svg {
+  width: 15px;
+  height: 15px;
+}
+.contact textarea.field__input {
+  resize: none;
+  height: 111px;
+}
+.form__message.thank__message {
+  color: #00c700 !important;
+  line-height: 1.7;
+  margin-bottom: 20px !important;
+}
+.form__message.thank__message svg {
+  fill: #00c700 !important;
+}
+@media all and (max-width:1024px) {
+  .contact .form--narrow {
+    max-width: 630px;
+    margin: 0 auto;
+    width: 100%;
+  }
+}
+@media all and (max-width:768px) {
+  .contact .form--narrow {
+    max-width: 400px;
+  }
+}
+@media all and (max-width:600px) {
+  .contact .field__input {
+    font-size: 0.875rem;
+    height: 40px;
+  }
+}
+@media all and (max-width:480px) {
+  .contact {
+    padding-bottom: 48px;
+  }
+}
+
+.contact-form .field {
+  text-align: left;
+}
+
+.contact-form .field__label,
+.contact-form .contact-checkbox__label,
+.contact-form .contact-radio__label {
+  display: block;
+  margin-bottom: .625rem;
+}
+
+.contact-form .field__label,
+.contact-checkbox__label:has(input:checked),
+.contact-radio__label:has(input:checked) {
+  font-weight: 600;
+}
+
+.contact-form .contact-checkbox__label,
+.contact-form .contact-radio__label {
+  cursor: pointer;
+}

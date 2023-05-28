@@ -1,0 +1,83 @@
+.affiliate-layout-one .title {
+  font-size: 32px;
+  margin-bottom: 16px !important;
+  font-weight: 600;
+}
+.affiliate-layout-one {
+  padding: 25px 80px;
+}
+.affiliate-layout-one .text p {
+  font-size: 12px;
+  line-height: 1.3;
+  letter-spacing: 0;
+  margin-bottom: 16px;
+  max-width: 260px;
+}
+.affiliate-layout-one .button svg {
+  margin-left: 15px;
+}
+.affiliate-layout-one .wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 920px;
+  margin: 0 auto;
+}
+.affiliate-layout-one .right-contents {
+  text-align: right;
+}
+.affiliate-layout-one .affiliate-contents {
+  max-width: 325px;
+  flex: 325px;
+}
+.affiliate-layout-one .right-contents .text p {
+  margin-left: auto;
+}
+.affiliate-layout-one .image-wrapper {
+  flex: 1;
+}
+.affiliate-layout-one .image {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+@media screen and (max-width:990px) {
+  .affiliate-layout-one .affiliate-contents {
+    max-width: 220px;
+    flex: 220px;
+  }
+  .affiliate-layout-one .title {
+    font-size: 22px;
+  }
+}
+@media screen and (max-width:768px) {
+  .affiliate-layout-one .wrapper {
+    display: flex;
+    max-width: 100%;
+    flex-direction: column;
+  }
+  .affiliate-layout-one {
+    padding: 32px ;
+  }
+  .affiliate-layout-one .affiliate-contents {
+    max-width: 100%;
+    flex: 100%;
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  .affiliate-layout-one .image-wrapper {
+    flex: unset;
+    margin-bottom: 16px;
+    max-width: 400px;
+    width: 100%;
+  }
+  .affiliate-layout-one .left-contents{
+    order: 2;
+  }
+  .affiliate-layout-one .right-contents {
+    text-align: left;
+  }
+  .affiliate-layout-one .text p {
+    max-width: 100%;
+  }
+}

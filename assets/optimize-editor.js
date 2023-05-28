@@ -1,0 +1,2 @@
+var t = document.getElementsByTagName("script");
+for (i = 0; i < t.length; i++) null !== t[i].getAttribute("data-src") && (t[i].setAttribute("src", t[i].getAttribute("data-src")), delete t[i].dataset.src);

@@ -1,0 +1,315 @@
+{{ "shop-the-look.css" | asset_url | stylesheet_tag }}
+
+<style>
+    {% for block in section.blocks %}
+        .shop-the-look #product-{{block.id}} .product-card {
+            background-color:{{ block.settings.background_color }};
+        }
+        .shop-the-look #product-{{block.id}} .circle {
+            background-color:{{ block.settings.circle_background_color }};
+            border-color:{{ block.settings.border_color }};
+        }
+        .shop-the-look #product-{{block.id}} .button {
+            background-color:{{ block.settings.button_background_color }};
+            color:{{ block.settings.button_text_color }};
+        }
+        .shop-the-look #product-{{block.id}} {
+            top:{{ block.settings.vertical_position }}%;
+        }
+        .shop-the-look #product-{{block.id}} {
+            left:{{ block.settings.horizontal_position }}%;
+        }
+        .shop-the-look #product-{{block.id}} .plus-icon svg path {
+            fill:{{ block.settings.icon_color }};
+        }
+        .shop-the-look #product-{{block.id}} .text-color {
+            color:{{ block.settings.text_color }};
+        }
+        .shop-the-look #product-{{block.id}} .button {
+            max-width: {{ block.settings.button_width }}px;
+            padding: 0 0.2rem;
+        }
+        .shop-the-look #product-{{block.id}} .product-card__content,
+        .shop-the-look #product-{{block.id}} .product-card__content .product-title {
+            text-align: {{ block.settings.content_alignment }};
+        }
+        .shop-the-look #product-{{block.id}} .product-card__content .price,
+        .shop-the-look #product-{{block.id}} .product-card__content .color-swatch {
+            justify-content: {{ block.settings.content_alignment }};
+        }
+        .shop-the-look #product-{{block.id}} .product-card__content .button {
+            {% if block.settings.content_alignment == 'start' %}
+            margin-right: auto;
+            {% endif %}
+            {% if block.settings.content_alignment == 'center' %}
+            margin: 0 auto;
+            {% endif %}
+            {% if block.settings.content_alignment == 'end' %}
+            margin-left: auto;
+            {% endif %}
+
+        }
+    {% endfor %}
+</style>
+
+<div class="shop-the-look" id="shop-the-look-{{section.id}}">
+    <div class="wrapper">
+        <div class="background-image {% if section.settings.mob_image != blank %}desktop{% endif %}">
+        {% if section.settings.image != blank %}
+            <img class="lazyload"
+                data-srcset="{{ section.settings.image | img_url: '1600x' }}"
+                data-aspectratio="{{ section.settings.image.aspect_ratio }}"
+                data-sizes="auto"
+                alt="{{ section.settings.image.alt | escape }}"
+                width="{{ section.settings.image.width }}"
+                height="{{ section.settings.image.height }}">
+        {% else %}
+            {{ 'lifestyle-1' | placeholder_svg_tag }}
+        {% endif %}
+        </div>
+        {% if section.settings.mob_image != blank %}
+        <div class="background-image mobile">
+            <img class="lazyload"
+              data-srcset="{{ section.settings.mob_image | img_url: '500x' }}"
+              data-aspectratio="{{ section.settings.mob_image.aspect_ratio }}"
+              data-sizes="auto"
+              alt="{{ section.settings.mob_image.alt | escape }}"
+              width="{{ section.settings.mob_image.width }}"
+              height="{{ section.settings.mob_image.height }}">
+        </div>
+        {% endif %}
+        <div class="product-grid">
+            {% for block in section.blocks %}
+                {% if block.settings.choose_product != blank %}
+                    <div class="product-item" id="product-{{block.id}}"  js-product-item>
+                        <div class="hover-class">
+                            <div class="circle pulse">
+                                <div class="plus-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
+                                        <path d="M3.5 3.5V0.5H4.5V3.5H7.5V4.5H4.5V7.5H3.5V4.5H0.5V3.5H3.5Z" fill="#151B2C"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="product-card 
+                                {% if block.settings.card_position == "top" %}top{% endif %}
+                                {% if block.settings.card_position == "left" %}left{% endif %}
+                                {% if block.settings.card_position == "bottom" %}bottom{% endif %}
+                                {% if block.settings.card_position == "right" %}right{% endif %}
+
+                                {% if block.settings.remove_image_border %}no-img-border{% endif %}
+                                ">
+                                {% assign product = block.settings.choose_product %}
+                                <div class="inner-wrapper">
+                                    <a  href="{{ product.url }}" class="product-image">
+                                        <img class="lazyload"
+                                            data-srcset="{{  product.featured_image | img_url: '500x' }}"
+                                            data-aspectratio="{{  product.featured_image.aspect_ratio }}"
+                                            data-sizes="auto"
+                                            alt="{{  product.featured_image.alt | escape }}"
+                                            width="{{  product.featured_image.width }}"
+                                            height="{{  product.featured_image.height }}">
+                                    </a>
+                                    <div class="product-card__content">
+                                        <h5 class="product-title text-color">{{ product.title }}</h5>
+                                        <div class="product-caption text-color">{{ block.settings.caption }}</div>
+                                        <div class="price {% if block.settings.hide_price %}hidden{% endif %}">
+                                            <span class="prices compare text-color">{{ product.compare_at_price | money_without_trailing_zeros}}</span>
+                                            <span class="prices text-color">{{ product.price | money_without_trailing_zeros }}</span>
+                                        </div>
+                                        {% unless product.has_only_default_variant %}
+                                            <div class="color-swatch">
+                                                {%- for option in product.options_with_values -%}
+                                                    {% if option.name == "Color" %}
+                                                        {%- for value in option.values -%}
+                                                            {%- assign image_name = value| replace :" ",'-'| replace :"/",'-' | downcase | append: '.png' -%}
+                                                            <span class="swatch-item" style="background-image: url('{{image_name | file_img_url:'100x'}}'); background-color: {{ value | downcase }}"></span>
+                                                        {%- endfor -%}
+                                                    {% endif %}
+                                                {%- endfor -%}
+                                            </div>
+                                        {% endunless %}
+                                        {% if block.settings.button_text != blank %}
+                                            <a href="{{product.url}}" class="button">{{ block.settings.button_text }}{% if section.settings.show_arrow %}<span class="btn-arrow">{% render 'btn-arrow' %}</span>{% endif %}</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% schema %}
+    {
+        "name": "t:sections.shop-the-look.name",
+        "settings": [
+            {
+                "type": "image_picker",
+                "id": "image",
+                "label": "t:sections.shop-the-look.settings.image.label",
+                "info": "t:sections.shop-the-look.settings.image.info"
+            },
+            {
+                "type": "image_picker",
+                "id": "mob_image",
+                "label": "t:sections.shop-the-look.settings.mob_image.label",
+                "info": "t:sections.shop-the-look.settings.mob_image.info"
+            },
+            {
+                "type": "checkbox",
+                "id": "show_arrow",
+                "label": "t:sections.shop-the-look.settings.show_arrow.label"
+            }
+        ],
+        "blocks": [
+            {
+                "name": "t:sections.shop-the-look.blocks.product.name",
+                "type":"product",
+                "settings": [
+                    {
+                        "type": "product",
+                        "id": "choose_product",
+                        "label": "t:sections.shop-the-look.blocks.product.settings.choose_product.label"
+                    },
+                    {
+                        "type": "range",
+                        "id": "vertical_position",
+                        "min": 1,
+                        "max": 100,
+                        "step": 1,
+                        "label": "t:sections.shop-the-look.blocks.product.settings.vertical_position.label",
+                        "default": 4
+                    },
+                    {
+                        "type": "range",
+                        "id": "horizontal_position",
+                        "min": 1,
+                        "max": 100,
+                        "step": 1,
+                        "label": "t:sections.shop-the-look.blocks.product.settings.horizontal_position.label",
+                        "default": 4
+                    },
+                    {
+                        "type": "text",
+                        "id": "caption",
+                        "label": "t:sections.shop-the-look.blocks.product.settings.caption.label"
+                    },
+                    {
+                        "type": "text",
+                        "id": "button_text",
+                        "label": "t:sections.shop-the-look.blocks.product.settings.button_text.label",
+                        "default": "buy now"
+                    },
+                    {
+                        "type": "range",
+                        "id": "button_width",
+                        "min": 150,
+                        "max": 1000,
+                        "step": 10,
+                        "label": "t:sections.shop-the-look.blocks.product.settings.button_width.label",
+                        "default": 150
+                    },
+                    {
+                        "type": "checkbox",
+                        "id": "remove_image_border",
+                        "label": "t:sections.shop-the-look.blocks.product.settings.remove_image_border.label"
+                    },
+                    {
+                        "type": "checkbox",
+                        "id": "hide_price",
+                        "label": "t:sections.shop-the-look.blocks.product.settings.hide_price.label"
+                    },
+                    {
+                        "type": "color",
+                        "id": "background_color",
+                        "label": "t:sections.shop-the-look.blocks.product.settings.background_color.label",
+                        "default": "#ffffff"
+                    },
+                    {
+                        "type": "color",
+                        "id": "text_color",
+                        "label": "t:sections.shop-the-look.blocks.product.settings.text_color.label"
+                    },
+                    {
+                        "type": "select",
+                        "id": "card_position",
+                        "label": "t:sections.shop-the-look.blocks.product.settings.card_position.label",
+                        "options": [
+                            {
+                            "value": "top",
+                            "label": "t:sections.shop-the-look.blocks.product.settings.card_position.options__1.label"
+                            },
+                            {
+                            "value": "left",
+                            "label": "t:sections.shop-the-look.blocks.product.settings.card_position.options__2.label"
+                            },
+                            {
+                            "value": "bottom",
+                            "label": "t:sections.shop-the-look.blocks.product.settings.card_position.options__3.label"
+                            },
+                            {
+                            "value": "right",
+                            "label": "t:sections.shop-the-look.blocks.product.settings.card_position.options__4.label"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "select",
+                        "id": "content_alignment",
+                        "label": "t:sections.shop-the-look.blocks.product.settings.content_alignment.label",
+                        "options": [
+                            {
+                            "value": "start",
+                            "label": "t:sections.shop-the-look.blocks.product.settings.content_alignment.options__1.label"
+                            },
+                            {
+                            "value": "center",
+                            "label": "t:sections.shop-the-look.blocks.product.settings.content_alignment.options__2.label"
+                            },
+                            {
+                            "value": "end",
+                            "label": "t:sections.shop-the-look.blocks.product.settings.content_alignment.options__3.label"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "color",
+                        "id": "circle_background_color",
+                        "label": "t:sections.shop-the-look.blocks.product.settings.circle_background_color.label",
+                        "default": "#ffffff"
+                    },
+                    {
+                        "type": "color",
+                        "id": "border_color",
+                        "label": "t:sections.shop-the-look.blocks.product.settings.border_color.label",
+                        "default": "#F1F2F4"
+                    },
+                    {
+                        "type": "color",
+                        "id": "icon_color",
+                        "label": "t:sections.shop-the-look.blocks.product.settings.icon_color.label",
+                        "default": "#000000"
+                    },
+                    {
+                        "type": "color",
+                        "id": "button_background_color",
+                        "label": "t:sections.shop-the-look.blocks.product.settings.button_background_color.label"
+                    },
+                    {
+                        "type": "color",
+                        "id": "button_text_color",
+                        "label": "t:sections.shop-the-look.blocks.product.settings.button_text_color.label"
+                    }
+                ]
+            }
+        ],
+        "presets":[
+            {
+                "name": "t:sections.shop-the-look.presets.name"
+            }
+        ]
+    }
+{% endschema %}

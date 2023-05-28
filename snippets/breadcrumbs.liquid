@@ -1,0 +1,88 @@
+{{ 'section-breadcrumbs.css' | asset_url | stylesheet_tag }}
+<style>
+    .breadcrumbs {
+        background-color: {{ settings.breadcrumbs_bg_color }};
+    }
+    .breadcrumbs__link, .breadcrumbs__item .breadcrumbs__link {
+        color: {{ settings.breadcrumbs_text_color }};
+    }
+    .breadcrumbs .breadcrumbs__divider svg path {
+        fill: {{ settings.breadcrumbs_text_color }};
+    }
+</style>
+{% unless template.name == 'index' %}
+    {%- assign t = template | split: '.' | first -%}
+    <nav class="breadcrumbs breadcrumbs-{{t}}" role="navigation" aria-label="breadcrumbs">
+        <div class="page-width">
+            <ul class="breadcrumbs__list content_alignment--{{ settings.breadcrumbs_content_allignment  }} data-aos data-aos--fade-in">
+                <li class="breadcrumbs__item">
+                    <a class="breadcrumbs__link breadcrumbs__root" href="{{ routes.root_url }}">Home</a>
+                    <span class="breadcrumbs__divider">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="6" height="10" viewBox="0 0 6 10" fill="none">
+                            <path d="M3.78047 5.00048L0.480469 1.70048L1.42314 0.757812L5.6658 5.00048L1.42314 9.24315L0.480469 8.30048L3.78047 5.00048Z" fill="#151B2C"/>
+                        </svg>
+                    </span>
+                 </li>
+                {%- case t -%}
+                {%- when 'page' -%}
+                    <li class="breadcrumbs__item">
+                        <a class="breadcrumbs__link" href="{{ page.url }}" aria-current="page">{{ page.title }}</a>
+                    </li>
+                {%- when 'product' -%}
+                    {%- if collection.url -%}
+                    <li class="breadcrumbs__item">
+                        <a class="breadcrumbs__link breadcrumbs__root" href="{{ collection.url }}"> {{ collection.title  }}</a>
+                        <span class="breadcrumbs__divider">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="6" height="10" viewBox="0 0 6 10" fill="none">
+                                <path d="M3.78047 5.00048L0.480469 1.70048L1.42314 0.757812L5.6658 5.00048L1.42314 9.24315L0.480469 8.30048L3.78047 5.00048Z" fill="#151B2C"/>
+                            </svg>
+                        </span>
+                    </li>
+                    {%- endif -%}
+                    <li class="breadcrumbs__item">
+                        <a class="breadcrumbs__link" href="{{ product.url }}" aria-current="page">{{ product.title }}</a>
+                    </li>
+                {%- when 'collection' and collection.handle -%}
+                    {%- if current_tags -%}
+                    <li class="breadcrumbs__item">
+                        {{ collection.title | link_to: collection.url }}
+                    </li>
+                    <li class="breadcrumbs__item">
+                        {%- capture tag_url -%}{{ collection.url }}/{{ current_tags | join: "+"}}{%- endcapture -%}
+                        <a class="breadcrumbs__link" href="{{ tag_url }}" aria-current="page">{{ current_tags | join: " + "}}</a>
+                    </li>
+                    {%- else -%}
+                    <li class="breadcrumbs__item">
+                        <a class="breadcrumbs__link" href="{{ collection.url }}" aria-current="page">{{ collection.title }}</a>
+                    </li>
+                    {%- endif -%}
+                {%- when 'blog' -%}
+                    {%- if current_tags -%}
+                    <li class="breadcrumbs__item">
+                        {{ blog.title | link_to: blog.url }}
+                    </li>
+                    <li class="breadcrumbs__item">
+                        {%- capture tag_url -%}{{blog.url}}/tagged/{{ current_tags | join: "+" }}{%- endcapture -%}
+                        <a class="breadcrumbs__link" href="{{ tag_url }}" aria-current="page">{{ current_tags | join: " + " }}</a>
+                    </li>
+                    {%- else -%}
+                    <li class="breadcrumbs__item">
+                        <a class="breadcrumbs__link" href="{{ blog.url }}" aria-current="page">{{ blog.title }}</a>
+                    </li>
+                    {%- endif -%}
+                {%- when 'article' -%}
+                    <li class="breadcrumbs__item">
+                        {{ blog.title | link_to: blog.url }}
+                    </li>
+                    <li class="breadcrumbs__item">
+                        <a class="breadcrumbs__link" href="{{ article.url }}" aria-current="page">{{ article.title }}</a>
+                    </li>
+                {%- else -%}
+                    <li class="breadcrumbs__item">
+                        <a class="breadcrumbs__link" href="{{ request.path }}" aria-current="page">{{ page_title }}</a>
+                    </li>
+                {%- endcase -%}
+            </ul>
+        </div>
+    </nav>
+{% endunless %}

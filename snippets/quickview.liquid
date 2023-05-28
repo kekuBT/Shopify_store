@@ -1,0 +1,35 @@
+{% if request.page_type == "product" %}
+  {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+{% else %}
+  <script>
+    document.addEventListener("click", (event) => {
+      const elChild = event.target.closest('.quick_view_btn');
+
+      if ( !elChild ) return; //do nothing
+
+      var cssId = 'main-product-css';
+      if (!document.getElementById(cssId)) {
+        var cssHead  = document.getElementsByTagName('head')[0];
+        var cssLink  = document.createElement('link');
+        cssLink.id   = cssId;
+        cssLink.rel  = 'stylesheet';
+        cssLink.type = 'text/css';
+        cssLink.href = '{{ "section-main-product.css" | asset_url }}';
+        cssLink.media = 'all';
+        cssHead.appendChild(cssLink);
+      }
+    });
+  </script>
+{% endif %}
+
+<link rel="stylesheet" href="{{ 'quickView.css' | asset_url }}" media="print" onload="this.media='all'">
+<div id="quick-view" class="" style="display:none;">
+  <div class="loader-quickview" style="display:none">
+        <div id="loading-bar-spinner" class="spinner"><div class="spinner-icon"></div></div>
+  </div>
+  <!-- Modal content -->
+  <div class="modal-content quick-view-model">
+    <a href="javascript:void(0)" class="close">&times;</a>
+  </div>
+</div>
+<script data-src="{{ 'quickView.js' | asset_url }}" defer="defer"></script>

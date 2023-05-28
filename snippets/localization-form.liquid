@@ -1,0 +1,170 @@
+<link rel="stylesheet" href="{{ 'component-localization.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'component-localization.css' | asset_url | stylesheet_tag }}</noscript>
+
+{% if header %}
+  {%if localization.available_languages.size > 1 or localization.available_countries.size > 1 %}
+    <div class="currency_picker">
+      {% if section.settings.enable_country_flag %}
+        <link rel="stylesheet" href="{{ 'country-flags.css' | asset_url }}" media="print" onload="this.media='all'">
+        <noscript>{{ 'country-flags.css' | asset_url | stylesheet_tag }}</noscript>
+      {% endif %}
+      
+      {%- if section.settings.enable_country_selector and localization.available_countries.size > 1 -%}
+        {% assign localization_id = 'localization_form_country_' | append: section.id %}
+      <localization-form>
+        {% form 'localization', id: localization_id %}
+          <div class="disclosure disclosure__country">
+            <div class="disclosure__wrapper disclosure--no-js-hidden">
+              <button type="button" class="disclosure__button" aria-expanded="false" aria-controls="CountryList-{{section.id}}" aria-label="{{ localization.country.name }} ({{ localization.country.currency.iso_code }} {{ localization.country.currency.symbol }})">
+                {% if section.settings.enable_country_flag %}
+                <span class="currency-flag currency-flag--{{ localization.country.iso_code | downcase }}" data-flag="{{ localization.country.iso_code }}" style="--flag-image: url({{ 'country-flags.png' | asset_url }})" aria-hidden="true"></span>
+                {% endif %}
+                {{ localization.country.name }} ({{ localization.country.currency.iso_code  }} {{ localization.country.currency.symbol }})
+                <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-caret" viewBox="0 0 10 6">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor"></path>
+                </svg>
+              </button>
+              <div class="disclosure__modal disclosure__modal--alternate-drop" hidden>
+                <h2 class="disclosure__heading">Currency</h2>
+                <button class="disclosure__close" data-disclosure-close="" aria-label="Close">
+                  <span class="screen-reader-only">Close</span>
+                </button>
+                <ul id="CountryList-{{section.id}}" role="list" class="disclosure__list">
+                  {%- for country in localization.available_countries -%}
+                  <li class="disclosure__list-item" tabindex="-1">
+                    <a class="disclosure__link" href="#"{% if country.iso_code == localization.country.iso_code %} aria-current="true"{% endif %} data-value="{{ country.iso_code }}">
+                      {% if section.settings.enable_country_flag %}
+                        <span class="currency-flag currency-flag--{{ country.iso_code | downcase }}" data-flag="{{ country.iso_code }}" style="--flag-image: url({{ 'country-flags.png' | asset_url }})" aria-hidden="true"></span>
+                      {% endif %}
+                      
+                      {{- country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})
+                    </a>
+                  </li>
+                  {%- endfor -%}
+                </ul>
+                <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}" symbol="{{ localization.country.currency.symbol }}">
+              </div>
+            </div>
+          </div>
+        {% endform %}
+      </localization-form>
+      {%- endif -%}
+        
+      {%- if section.settings.enable_language_selector and localization.available_languages.size > 1 -%}
+        {% assign localization_id = 'localization_form_language_' | append: section.id %}
+        <localization-form>
+          {% form 'localization', id: localization_id %}
+          <div class="disclosure language__form">
+            <div class="disclosure__wrapper disclosure--no-js-hidden">
+              <button type="button" class="disclosure__button" aria-expanded="false" aria-controls="LanguageList-{{section.id}}" aria-label="{{ localization.language.endonym_name | capitalize }}">
+                {{ localization.language.endonym_name | capitalize }}
+                <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-caret" viewBox="0 0 10 6">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor"></path>
+                </svg>
+              </button>
+              <div class="disclosure__modal disclosure__modal--alternate-drop" hidden>
+                <h2 class="disclosure__heading">Language</h2>
+                <button class="disclosure__close" data-disclosure-close="" aria-label="Close">
+                  <span class="screen-reader-only">Close</span>
+                </button>
+                <ul id="LanguageList-{{section.id}}" role="list" class="disclosure__list">
+                  {%- for language in localization.available_languages -%}
+                  <li class="disclosure__list-item" tabindex="-1">
+                    <a class="disclosure__link" href="#"{% if language.iso_code == localization.language.iso_code %} aria-current="true"{% endif %} hreflang="{{ language.iso_code }}" lang="{{ language.iso_code }}" data-value="{{ language.iso_code }}">
+                      {{- language.endonym_name | capitalize -}}
+                    </a>
+                  </li>
+                  {%- endfor -%}
+                </ul>
+                <input type="hidden" name="language_code" value="{{ localization.language.iso_code }}">
+              </div>
+            </div>
+          </div>
+          {% endform %}
+        </localization-form>
+      {%- endif -%}
+    </div>  
+  {%- endif -%}
+{% else %}
+{% if settings.enable_country_flag %}
+  <link rel="stylesheet" href="{{ 'country-flags.css' | asset_url }}" media="print" onload="this.media='all'">
+  <noscript>{{ 'country-flags.css' | asset_url | stylesheet_tag }}</noscript>
+{% endif %}
+
+{%- if settings.enable_country_selector and localization.available_countries.size > 1 -%}
+  {% assign localization_id = 'localization_form_country_' | append: section.id %}
+<localization-form>
+  {% form 'localization', id: localization_id %}
+    <div class="disclosure disclosure__country">
+      <div class="disclosure__wrapper disclosure--no-js-hidden">
+        <button type="button" class="disclosure__button" aria-expanded="false" aria-controls="CountryList-{{section.id}}" aria-label="{{ localization.country.name }} ({{ localization.country.currency.iso_code }} {{ localization.country.currency.symbol }})">
+          {% if settings.enable_country_flag %}
+          <span class="currency-flag currency-flag--{{ localization.country.iso_code | downcase }}" data-flag="{{ localization.country.iso_code }}" style="--flag-image: url({{ 'country-flags.png' | asset_url }})" aria-hidden="true"></span>
+          {% endif %}
+          {{ localization.country.name }} ({{ localization.country.currency.iso_code  }} {{ localization.country.currency.symbol }})
+          <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-caret" viewBox="0 0 10 6">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor"></path>
+          </svg>
+        </button>
+        <div class="disclosure__modal disclosure__modal--alternate-drop" hidden>
+          <h2 class="disclosure__heading">Currency</h2>
+          <button class="disclosure__close" data-disclosure-close="" aria-label="Close">
+            <span class="screen-reader-only">Close</span>
+          </button>
+          <ul id="CountryList-{{section.id}}" role="list" class="disclosure__list">
+            {%- for country in localization.available_countries -%}
+            <li class="disclosure__list-item" tabindex="-1">
+              <a class="disclosure__link" href="#"{% if country.iso_code == localization.country.iso_code %} aria-current="true"{% endif %} data-value="{{ country.iso_code }}">
+                {% if settings.enable_country_flag %}
+                  <span class="currency-flag currency-flag--{{ country.iso_code | downcase }}" data-flag="{{ country.iso_code }}" style="--flag-image: url({{ 'country-flags.png' | asset_url }})" aria-hidden="true"></span>
+                {% endif %}
+                
+                {{- country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})
+              </a>
+            </li>
+            {%- endfor -%}
+          </ul>
+          <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}" symbol="{{ localization.country.currency.symbol }}">
+        </div>
+      </div>
+    </div>
+  {% endform %}
+</localization-form>
+{%- endif -%}
+  
+{%- if settings.enable_language_selector and localization.available_languages.size > 1 -%}
+  {% assign localization_id = 'localization_form_language_' | append: section.id %}
+  <localization-form>
+    {% form 'localization', id: localization_id %}
+    <div class="disclosure language__form">
+      <div class="disclosure__wrapper disclosure--no-js-hidden">
+        <button type="button" class="disclosure__button" aria-expanded="false" aria-controls="LanguageList-{{section.id}}" aria-label="{{ localization.language.endonym_name | capitalize }}">
+          {{ localization.language.endonym_name | capitalize }}
+          <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-caret" viewBox="0 0 10 6">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor"></path>
+          </svg>
+        </button>
+        <div class="disclosure__modal disclosure__modal--alternate-drop" hidden>
+          <h2 class="disclosure__heading">Language</h2>
+          <button class="disclosure__close" data-disclosure-close="" aria-label="Close">
+            <span class="screen-reader-only">Close</span>
+          </button>
+          <ul id="LanguageList-{{section.id}}" role="list" class="disclosure__list">
+            {%- for language in localization.available_languages -%}
+            <li class="disclosure__list-item" tabindex="-1">
+              <a class="disclosure__link" href="#"{% if language.iso_code == localization.language.iso_code %} aria-current="true"{% endif %} hreflang="{{ language.iso_code }}" lang="{{ language.iso_code }}" data-value="{{ language.iso_code }}">
+                {{- language.endonym_name | capitalize -}}
+              </a>
+            </li>
+            {%- endfor -%}
+          </ul>
+          <input type="hidden" name="language_code" value="{{ localization.language.iso_code }}">
+        </div>
+      </div>
+    </div>
+    {% endform %}
+  </localization-form>
+{%- endif -%}
+  
+
+{% endif %}

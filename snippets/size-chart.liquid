@@ -1,0 +1,91 @@
+<div class="size-chart-wrapper popup-overlay">
+  <div class="popup-content">
+    <button class="close"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+     <path d="M18.75 5.25L5.25 18.75" stroke="#797D81" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+     <path d="M18.75 18.75L5.25 5.25" stroke="#797D81" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+     </svg>
+     </button>  
+    <h2 class="size-chart-title">{{settings.size_chart_header}}</h2>
+    <div class="size-chart_content">
+      {%- if settings.custom_size_chart -%}
+        <div class="chart-content_sizes">
+            <ul class="sizes-list">
+              {%- for i in (1..6) -%}
+                {%- capture size -%}size_{{i}}{%- endcapture -%}
+                <button data-size="{{ settings[size]}}" {%- if forloop.first -%}
+                  class="is-selected"
+                {%- endif -%}>{{ settings[size] }}
+              </button>
+              {%- endfor -%}
+            </ul>
+        </div>
+        {%- if settings.enable_inches -%}
+          <div class="chart-content_units">
+              <ul class="units-list">
+                  <li>{{ 'products.size_chart.measurement' | t }}</li>
+                  <li class="units">
+                      <div data-unit="cm" class="cm-unit unit is-selected">cm</div>
+                      <button class="btn cm-selected"></button>
+                      <div data-unit="in" class="in-unit unit">in</div>
+                  </li>
+              </ul>
+          </div>
+        {%- endif -%}
+        <div class="chart-content_titles">
+            <ul class="titles-list">
+                <li>{{ 'products.size_chart.area' | t }}</li>
+                <li>{{ 'products.size_chart.measurement' | t }}
+                </li>
+            </ul>
+        </div>
+        {%- for i in (1..6) -%}
+          {%- capture size -%}size_{{i}}{%- endcapture -%}
+          {%- capture length -%}length_cm_{{i}}{%- endcapture -%}
+          {%- capture chest -%}chest_cm_{{i}}{%- endcapture -%}
+          {%- capture shoulder -%}shoulder_cm_{{i}}{%- endcapture -%}
+          {%- capture front -%}front_cm_{{i}}{%- endcapture -%}
+          {%- capture sleeve -%}sleeve_cm_{{i}}{%- endcapture -%}
+          <div class="chart-content-wrapper {% if forloop.first %}is-selected{% endif %}"  data-size-target="{{settings[size] | escape}}">
+            <div class="chart-content">
+                <ul class="length-list">
+                    <li>{{ 'products.size_chart.length' | t }}</li>
+                    <li class="cm unit-value">{{settings[length]}}</li>
+                    <li class="in unit-value" style="display:none;">{{settings[length] | divided_by:2.54 | round: 1}}"</li>
+                </ul>
+            </div>
+            <div class="chart-content">
+                <ul class="chest-list">
+                    <li>{{ 'products.size_chart.chest' | t }}</li>
+                    <li class="cm unit-value">{{settings[chest]}}</li>
+                    <li class="in unit-value" style="display:none;">{{settings[chest] | divided_by:2.54 | round: 1}}"</li>
+                </ul>
+            </div>
+            <div class="chart-content">
+                <ul class="shoulder-list">
+                    <li>{{ 'products.size_chart.shoulder' | t }}</li>
+                    <li class="cm unit-value">{{settings[shoulder]}}</li>
+                    <li class="in unit-value" style="display:none;">{{settings[shoulder] | divided_by:2.54 | round: 1}}"</li>
+                </ul>
+            </div>
+            <div class="chart-content">
+                <ul class="front-list">
+                    <li>{{ 'products.size_chart.front_length' | t }}</li>
+                    <li class="cm unit-value">{{settings[front]}}</li>
+                    <li class="in unit-value" style="display:none;">{{settings[front] | divided_by:2.54 | round: 1}}"</li>
+                </ul>
+            </div>
+            <div class="chart-content">
+                <ul class="sleeve-list">
+                    <li>{{ 'products.size_chart.sleeve_length' | t }}</li>
+                    <li class="cm unit-value">{{settings[sleeve]}}</li>
+                    <li class="in unit-value" style="display:none;">{{settings[sleeve] | divided_by:2.54 | round: 1}}"</li>
+                </ul>
+            </div>
+          </div>
+        {%-endfor-%}
+      {%- else -%}
+        {{ settings.size_chart_page.content }}
+      {%- endif -%}
+    </div>
+  </div>
+</div>

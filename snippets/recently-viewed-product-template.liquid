@@ -1,0 +1,106 @@
+{% comment %}
+Output should match Product-card
+{% endcomment %}
+<script id="RecentlyViewedProduct" type="text/template">
+  {%raw%}
+  {{#items}}
+  <div class="grid__item ">
+    <div class="card-wrapper">
+      <span class="screen-reader-only">{{ title }}</span>
+      <div class="card card--product" tabindex="-1">
+        <div class="onhover-card" style="display:none;">
+          <div class="card_icons">
+            <a href="#" onclick="return false;" title="Quick View" class="quick_view_btn enabled" data-product="{{ handle }}">
+              <span class="screen-reader-only">Quick View</span>
+              <svg title="Quick View" class="icon--mrparker-search vib-center" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" height="18px" xml:space="preserve">
+                <g class="hover-fill" fill="var(--button-text)">
+                  <path d="M19.8,19.1l-4.6-4.6c1.4-1.5,2.2-3.6,2.2-5.8c0-4.8-3.9-8.7-8.7-8.7S0,3.9,0,8.7s3.9,8.7,8.7,8.7
+                           c2.2,0,4.2-0.8,5.8-2.2l4.6,4.6c0.2,0.2,0.5,0.2,0.7,0C20.1,19.6,20.1,19.3,19.8,19.1z M1,8.7C1,4.5,4.5,1,8.7,1
+                           c4.2,0,7.7,3.4,7.7,7.7c0,4.2-3.4,7.7-7.7,7.7C4.5,16.4,1,13,1,8.7z"></path>
+                </g>
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="card__inner"><div>
+          <div class="media media--transparent media--portrait media--hover-effect">
+            <img src="{{ image_responsive_url }}" class="motion-reduce primery_card_image" width="800" height="800">
+            {{#if secondery_image_avaliable}}
+            <img src="{{secondery_image}}" alt="" class="motion-reduce">
+            {{/if}}
+          </div>
+          </div>
+          {{#if on_sale}}
+          <div class="card__badge">
+            <span class="badge badge--bottom-left color-accent-1" aria-hidden="true">
+              Sale
+            </span>
+          </div>
+          {{/if}}
+        </div>
+      </div>
+      <div class="card-information">
+        <div class="card-information__wrapper">
+          <a href="{{url_formatted}}" class="full-unstyled-link">
+            <span class="card-information__text h3">
+              {{ title }}
+            </span>
+          </a>
+          <span class="caption-large light"></span>
+          <div class="price   {{#if on_sale}}price--on-sale {{/if}}">
+            <dl><div class="price__regular">
+              <dt>
+                <span class="screen-reader-only screen-reader-only--inline">Regular price</span>
+              </dt>
+              <dd>
+                <span class="price-item price-item--regular">
+                  {{ price_formatted }}
+                </span>
+              </dd>
+              </div>
+              <div class="price__sale">
+                <dt class="price__compare">
+                  <span class="screen-reader-only screen-reader-only--inline">Regular price</span>
+                </dt>
+                <dt>
+                  <span class="screen-reader-only screen-reader-only--inline">Sale price</span>
+                </dt>
+                <dd>
+                  <span class="price-item price-item--sale">
+                    {{price_formatted}}
+                  </span>
+                </dd>
+                <dd class="price__compare">
+                  <s class="price-item price-item--regular">
+                    {{ compare_at_price_formatted }}
+                  </s>
+                </dd>
+              </div>
+              <small class="unit-price caption hidden">
+                <dt class="screen-reader-only">Unit price</dt>
+                <dd>
+                  <span></span>
+                  <span aria-hidden="true">/</span>
+                  <span class="screen-reader-only">&nbsp;per&nbsp;</span>
+                  <span>
+                  </span>
+                </dd>
+              </small>
+            </dl></div>
+          <div class="link-wrapper">
+            <form method="post" action="{{ routes.root_url }}/cart/add" id="{{ id }}" accept-charset="UTF-8" class="{{ id }}" enctype="multipart/form-data" data-product-form=""><input type="hidden" name="form_type" value="product"><input type="hidden" name="utf8" value="✓">
+              <input type="hidden" name="quantity" data-quantity-input="" value="1">
+              <input type="hidden" name="id" data-quantity="1" data-productid="" value="{{ variant_id }}">
+              <button type="submit" metaf="" product_id="{{ id }}" tabindex="0" class="add-to-cart-btn button" button="" role="button">{{ 'products.product.quickview' | t }}</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{/items}}
+  {%endraw%}
+  
+  
+  </script>
+  

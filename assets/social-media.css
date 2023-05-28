@@ -1,0 +1,96 @@
+.social_media-inner svg {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+.social-sec h2 {
+  font-weight: 700;
+  font-size: calc(var(--font-heading-scale) * 2.5rem);
+  line-height: 130%;
+  color: #1F262E;
+  margin-bottom: 40px;
+  text-align: center;
+}
+.social-sec .column {
+  background: #FFFFFF;
+  box-shadow: 0 33px 215px #2a2d3a0f, 0 4.13211px 20px #2a2d3a0a;
+  border-radius: 8px;
+  width: calc(25% - 24px);
+  padding: 0;
+  display: flex;
+  align-items: center;
+  margin: 0 12px;
+  justify-content: center;
+}
+.social_media-inner a.button {
+  color: #1F262E;
+  width: 100%;
+  line-height: 1.25rem;
+  height: auto;
+  padding: 18px 20px;
+  background: transparent;
+}
+.policies_inner-row .column {
+  margin: 0 30px;
+}
+.social__icon {
+  width: 28px;
+  height: 20px;
+}
+.social-sec .column .mt-5 {
+  margin-top: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.social_media-inner {
+  width: 100%;
+}
+.social_media-row {
+  align-items: center;
+  justify-content: center;
+}
+.social_media-inner a {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 130%;
+  color: #1F262E;
+}
+.social_media-inner svg.linkedin__icon {
+  margin-top: -2px;
+  width: 18px;
+  height: 18px;
+}
+@media only screen and (max-width:1200px) {
+  .social-sec h2 {
+    font-size: calc(var(--font-heading-scale) * 2.1875rem);
+  }
+}
+@media only screen and (max-width:990px) {
+  .social-sec h2 {
+    font-size: calc(var(--font-heading-scale) * 1.875rem);
+    margin-bottom: 20px;
+  }
+  .social-sec .column {
+    width: calc(30% - 12px);
+    height: 50px;
+    margin: 12px;
+  }
+}
+@media only screen and (max-width:767px) {
+  .social-sec .column {
+    width: calc(50% - 24px);
+  }
+}
+@media only screen and (max-width:600px) {
+  .social-sec h2 {
+    font-size: calc(var(--font-heading-scale) * 1.75rem);
+  }
+  .social-sec .column {
+    width: calc(50% - 12px);
+  }
+  .social-sec .column {
+    margin: 8px 6px !important;
+  }
+}

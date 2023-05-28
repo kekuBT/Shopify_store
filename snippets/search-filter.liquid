@@ -1,0 +1,158 @@
+<div class="mobile-filter-icon">
+  <div class="icon-filter">
+    <span class="filter-icon">  
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path d="M6.17 18a3.001 3.001 0 0 1 5.66 0H22v2H11.83a3.001 3.001 0 0 1-5.66 0H2v-2h4.17zm6-7a3.001 3.001 0 0 1 5.66 0H22v2h-4.17a3.001 3.001 0 0 1-5.66 0H2v-2h10.17zm-6-7a3.001 3.001 0 0 1 5.66 0H22v2H11.83a3.001 3.001 0 0 1-5.66 0H2V4h4.17zM9 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm6 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-6 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"></path></svg>
+    </span>
+    <span class="cross-icon-filter">
+      <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="presentation" class="icon icon-close" fill="none" viewBox="0 0 18 17"><path d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z" fill="currentColor"></path></svg>
+    </span>
+  </div>
+  <div class="label-filter">Filter</div>
+</div>
+<collection-filters-form data-filter="filter">
+<form class="effortless-filter">
+ <div class="active-filters">
+
+    {%- for filter in search.filters -%}
+      {%- if filter.type == "price_range" -%}
+        {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
+          <facet-remove>
+          <a class="active-filters__remove-filter" href="{{ filter.url_to_remove }}">
+            {%- assign min_value = filter.min_value.value | default: 0 -%}
+            {%- assign max_value = filter.max_value.value | default: filter.range_max -%}
+            {{ min_value | money }} - {{ max_value | money }} X
+          </a>
+          </facet-remove>
+        {%- endif -%}
+      {%- else -%}
+        {%- for filter_value in filter.active_values -%}
+          <facet-remove>
+          <a class="active-filters__remove-filter" href="{{ filter_value.url_to_remove }}">
+            <span class="cross-filter">×</span> <span>{{ filter_value.label }}</span>  
+          </a>
+          </facet-remove>
+        {%- endfor -%}
+        
+      {%- endif- %}
+    {%- endfor -%}
+
+    {%- liquid
+      assign sort_by = results.sort_by | default: results.default_sort_by
+      assign total_active_values = 0
+      if results.url
+        assign results_url = results.url
+      else 
+        assign terms = results.terms | escape
+        assign results_url = '?q=' | append: terms | append: '&options%5Bprefix%5D=last&sort_by=' | append: sort_by
+      endif
+    -%}
+    <facet-remove class="active-facets__button-wrapper">
+      <a href="{{ results_url }}" class="active-facets__button-remove underlined-link">
+        <span>{{ 'products.facets.clear_all' | t }}</span>
+      </a>
+    </facet-remove>
+  </div>
+    <input
+      class="search__input field__input"
+      id="Search-In-Template"
+      type="hidden"
+      name="q"
+      value="{{ search.terms | escape }}"
+      placeholder="{{ 'general.search.search' | t }}"
+      {%- if settings.predictive_search_enabled -%}
+        role="combobox"
+        aria-expanded="false"
+        aria-owns="predictive-search-results-list"
+        aria-controls="predictive-search-results-list"
+        aria-haspopup="listbox"
+        aria-autocomplete="list"
+        autocorrect="off"
+        autocomplete="off"
+        autocapitalize="off"
+        spellcheck="false"
+      {%- endif -%}
+    >
+
+    <input name="options[prefix]" type="hidden" value="last">
+  
+  {%- for filter in search.filters -%}
+    <details class="filter-group" open>
+     <summary class="filter-group-summary">
+        <div>
+          <span class="filter-label">{{ filter.label }}</span>
+
+          {%- if filter.active_values.size > 0 -%}
+            <span>({{ filter.active_values.size }})</span>
+          {%- endif -%}
+        </div>
+        <div class="icon">
+          <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon--wide icon-chevron-down" viewBox="0 0 28 16"><path d="M1.57 1.59l12.76 12.77L27.1 1.59" stroke-width="2" stroke="#000" fill="none" fill-rule="evenodd"/></svg>
+        </div>
+      </summary>
+      <div class="filter-group-display">
+
+        {%- case filter.type -%}
+          {%- when 'boolean' or 'list' -%}
+            <ul class="filter-group-display__list">
+              {%- for filter_value in filter.values -%}
+                <li class="filter-group-display__list-item">
+                  <label for="Filter-{{ filter.param_name }}-{{ forloop.index }}">
+                  <input type="checkbox"
+                    name="{{ filter_value.param_name }}"
+                    value="{{ filter_value.value }}"
+                    class="tag__input"
+                    id="Filter-{{ filter.param_name }}-{{ forloop.index }}"
+                    {% if filter_value.active -%}checked{%- endif %}
+                    {% if filter_value.count == 0 and filter_value.active == false -%}disabled{%- endif %}
+                  ><span class="tag__checkbox"></span>
+                {{ filter_value.label }}</label>
+                </li>
+              {%- endfor -%}
+            </ul>
+
+            <div class="filter-group-display__submit">
+              <input type="submit" value="Apply">
+            </div>
+          {%- when 'price_range' -%}
+            <div class="filter-group-display__price-range">
+              <div class="price-range__input filter-group-display__price-range-from">
+                <span>{{ cart.currency.symbol }}</span>
+
+                <input name="{{ filter.min_value.param_name }}"
+                  id="Filter-{{ filter.min_value.param_name }}"
+                  {% if filter.min_value.value -%}
+                    value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+                  {%- endif %}
+                  type="number"
+                  placeholder="0"
+                  min="0"
+                  max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                >
+              </div>
+              <label class="price-range__delimiter" for="Filter-{{ filter.max_value.param_name }}">to</label>
+              <div class="price-range__input filter-group-display__price-range-to">
+                <span>{{ cart.currency.symbol }}</span>
+
+                <input name="{{ filter.max_value.param_name }}"
+                  id="Filter-{{ filter.max_value.param_name }}"
+                  {% if filter.max_value.value -%}
+                    value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+                  {%- endif %}
+                  type="number"
+                  placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                  min="0"
+                  max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                >
+              </div>
+            </div>
+
+            <div class="filter-group-display__submit">
+              <input type="submit" value="Apply">
+            </div>
+        {%- endcase -%}
+      </div>
+    </details>
+  {%- endfor -%}
+</form>
+  
+</collection-filters-form>

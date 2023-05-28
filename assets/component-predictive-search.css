@@ -1,0 +1,48 @@
+.predictive-search__list-item .price-item.price-item--sale {
+  color: #333333 !important;
+}
+.predictive-search__list-item .price{
+  margin-top: 0;
+}
+.predictive-search__item-content span.predictive-search__item-heading {
+  font-size: 1rem;
+  line-height: 1.25rem;
+}
+li.predictive-search__list-item a {
+  line-height: 1;
+  text-decoration: none;
+}
+#predictive-search-results{
+  border: 2px solid var(--color-focus);
+  height: 500px;
+  overflow: auto;
+}
+.predictive-search__item-content span.price_range span {
+  font-size: 0.875rem !important;
+  font-weight: normal !important;
+  color: #333 !important;
+}
+.predictive-search__item-query-result{
+  font-weight: bold;
+}
+.predictive-search__item-query-result mark{
+  font-weight: normal;
+  background: transparent;
+}
+@media only screen and (max-width:767px){
+  li.predictive-search__list-item a{
+    align-items: center;
+  }
+  .predictive-search__item-content span.predictive-search__item-heading {
+    font-size: 0.9375rem;
+    line-height: 1.0625rem;
+  }
+  #predictive-search-results{
+    border-right-width: 1px;
+    border-left-width: 1px;
+    height: 90vh;
+  }
+}
+.predictive-search__list-item[aria-selected="true"] {
+  border: 2px solid var(--color-focus);
+}

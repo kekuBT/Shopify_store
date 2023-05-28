@@ -1,0 +1,19 @@
+  {{ 'main404.css' | asset_url | stylesheet_tag }}
+  
+  <div class="template-404 page-width">
+    <p class="intro">
+      {{ 'templates.404.subtext' | t }}
+    </p>
+    <h1 class="title">
+      {{ 'templates.404.title' | t }}
+    </h1>
+    <a href="{{ routes.all_products_collection_url }}" class="button button--primary">
+      {{ 'general.continue_shopping' | t }}
+      {% if settings.show_arrow %}
+        <span class="btn-arrow">
+          {% render 'btn-arrow' %}
+        </span>
+      {% endif %}
+    </a>
+  </div>
+  

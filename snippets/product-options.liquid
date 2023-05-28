@@ -1,0 +1,165 @@
+<select name="id" style="display:none">
+  {% for variant in product.variants %}
+    {% assign referal = '' %}
+    {%- if variant.unit_price_measurement.reference_value != 1 -%}
+      {% assign referal = variant.unit_price_measurement.reference_value | append: variant.unit_price_measurement.reference_unit %}
+    {%- else -%}
+      {% assign referal = variant.unit_price_measurement.reference_unit %}
+    {%- endif -%}
+
+    {% if variant.available and variant.inventory_management == null or variant.available and variant.inventory_quantity > 1 %}
+      <option data-title="{{ variant.title }}" data-image-id="{{ variant.image.id }}" quantity="{{variant.inventory_quantity }}" unit-price="{{variant.unit_price | money}}" refreral_unit="{{referal}}" data-price="{{variant.price | money}}" data-compare-price="{{variant.compare_at_price | money}}" value="{{ variant.id }}" {% if product.selected_or_first_available_variant.id == variant.id %}selected="selected"{% endif %}>
+        {{ variant.title }} - {{ variant.price | money }}
+      </option>
+    {% else %}
+      <option data-title="{{ variant.title }}" data-image-id="{{ variant.image.id }}" quantity="{{variant.inventory_quantity }}" unit-price="{{variant.unit_price | money}}" refreral_unit="{{referal}}" data-price="{{variant.price | money}}" data-compare-price="{{variant.compare_at_price | money}}" value="{{ variant.id }}" disabled {% if product.selected_or_first_available_variant.id == variant.id %}selected="selected"{% endif %}>
+        {{ variant.title }} - {{ variant.price | money }}
+      </option>
+    {% endif %}
+  {% endfor %}
+</select>
+
+{%- unless product.has_only_default_variant -%}
+  {%- if block.settings.picker_type == 'button' -%}
+    <variant-radios class="no-js-hidden" data-section="{{ section.id }}" data-url="{{ product.url }}">
+      {%- for option in product.options_with_values -%}
+        {% assign loop_index = forloop.index0 %}
+        {% assign color_not = false %}
+        {% unless product.options contains 'Colour' or product.options contains 'colour' or product.options contains 'Color' or product.options contains 'color' or loop_index != 0 %}
+          {% assign color_not = true %}
+        {% endunless %}
+        {% assign option_small = option.name | downcase %}
+        {% if option_small == 'color' or option_small == 'colour'%}
+          <fieldset class="js product-form__inpt color__main" data-option-index="{{ forloop.index0 }}" data_options="{{ option.name }}" data-option-position="{{ forloop.index0 }}">
+            <label class="variant__label" for="ProductSelect-option-{{ forloop.index0 }}">{{ option.name }}
+              <span class="variant__label-info">:
+                <span>{{ option.selected_value}}</span>
+              </span>
+            </label>
+            <div class="variant-input-main">
+              {%- for value in option.values -%}
+                {% assign option_image = '' %}
+                {% for variant in product.variants %}
+                  {% if variant.title contains value %}
+                    {% assign variant_id = variant.id %}
+                    {% assign option_image = variant.image.id %}
+                  {% endif %}
+                {% endfor %}
+
+                <div class="variant-input option-swatch" data-index="{{ option.position }}" data-value="{{ value | escape }}" option-image="{{option_image}}" data-variant-id="{{ variant_id }}" data-option-name="{{option.name | upcase}}" data-option-index="{{ option.position }}" data-option-position="{{ forloop.index0 }}">
+                  <input type="radio" id="option-radio-{{ block.id }}-{{ option.name }}-{{ forloop.index0 }}" name="{{ option.name }}" value="{{ value | escape }}" {% if option.selected_value == value %}checked{% endif %}>
+                  {%- assign image_name = value| replace :" ",'-'| replace :"/",'-' | downcase | append: '.png' -%}
+                  <label value="{{ value | escape }}" name="{{ option.name }}" class="variant__button-label {% if option.selected_value == value %}selected{% endif %}" id="option-{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}" for="option-radio-{{ block.id }}-{{ option.name }}-{{ forloop.index0 }}" style="--option-color: {{ value | downcase }}">{{ value | escape }}</label>
+                  <div class="inventory_update" style="display:none" {{value}}>
+                    {% for vant in product.variants %} 
+                    {% assign lwecase = value | escape  %}
+                    {% if vant.title contains lwecase %}
+                    <div availability="{{vant.available}}" class="quantity" quantity="{{vant.inventory_quantity }}">{{vant.title }}</div>
+                    {% endif %}
+                    {% endfor %}
+                  </div>
+                </div>
+              {%- endfor -%}
+            </div>
+          </fieldset>
+        {% else %}
+                      
+          <fieldset class="js product-form__inpt" data-option-index="{{ forloop.index0 }}" data-option-position="{{ forloop.index0 }}" data_options="{{ option.name }}">
+            <label class="variant__label variant__size">{{ option.name }}
+              <span class="variant__label-info">:
+                <span>{{ option.selected_value}}</span>
+              </span>
+            </label>
+       
+            <div class="size__main {% if color_not %} variant-input-main{% endif %}">
+              {%- for value in option.values -%}
+                {% assign option_image = '' %}
+                {% for variant in product.variants %}
+                  {% if variant.title contains value %}
+                    {% assign variant_id = variant.id %}
+                    {% assign option_image = variant.image.id %}
+                  {% endif %}
+                {% endfor %}
+                <div class="quantity_box quantity_num option-swatch variant-input" data-index="{{ option.position }}" option-image="{{option_image}}" data-option-index="{{ option.position }}" data-variant-id="{{ variant_id }}" data-value="{{ value | escape }}" data-option-name="{{option.name | upcase}}" >
+                  <input type="radio" id="radio-{{ block.id }}-{{ option.name }}-{{ forloop.index0 }}" name="{{ option.name }}" value="{{ value | escape }}" {% if option.selected_value == value %}checked{% endif %}>
+                  <label id="{{ block.id }}-{{ option.name }}-{{ forloop.index0 }}" for="radio-{{ block.id }}-{{ option.name }}-{{ forloop.index0 }}"
+                   name="{{ option.name }}"
+                   value="{{ value | escape }}"
+                   class="{% if option.selected_value == value %}selected{% endif %}"
+                   >
+                    {{ value }}
+                  </label>
+                  {% if color_not %}
+                    <div class="inventory_update" style="display:none" {{value}}>
+                      {% for vant in product.variants %} 
+                        {% assign lwecase = value | escape  %}
+                        {% if vant.title contains lwecase %}
+                          <div availability="{{vant.available}}" class="quantity" quantity="{{vant.inventory_quantity }}">{{vant.title }}</div>
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+                </div>
+              {%- endfor -%}
+            </div>
+          </fieldset>
+
+        {% endif %}
+
+      {%- endfor -%}
+ 
+      <script type="application/json">
+        {{ product.variants | json }}
+      </script>
+    </variant-radios>
+
+  {%- else -%}
+    <variant-selects class="no-js-hidden" data-section="{{ section.id }}" data-url="{{ product.url }}">
+      {%- for option in product.options_with_values -%}
+        <div class="product-form__inpt product-form__input--dropdown">
+          <label class="form__label" for="Option-{{ section.id }}-{{ option.name | handleize }}-{{ forloop.index0 }}">
+            {{ option.name }}
+          </label>
+          <div class="select">
+            <select id="Option-{{ section.id }}-{{ option.name | handleize }}-{{ forloop.index0 }}"
+                    class="select__select"
+                    name="options[{{ option.name | escape }}]"
+                    form="product-form-{{ section.id }}"
+                    >
+              {%- for value in option.values -%}
+                <option value="{{ value | escape }}" {% if option.selected_value == value %}selected="selected"{% endif %}>
+                  {{ value }}
+                </option>
+              {%- endfor -%}
+            </select>
+            {% render 'icon-caret' %}
+          </div>
+        </div>
+      {%- endfor -%}
+
+      <script type="application/json">
+        {{ product.variants | json }}
+      </script>
+    </variant-selects>
+  {%- endif -%}
+{%- endunless -%}
+
+<noscript>
+  <div class="product-form__input{% if product.has_only_default_variant %} hidden{% endif %}">
+    <label class="form__label" for="Variants-{{ section.id }}-{{block.id}}">{{ 'products.product.product_variants' | t }}</label>
+    <div class="select">
+      <select name="id" id="Variants-{{ section.id }}-{{block.id}}" class="select__select" form="product-form">
+        {%- for variant in product.variants -%}
+          <option {% if variant == product.selected_or_first_available_variant %}selected="selected"{% endif %}
+                  {% if variant.available == false %}disabled{% endif %}
+                  value="{{ variant.id }}">
+            {{ variant.title }}
+            {%- if variant.available == false %} - {{ 'products.product.sold_out' | t }}{% endif %}
+            - {{ variant.price | money | strip_html }}
+          </option>
+        {%- endfor -%}
+      </select>
+      {% render 'icon-caret' %}
+    </div>
+  </div>
+</noscript>

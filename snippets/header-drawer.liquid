@@ -1,0 +1,178 @@
+{%- liquid
+  assign hide_icons = true
+  assign show_search_icon = false
+  
+  if nav_position == 'left-drawer' or nav_position == 'center-drawer'
+    assign hide_icons = false
+  endif
+  if nav_position == 'center-split' 
+    assign show_search_icon = true
+  endif
+
+-%}
+
+{% if show_search_icon %}
+    <details-modal class="header__search small--hide">
+        <details>
+            <summary class="header__icon header__icon--search header__icon--summary link link--text focus-inset modal__toggle" aria-haspopup="dialog" aria-label="{{ 'general.search.search' | t }}">
+            <span>
+                <svg class="modal__toggle-open icon icon-search" aria-hidden="true" focusable="false" role="presentation">
+                <use href="#icon-search">
+                </svg>
+                <svg class="modal__toggle-close icon icon-close" aria-hidden="true" focusable="false" role="presentation">
+                <use href="#icon-close">
+                </svg>
+            </span>
+            </summary>
+            <div class="search-modal modal__content" role="dialog" aria-modal="true" aria-label="{{ 'general.search.search' | t }}">
+            <div class="search-modal__content" tabindex="-1">
+                <predictive-search class="search-modal__form">
+                <form action="{{ routes.search_url }}" method="get" role="search" class="search search-modal__form">
+                    <div class="field">
+                    <input class="search__input field__input" id="Search-In-Modal" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.search' | t }}"
+                            {%- if settings.predictive_search_enabled -%}
+                        role="combobox"
+                        aria-expanded="false"
+                        aria-owns="predictive-search-results-list"
+                        aria-controls="predictive-search-results-list"
+                        aria-haspopup="listbox"
+                        aria-autocomplete="list"
+                        autocorrect="off"
+                        autocomplete="off"
+                        autocapitalize="off"
+                        spellcheck="false"
+                        {%- endif -%}  
+                            >
+                    <label class="field__label" for="Search-In-Modal">{{ 'general.search.search' | t }}</label>
+                    <input type="hidden" name="options[prefix]" value="last">
+                    <button class="search__button field__button focus-inset" aria-label="{{ 'general.search.search' | t }}">
+                        <svg class="icon icon-search" aria-hidden="true" focusable="false" role="presentation">
+                        <use href="#icon-search">
+                        </svg>
+                    </button>
+                    </div>
+                </form>
+                {%- if settings.predictive_search_enabled -%}
+                    <div class="predictive_search_results" style="display:none;">
+                        <div class="search_results_items">
+                    </div>
+                {%- endif -%}
+                </div>
+                </predictive-search>
+                <button type="button" class="search-modal__close-button modal__close-button link link--text focus-inset" aria-label="{{ 'accessibility.close' | t }}">
+                    <svg class="icon icon-close" aria-hidden="true" focusable="false" role="presentation">
+                    <use href="#icon-close">
+                    </svg>
+                </button>
+                </div>
+            </div>
+        </details>
+    </details-modal>
+{% endif %}
+
+<header-drawer {% if nav_position == 'left-drawer' %} data-right="right"{% else %} data-right="no" {% endif %} class="{% if hide_icons %} medium-up--hide{% endif %}">
+    <details class="menu-drawer-container">
+      <summary class="header__icons header__icon header__icon--menu header__icon--summary link link--text focus-inset" aria-label="{{ 'sections.header.menu' | t }}">
+        <span>
+          {% render 'icon-hamburger' %}
+          {% render 'icon-close' %}
+        </span>
+        <span class="menu-title">{{ 'sections.header.menu' | t }}</span>
+      </summary>
+      <div id="menu-drawer" class="menu-drawer motion-reduce" tabindex="-1">
+        <div class="menu-drawer__inner-container">
+            <div class="menu-drawer__navigation-container">
+            <nav class="menu-drawer__navigation">
+                <p class="menu-drawer__title">
+                  {{ 'sections.header.menu' | t }}
+                <span class="divider"></span></p>
+                <ul class="menu-drawer__menu list-menu" role="list">
+                {%- for link in section.settings.menu.links -%}
+                    <li>
+                    {%- if link.links != blank -%}
+                        <details>
+                        <summary class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if link.child_active %} menu-drawer__menu-item--active{% endif %}">
+                            {{ link.title | escape }}
+                            {% render 'icon-arrow' %}
+                            {% render 'icon-caret-basic' %}
+                        </summary>
+                        <div id="link-{{ link.title | escape }}" class="menu-drawer__submenu motion-reduce" tabindex="-1">
+                            <div class="menu-drawer__inner-submenu">
+                            <ul class="menu-drawer__menu list-menu" role="list" tabindex="-1">
+                                {%- for childlink in link.links -%}
+                                <li>
+                                    {%- if childlink.links == blank -%}
+                                    <a href="{{ childlink.url }}" class="menu-drawer__menu-item link link--text list-menu__item focus-inset{% if childlink.current %} menu-drawer__menu-item--active{% endif %}"{% if childlink.current %} aria-current="page"{% endif %}>
+                                        {{ childlink.title | escape }}
+                                    </a>
+                                    {%- else -%}
+                                    <details>
+                                        <summary class="menu-drawer__menu-item link link--text list-menu__item focus-inset">
+                                        {{ childlink.title | escape }}
+                                        {% render 'icon-arrow' %}
+                                        {% render 'icon-caret-basic' %}
+                                        </summary>
+                                        <div id="childlink-{{ childlink.title | escape }}" class="menu-drawer__submenu menu-drawer__submenu-grandchildren motion-reduce">
+                                        <ul class="menu-drawer__menu list-menu" role="list" tabindex="-1">
+                                            {%- for grandchildlink in childlink.links -%}
+                                            <li>
+                                                <a href="{{ grandchildlink.url }}" class="menu-drawer__menu-item link link--text list-menu__item focus-inset{% if grandchildlink.current %} menu-drawer__menu-item--active{% endif %}"{% if grandchildlink.current %} aria-current="page"{% endif %}>
+                                                {{ grandchildlink.title | escape }}
+                                                </a>
+                                            </li>
+                                            {%- endfor -%}
+                                        </ul>
+                                        </div>
+                                    </details>
+                                    {%- endif -%}
+                                </li>
+                                {%- endfor -%}
+                            </ul>
+                            </div>
+                        </div>
+                        </details>
+                    {%- else -%}
+                        <a href="{{ link.url }}" class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if link.current %} menu-drawer__menu-item--active{% endif %}"{% if link.current %} aria-current="page"{% endif %}>
+                        {{ link.title | escape }}
+                        </a>
+                    {%- endif -%}
+                    </li>
+                {%- endfor -%}
+                </ul>
+                
+            </nav>
+              {% render 'social-icons', classes: 'menu-drawer__list-social' %}
+              {%- if section.settings.title != blank or section.settings.product1 != blank
+                or section.settings.product2 != blank -%}
+                <div class="cart-drawer-products">
+                  <div class="cart-drawer-products-inner">
+                    <div class="title-products-drawer">
+                      <h2>{{section.settings.title}}</h2>
+                    </div>
+                    <div class="products-list-drawer">
+                      {% assign product_frst = all_products[section.settings.product1] %}
+                      {% if product_frst != blank %}
+                        <div class="product-drawer collection-product-item">
+                          {% render 'product-card-drawer',
+                            product_card_product: product_frst
+                          %}
+                        </div>
+                      {% endif %}
+                      {% assign product_scnd = all_products[section.settings.product2] %}
+                      {% if product_scnd != blank %}
+                        <div class="product-drawer collection-product-item">
+                          {% render 'product-card-drawer',
+                            product_card_product: product_scnd
+                          %}
+                        </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              {%- endif -%}
+
+            </div>
+        </div>
+        </div>
+    </details>
+</header-drawer>

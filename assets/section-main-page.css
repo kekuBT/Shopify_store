@@ -1,0 +1,16 @@
+.main-page {
+    padding: 5rem 5rem 0;
+}
+.main-page p a {
+    color: rgba(var(--color-accent-1));
+}
+@media all and (max-width:768px) {
+    .main-page {
+        padding: 3rem 3rem 0;
+    }
+}
+@media all and (max-width:500px) {
+    .main-page {
+        padding: 3rem 2rem 0;
+    }
+}

@@ -1,0 +1,53 @@
+.columns.is-gapless {
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0
+}
+.columns.is-gapless>.column {
+  margin: 0;
+  padding: 0 !important
+}
+.columns.is-gapless:not(:last-child) {
+  margin-bottom: 1.5rem
+}
+.columns.is-gapless:last-child {
+  margin-bottom: 0
+}
+.product__recommendations {
+  padding: 3rem 0;
+}
+.product__recommendations .spr-starrating {
+  display: inline-block;
+}
+.recentView-contaner {
+  padding: 4rem 0 5rem;
+}
+
+@media screen and (max-width:1400px) {
+  .product__recommendations {
+    max-width: 90%;
+  }
+}
+@media screen and (max-width:1024px) {
+  .product__recommendations {
+    padding: 2rem 0;
+  }
+  .product-recommendations__heading {
+    font-size: calc(var(--font-heading-scale) * 2.1875rem);
+  }
+  .product__recommendations .featured-collection-food .card-wrapper,
+  .product__recommendations .featured-collection-electronic .card-wrapper,
+  .product__recommendations .featured-collection-fashion .card-wrapper{
+    margin-bottom: 16px;
+  }
+}
+@media screen and (max-width:749px) {
+  .product-recommendations__heading {
+    font-size: calc(var(--font-heading-scale) * 1.875rem);
+  }
+}
+@media screen and (max-width:600px) {
+  .product-recommendations__heading {
+    font-size: calc(var(--font-heading-scale) * 1.75rem);
+  }
+}

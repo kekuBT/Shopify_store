@@ -1,0 +1,72 @@
+{{ "section-featured-collection-grid.css" | asset_url | stylesheet_tag }}
+
+{%- assign product_limit = section.settings.products_to_show -%}
+
+
+    {%- assign collection = collections[section.settings.collection_1] -%}
+
+
+<style>
+  .featured-collection-grid-wrapper .featured-collection-items-wrapper {
+    grid-template-columns: repeat({{ section.settings.products_per_row }}, 1fr);
+  }
+</style>
+
+<div class="featured-collection-grid-wrapper">
+  {% if section.settings.collection_image != blank %}
+    <div class="featured-collection-image-wrapper">
+      <a href="{{ collection.url }}" class="featured-collection-link">
+        {%- assign img_url = section.settings.collection_image | img_url:'1x1' | replace: '_1x1.', '_{width}x.' -%}
+        <img class="lazyload collection-image"
+            data-srcset="{{ img_url }}"
+            data-aspectratio="{{ section.settings.collection_image.aspect_ratio }}"
+            data-sizes="auto"
+            alt="{{ section.settings.collection_image.alt | escape }}"
+            width="{{ section.settings.collection_image.width }}"
+            height="{{ section.settings.collection_image.height }}">
+        {% if section.settings.collection_title != blank %}
+          <h2 class="collection-title">{{ section.settings.collection_title }}</h2>
+        {% endif %}
+      </a>
+    </div>
+  {% endif %}
+  <div class="featured-collection-items-wrapper collection-grid">
+    {% if section.settings.collection_1 == blank or collections[section.settings.collection_1].empty? or collections[section.settings.collection_1].products_count == 0 %}
+        {% for i in (1..8) %}
+            <div class="collection_slide">
+                <div class="grid-view-item grid-view-item--sold-out product-card">
+                    <div class="product-card__image-with-placeholder-wrapper" data-image-with-placeholder-wrapper>
+                        <div class="grid-view-item__image-wrapper product-card__image-wrapper js">
+                            <div class="">
+                                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-details">
+                      <div class="card-details__wrapper">
+                        <a class="" href="#" class="is-inline-block card-details__link">
+                            <span class="card-details__text h4">{{ 'onboarding.product_title' | t }}</span>
+                        </a>
+                        {% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: true, product: product %}
+                        {% render 'price' %}
+                      </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        {% for productItem in collection.products limit: product_limit %}
+            {% unless productItem.id == product.id %}
+              {%- unless productItem.tags contains 'is-hidden' -%}
+                <div class="collection_slide collection-slide--{{ productItem.id }}">
+                {% render 'product-card', 
+                    media_size: settings.image_ratio,
+                    product_card_product: productItem
+                %}
+                </div>  
+              {% endunless %}          
+            {% endunless %}          
+        {% endfor %}    
+    {% endif %}
+  </div>
+</div>

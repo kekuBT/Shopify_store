@@ -1,0 +1,79 @@
+
+.announcement__list-social.social-icons-list {
+  margin: 0;
+}
+.announcement .announcement__list-social li:not(:last-child) {
+  margin-right: 0.7rem;
+}
+.announcement .announcement__list-tel .icon {
+  width: var(--socialIconWidth);
+  height: var(--socialIconWidth);
+}
+.announcement .announcement__list-tel {
+  display: flex;
+  margin-left: 12px;
+  align-items: center;
+  font-size: 14px;
+  gap: 5px;
+}
+.announcement .announcement__message {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: 90%;
+  margin: 0 auto;
+}
+.announcement .announcement__link {
+  margin-left: 0.5rem;
+  font-weight: bold;
+}
+.announcement-slider {max-width: 650px;margin: 0 auto;}
+.announcement-slider .flickity-button {background: transparent;color: #fff;width: 44px;height: 44px;}
+.announcement-slider .flickity-button svg { width: 100%;height: 100%;top: 0;bottom: 0;left: 0;right: 0;margin: auto;padding: 14px; }
+.announcement-slide { width: 100% }
+.announcement-slide .flickity-prev-next-button.next {right: -20px;}
+.announcement-slide .flickity-prev-next-button.previous {left: -20px;}
+.announcement-slider .announcement-slide:not(:first-child) {display: none;}
+.announcement-slider.flickity-enabled {display: block;}
+.announcement-slider.flickity-enabled .announcement-slide {display: flex;}
+.announcement .currency_picker { padding-top: 0; padding-bottom: 0; }
+
+.announcement .locale-selectors__selector{
+  -moz-appearance: auto !important;
+  -webkit-appearance: auto !important;
+  appearance: auto!important;
+}
+.announcement select.locale-selectors__selector {
+  padding-left: 10px!important;
+  text-align: right;
+  padding-right: 10px !important;
+}
+.announcement .announcement-wrapper {
+  margin: 0;
+}
+@media screen and (min-width: 1023px){
+  .announcement .announcement-wrapper {
+    margin: 0 -0.75rem;
+  }
+  .announcement {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+@media only screen and (max-width:1280px){
+  .announcement-slider {
+    padding: 0 40px;
+  }
+}
+@media only screen and (max-width:767px){
+  .announcement-slider {width: 90%;max-width: inherit;margin: 0 auto;}
+  .announcement-slider {padding: 0 10px;}
+}
+@media only screen and (max-width:600px){
+  .announcement .flickity-prev-next-button.previous{
+    left: -20px;
+  }
+  .announcement .flickity-prev-next-button.next{
+    right: -20px;
+  } 
+}

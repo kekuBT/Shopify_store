@@ -1,0 +1,258 @@
+{{ 'section-featured-collection.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+
+<style>
+  {% if section.settings.contents_bg_color != blank and section.settings.contents_bg_color != "rgba(0,0,0,0)" %}
+    .featured-collection .card-wrapper .card-details {
+      background-color: {{ section.settings.contents_bg_color }};
+      padding: 1rem;
+    }
+  {% endif %}
+
+  #shopify-section-{{ section.id }} .featured-collection,
+  .collection-slider--overflow .page-width:after {
+    background-color: {{ section.settings.color_bg }};
+  }
+
+  #shopify-section-{{ section.id }} .featured-collection-electronic .card-wrapper{
+    border: 1px solid {{ settings.color_input_border}};
+  }
+  #shopify-section-{{ section.id }} .featured-collection-electronic .card-wrapper .card--product{
+    border-bottom: 1px solid {{ settings.color_input_border}};
+  }
+  #shopify-section-{{ section.id }} .featured-collection-jewel .card-wrapper .card--product{
+    border-bottom: 1px solid {{ settings.color_input_border}};
+  }
+  #shopify-section-{{ section.id }} .featured-collection-food .card-wrapper{
+    border: 1px solid {{ settings.color_input_border}};
+    border-radius: {{ settings.product_card_border_radius }}px;
+  }
+  #shopify-section-{{ section.id }} .featured-collection-food .card-wrapper .card--product{
+    border-radius: {{ settings.product_card_border_radius }}px {{ settings.product_card_border_radius }}px 0 0;
+  }
+  #shopify-section-{{ section.id }} .featured-collection-food .collection_tab_wrap{
+        background-color: {{ settings.color_input_border }}50;
+  }
+  #shopify-section-{{ section.id }} .featured-collection-food .collection_link{
+    color:  {{ settings.colors_accent_2 }};
+}
+#shopify-section-{{ section.id }} .featured-collection-food .collection_link.active_tab{
+    background-color: {{ settings.colors_background_1 }};
+    color:  {{ settings.colors_text }};
+}
+</style>
+
+{% if settings.style == 'default' %}
+<div class="collectionSlider-{{ section.id }} main-featured-collection featured-collection-{{ settings.style }} {% if section.settings.stack_products %} featured-collection__grid {% endif %}" data-section-id="{{ section.id }}" data-section-type="featured-collection">
+  <div class="slider-wrapper">
+    <div class="featured-collection section">
+      <div class="collection-slider-wrapper">
+        <div class="page-width">
+          {% if section.settings.stack_products %}
+            <div class="featured-collection-grid-header">
+              {% if section.settings.title != blank %}
+                <h2 class="data-aos data-aos--fade-left data-aos--delay-200">{{ section.settings.title | escape }}</h2>
+              {% endif %}
+              {% if section.settings.view_all %}
+                {% render 'link-button', url: collection.url, label: section.settings.button_label %}
+              {% endif %}
+            </div>
+            {% render 'featured-collection-grid' with section %}
+          {% else %}
+            <div class="featured-collection-slider-header">
+              <div class="heading__content">
+                {% if section.settings.title != blank %}
+                  <h2 class="data-aos data-aos--fade-left data-aos--delay-200">{{ section.settings.title | escape }}</h2>
+                {% endif %}
+                {% if section.settings.title != blank %}
+                <div class="collection-list-caption tes data-aos data-aos--fade-left data-aos--delay-300">{{ section.settings.caption }}</div>
+                {% endif %}
+              </div>
+              {%- if section.settings.view_all and section.settings.view_all_position == 'top' -%}
+              <div class="has-text-centered button-wrapper top">
+                <a href="{{ collection.url }}" class="button button--primary">
+                  {{ section.settings.button_label }}
+                  {% if settings.show_arrow %}<span class="btn-arrow">
+                    {% render 'btn-arrow' %}</span>
+                  {% endif %}
+                </a>
+              </div>
+              {% endif %}
+            </div>
+            <div class="featured__collection-slider">
+              {% render 'collection-slider' with section %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{%endif%}
+
+{% if settings.style == 'fashion' %}
+<div class="collectionSlider-{{ section.id }} main-featured-collection featured-collection__grid featured-collection-{{ settings.style }}" data-section-id="{{ section.id }}" data-section-type="featured-collection">
+  <div class="slider-wrapper">
+    <div class="featured-collection section">
+      <div class="collection-slider-wrapper">
+        <div class="page-width">
+          {% render 'fashion-featured-collection-grid' with section %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{%endif%}
+
+{% if settings.style == 'electronic' %}
+  <div class="collectionSlider-{{ section.id }} main-featured-collection collection-slider--overflow featured-collection-{{ settings.style }}" data-section-id="{{ section.id }}" data-section-type="featured-collection">
+    <div class="slider-wrapper">
+      <div class="featured-collection section">
+        <div class="collection-slider-wrapper">
+          <div class="page-width">
+              <div class="featured-collection-slider-header is-align-items-center">
+                <div class="heading__content">
+                  {% if section.settings.title != blank %}
+                    <h2 class="data-aos data-aos--fade-left data-aos--delay-200">{{ section.settings.title | escape }}</h2>
+                  {% endif %}
+                  {% if section.settings.title != blank %}
+                  <div class="collection-list-caption tes data-aos data-aos--fade-left data-aos--delay-300">{{ section.settings.caption }}</div>
+                  {% endif %}
+                </div>
+                {%- if section.settings.view_all -%}
+                <div class="has-text-centered button-wrapper top view_all_top">
+                  <a href="{{ collection.url }}" class="button button--primary">
+                    {{ section.settings.button_label }}
+                    {% if settings.show_arrow %}<span class="btn-arrow">  
+                      {% render 'btn-arrow' %}</span>
+                    {% endif %}
+                  </a>
+                </div>
+                {% endif %}
+              </div>
+              <div class="featured__collection-slider">
+                {% render 'homepage-electronic-collection-slider' with section %}
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{%endif%}
+
+{% if settings.style == 'jewel' %}
+  <div class="collectionSlider-{{ section.id }} main-featured-collection featured-collection__grid featured-collection-{{ settings.style }}" data-section-id="{{ section.id }}" data-section-type="featured-collection">
+    <div class="slider-wrapper">
+      <div class="featured-collection section">
+        <div class="collection-slider-wrapper">
+          <div class="page-width">
+            <div class="featured-collection-grid-header">
+              {% if section.settings.title != blank %}
+                <h2 class="data-aos data-aos--fade-left data-aos--delay-200">{{ section.settings.title | escape }}</h2>
+              {% endif %}
+              {% if section.settings.view_all %}
+                {% render 'link-button', url: section.settings.collection_1.url, label: section.settings.button_label %}
+              {% endif %}
+                </div>
+                {% render 'jewel-featured-collection-grid' with section %}
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {%endif%}
+
+  {% if settings.style == 'food' %}
+    <div class="collectionSlider-{{ section.id }} main-featured-collection featured-collection__grid featured-collection-{{ settings.style }}" data-section-id="{{ section.id }}" data-section-type="featured-collection">
+      <div class="slider-wrapper">
+        <div class="featured-collection section">
+            <div class="page-width">
+                {% render 'food-featured-collection-grid' with section %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {%endif%}
+
+
+
+    {% schema %}
+    {
+      "name": "t:sections.featured-collection.name",
+      "tag": "section",
+      "settings": [
+        {
+          "type": "color",
+          "id": "color_bg",
+          "default": "#ffffff",
+          "label": "t:sections.featured-collection.settings.color_bg.label"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.featured-collection.settings.title.label",
+          "default": "Featured collection"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "t:sections.featured-collection.settings.caption.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "view_all",
+          "label": "t:sections.featured-collection.settings.view_all.label"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "t:sections.featured-collection.settings.button_label.label",
+          "default": "View All"
+        },
+        {
+          "id": "collection_1",
+          "type": "collection",
+          "label": "t:sections.featured-collection.settings.collection.label"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.featured-collection.settings.fashion_style.label",
+          "info":"t:sections.featured-collection.settings.fashion_style.info"
+        },
+        {
+          "type": "image_picker",
+          "id": "collection_image",
+          "label": "t:sections.featured-collection.settings.collection_image.label"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.featured-collection.settings.jewel_food_style.label",
+          "info":"t:sections.featured-collection.settings.jewel_food_style.info"
+        },
+        {
+          "id": "collection_2",
+          "type": "collection",
+          "label": "t:sections.featured-collection.settings.collection.label"
+        },
+        {
+          "id": "collection_3",
+          "type": "collection",
+          "label": "t:sections.featured-collection.settings.collection.label"
+        },
+        {
+          "id": "collection_4",
+          "type": "collection",
+          "label": "t:sections.featured-collection.settings.collection.label"
+        }
+      ],
+      "presets": [
+        {
+          "name": "t:sections.featured-collection.presets.name"
+        }
+      ]
+    }
+    {% endschema %}

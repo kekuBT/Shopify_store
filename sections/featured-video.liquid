@@ -1,0 +1,52 @@
+{{ 'featured-video.css' | asset_url | stylesheet_tag }}
+
+
+<div class="featured-video section">
+  <div class="page-width">
+    {%- if section.settings.heading != blank -%}
+      <div class="section-header">
+        <h2 class="data-aos data-aos--fade-in">{{ section.settings.heading }}</h2>
+      </div>
+    {%- endif -%}
+    <div class="video-wrapper">
+    {%- if section.settings.video_url == blank -%}
+      <iframe class="data-aos data-aos--fade-in" src="//www.youtube.com/embed/_9VUPq3SxOc?rel=0&showinfo=0&vq=720" width="850" height="480" frameborder="0" allowfullscreen></iframe>
+    {%- else -%}
+      {%- if section.settings.video_url.type == "youtube" -%}
+        <iframe class="data-aos data-aos--fade-in" src="//www.youtube.com/embed/{{ section.settings.video_url.id }}?rel=0&showinfo=0&vq=720" width="850" height="480" frameborder="0" allowfullscreen></iframe>
+      {%- endif -%}
+      {%- if section.settings.video_url.type == "vimeo" -%}
+        <iframe class="data-aos data-aos--fade-in" src="//player.vimeo.com/video/{{ section.settings.video_url.id }}?color={{ settings.color_button | remove: "#" }}&byline=0&portrait=0&badge=0" width="850" height="480" frameborder="0" allowfullscreen></iframe>
+      {%- endif -%}
+    {%- endif -%}
+    </div>
+  </div>
+</div>
+
+
+
+{% schema %}
+  {
+    "name": "t:sections.video.name",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "t:sections.video.settings.heading.label",
+        "info": "8 words max recommended"
+      },
+      {
+        "type": "video_url",
+        "id": "video_url",
+        "label": "t:sections.video.settings.video_url.label",
+        "accept": ["youtube", "vimeo"]
+      }
+    ],
+    "presets": [
+      {
+        "name": "t:sections.video.name",
+        "category": "Video"
+      }
+    ]
+  }
+{% endschema %}

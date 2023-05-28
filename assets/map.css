@@ -1,0 +1,47 @@
+.map__google-iframe iframe {
+  width: 100%;
+  display: block;
+}
+#googleMap {
+  width: 100%;
+  display: block;
+}
+.map__overlay-inner {
+  padding: 3rem;
+  max-width: calc(100% - 60px);
+  background-color: #fff;
+  overflow: hidden;
+}
+.map__overlay {
+  position: absolute;
+  left: 40px;
+  top: calc(50% - 30px);
+  transform: translateY(-50%);
+  margin-top: 0;
+  margin-left: 0;
+  display: inline-block;
+  z-index: 3;
+  width: 100%;
+  margin: 0;
+}
+.map__google-api {
+  position: relative;
+}
+@media only screen and (min-width:769px) {
+  .map__overlay {
+    width: 25%;
+    min-width: 500px;
+    margin: 30px;
+  }
+}
+@media only screen and (max-width:768px) {
+  .map__overlay-inner {
+    max-width: inherit;
+    padding: 2rem;
+  }
+  .map__overlay {
+    position: initial;
+    transform: none;
+    text-align: center;
+  }
+}

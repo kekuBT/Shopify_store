@@ -1,0 +1,398 @@
+<div class="quick-view_grid">
+  <div class="quick-heading" data-text="{{ 'sections.cart.choose_option' | t }}">
+    <h3>{{ 'sections.cart.choose_option' | t }}</h3>
+  </div>
+  <div class="quickView-info">
+    <div class="quick-view_images">
+      <div class="quick-view_slider">
+        <div class="quick-view_image" media-id="{{image.id}}">
+          {%- if product.selected_or_first_available_variant.image != blank -%}
+            {%- assign img = product.selected_or_first_available_variant.image -%}
+          {%- else -%}
+            {%- assign img = product.featured_image -%}
+          {%- endif -%}
+          {% if product.featured_media != blank %}
+            <img
+              src="{{ img | img_url: '147x200', crop: 'center' }}"
+              loading="lazy"
+              alt="{{ img.alt | escape }}"
+            >
+          {% else %}
+            <div class="is-fullwidth">
+              <figure class="product-gallery--image-placeholder">
+                {% unless onboarding %}
+                  {{ 'product-1' | placeholder_svg_tag: 'has-background-light' }}
+                {% else %}
+                  {{ 'product-1' | placeholder_svg_tag: 'has-background-light' }}
+                {% endunless %}
+              </figure>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="quick-view_text">
+      <div class="qv-product-info">
+        <div class="quick-view_title">
+          <h2>{{ product.title | escape }}</h2>
+        </div>
+        <div class="quickView_variant-info">
+          <p>
+            {% if product.selected_or_first_available_variant.title != 'Default Title' -%}
+              {{- product.selected_or_first_available_variant.title -}}
+            {%- endif %}
+          </p>
+        </div>
+        <div class="quick-view_price" id="price-{{ section.id }}">
+          {% render 'feature-price', product: product, price_class: 'quick_view_price' %}
+        </div>
+      </div>
+      <div class="quickView-product-details">
+        <a href="{{product.url }}">{{ 'products.product.view_full_details' | t }}</a>
+      </div>
+    </div>
+  </div>
+  <div class="quickview-options">
+
+    <div id="inventory-list-{{ section.id }}-{{ product.id }}" style="display:none" data-product-id="{{ product.id }}" data-has-only-default-variant="{{ product.has_only_default_variant }}" data-quick-view-inventory-list>
+      {%- for variant in product.variants -%}
+        {%- capture options -%}
+          {% for option in variant.options -%}
+            {{ option }}{%- unless forloop.last %} / {% endunless -%}
+          {%- endfor %}
+        {%- endcapture -%}
+        <div
+          class="inventory-list-variant"
+          data-variant-title="{{ variant.title }}"
+          data-variant-id="{{ variant.id }}"
+          data-options="{{ options }}"
+          data-options-size="{{ variant.options | size }}"
+          data-product-size="{{ product.options | size }}"
+          data-option1="{{ variant.option1 }}"
+          data-option2="{{ variant.option2 }}"
+          data-option3="{{ variant.option3 }}"
+          data-availability="{{ variant.available }}"
+          data-quantity="{{ variant.inventory_quantity }}"
+        >
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {% unless product.has_only_default_variant %}
+      <variant-quickview
+        class="no-js-hidden"
+        data-section="{{ section.id }}"
+        data-url="{{ product.url }}"
+      >
+        {%- for option in product.options_with_values -%}
+          {% assign loop_index = forloop.index0 %}
+          {% assign color_not = false %}
+          {% unless product.options contains 'Colour' or product.options contains 'colour' or product.options contains 'Color' or product.options contains 'color' or loop_index != 0 %}
+            {% assign color_not = true %}
+          {% endunless %}
+
+          {% assign option_small = option.name | downcase %}
+          {% if option_small == 'color' or option_small == 'colour' %}
+            <fieldset
+              class="js product-form__input quickview-form__input"
+              data-option-index="{{ option.position }}"
+              data_options="{{ option.name }}"
+            >
+              <label class="variant__label">
+                {{- option.name }}
+                <span class="variant__label-info"
+                  >:
+                  <span>{{ option.selected_value }}</span>
+                </span>
+              </label>
+              <div class="variant-input-main">
+                {%- for value in option.values -%}
+                  {% assign option_image = nil %}
+                  {% for variant in product.variants %}
+                    {% if variant.title contains value %}
+                      {% assign option_image = variant.image %}
+                      {%- assign option_image_src = variant.image.src | image_url: width: 380, height: 520, crop: 'center' -%}
+                    {% endif %}
+                  {% endfor %}
+                  <div
+                    class="variant-input option-swatch"
+                    data-index="{{ loop_index }}"
+                    data-option-index="{{ option.position }}"
+                    data-value="{{ value | escape }}"
+                    option-image="{{option_image}}"
+                    data-image-src="{% unless option_image_src contains 'no-image-' %}{{ option_image_src }}{% endunless %}" 
+                    data-option-name="{{ option.name | upcase }}"
+                    data-option-position="{{ forloop.index0 }}"
+                  >
+                    <input
+                      type="radio"
+                      id="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}"
+                      value="{{ value | escape }}"
+                      name="{{ option.name }}"
+                      form="product-form-{{ section.id }}"
+                      class="variant__input--color-swatch"
+                      {% if option.selected_value == value %}
+                        checked
+                      {% endif %}
+                    >
+                   
+                    {%- assign downcase_filter_label = value | downcase -%}
+
+                    {%- if settings.color_swatch_config contains value -%}
+                      {%- assign color_swatch_config = settings.color_swatch_config | newline_to_br | split: '<br />' -%}
+                      <label
+                        for="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}"
+                        class="variant__button-label  {% if option.selected_value == value %}selected{% endif %}"
+                        value="{{ value | escape }}"
+                        style="{% render 'color-swatch-style', color_swatch_config: color_swatch_config, value: value %}"
+                      >
+                        {{- value | escape -}}
+                      </label>
+                      {% else %}
+
+                      {%- assign image_name = value| replace :" ",'-'| replace :"/",'-' | downcase | append: '.png' -%}
+                      <label
+                        for="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}"
+                        class="variant__button-label  {% if option.selected_value == value %}selected{% endif %}"
+                        value="{{ value | escape }}"
+                        style="--option-color: {{ value | downcase }}"
+                      >
+                        {{- value | escape -}}
+                      </label>
+                    {% endif %}
+
+                  </div>
+                {%- endfor -%}
+              </div>
+            </fieldset>
+          {% else %}
+            <fieldset
+              class="js product-form__inpt quickview-form__input "
+              data-option-index="{{ option.position }}"
+              data_options="{{ option.name }}"
+            >
+              <label class="variant__label">
+                {{- option.name }}
+                <span class="variant__label-info"
+                  >:
+                  <span>{{ option.selected_value }}</span>
+                </span>
+              </label>
+              <div class="size__main {% if color_not %} variant-input-main{% endif %}">
+                {%- for value in option.values -%}
+                  <div
+                    class="quantity_box quantity_num option-swatch"
+                    data-index="{{ loop_index }}"
+                    data-option-index="{{ option.position }}"
+                    data-value="{{ value | escape }}"
+                    data-option-name="{{ option.name | upcase }}"
+                  >
+                    <input
+                      type="radio"
+                      id="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}"
+                      value="{{ value | escape }}"
+                      name="{{ option.name }}"
+                      form="product-form-{{ section.id }}"
+                      {% if option.selected_value == value %}
+                        checked
+                      {% endif %}
+                    >
+
+                    <label
+                      for="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}"
+                      id="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}"
+                      name="{{ option.name }}"
+                      value="{{ value | escape }}"
+                      class="{% if option.selected_value == value %}selected{% endif %}"
+                    >
+                      {{ value }}
+                    </label>
+                  </div>
+                {%- endfor -%}
+              </div>
+            </fieldset>
+          {% endif %}
+        {%- endfor -%}
+        <script type="application/json">
+          {{ product.variants | json }}
+        </script>
+      </variant-quickview>
+    {% endunless %}
+    <noscript>
+      <div class="product-form__input{% if product.has_only_default_variant %} hidden{% endif %}">
+        <label class="form__label" for="Variants-{{ section.id }}">
+          {{- 'products.product.product_variants' | t -}}
+        </label>
+        <div class="select">
+          <select
+            id="Variants-{{ section.id }}"
+            class="select__select"
+            form="product-form"
+          >
+            {%- for variant in product.variants -%}
+              <option
+                {% if variant == product.selected_or_first_available_variant %}
+                  selected="selected"
+                {% endif %}
+                {% if variant.available == false %}
+                  disabled
+                {% endif %}
+                value="{{ variant.id }}"
+              >
+                {{ variant.title }}
+                {%- if variant.available == false %}
+                  - {{ 'products.product.sold_out' | t -}}
+                {%- endif %}
+                - {{ variant.price | money | strip_html }}
+              </option>
+            {%- endfor -%}
+          </select>
+          {% render 'icon-caret' %}
+        </div>
+      </div>
+    </noscript>
+    <div class="quantity-box">
+      <label for="Quantity" class="quantity-selector">{{ 'products.product.quantity.label' | t }}</label>
+      <div class="quantity__main quantity">
+        <button class="quantity_box quantity__decrease">
+          <span>-</span>
+        </button>
+        <div class="quantity_box quantity_num">
+          <input
+            class="quantity__input"
+            type="number"
+            name="quantity"
+            id="Quantity-{{ section.id }}"
+            min="1"
+            value="1"
+            form="product-form-quick-view-template"
+          >
+        </div>
+        <button class="quantity_box quantity__increase">
+          <span>+</span>
+        </button>
+      </div>
+      <div class="product-form__error-message-wrapper" role="alert" hidden>
+        <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-error" viewBox="0 0 13 13">
+          <circle cx="6.5" cy="6.50049" r="5.5" stroke="white" stroke-width="2"/>
+          <circle cx="6.5" cy="6.5" r="5.5" fill="#EB001B" stroke="#EB001B" stroke-width="0.7"/>
+          <path d="M5.87413 3.52832L5.97439 7.57216H7.02713L7.12739 3.52832H5.87413ZM6.50076 9.66091C6.88091 9.66091 7.18169 9.37267 7.18169 9.00504C7.18169 8.63742 6.88091 8.34917 6.50076 8.34917C6.12061 8.34917 5.81982 8.63742 5.81982 9.00504C5.81982 9.37267 6.12061 9.66091 6.50076 9.66091Z" fill="white"/>
+          <path d="M5.87413 3.17832H5.51535L5.52424 3.537L5.6245 7.58083L5.63296 7.92216H5.97439H7.02713H7.36856L7.37702 7.58083L7.47728 3.537L7.48617 3.17832H7.12739H5.87413ZM6.50076 10.0109C7.06121 10.0109 7.5317 9.57872 7.5317 9.00504C7.5317 8.43137 7.06121 7.99918 6.50076 7.99918C5.94031 7.99918 5.46982 8.43137 5.46982 9.00504C5.46982 9.57872 5.94031 10.0109 6.50076 10.0109Z" fill="white" stroke="#EB001B" stroke-width="0.7">
+        </svg>
+        <span class="product-form__error-message"></span>
+      </div>
+    </div>
+    {%- if settings.enable_size_chart -%}
+    <div class="size__chart">
+      <button class="size__chart-trigger">
+        <img
+          src="{{ 'size-icon.png' | asset_img_url: '50x' }}"
+          srcset="{{ 'size-icon.png' | asset_img_url: '50x' }} 1x, {{ 'size-icon.png' | asset_img_url: '100x' }} 2x"
+          loading="lazy"
+          height="20"
+          width="26"
+          alt="Size Icon"
+        >
+        <span>{{ 'products.product.view_size_chart' | t }}</span>
+      </button>
+    </div>
+    {%- endif -%}
+    {% render 'gift-wrapping', product: product %}
+
+    {%- assign product_form_id = 'product-form-' | append: product.id -%}
+    <product-form class="product-form form__btns">
+      {% capture metaF -%}
+        {{- product.title | escape }}~{{ product.compare_at_price | money -}}
+      {%- endcapture %}
+      {%- form 'product', product, id: product_form_id, class: product_form_id, novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+        <input
+          type="hidden"
+          name="id"
+          value="{{ product.selected_or_first_available_variant.id }}"
+        >
+        <input
+          type="hidden"
+          name="quantity"
+          value="1"
+        >
+        {% assign current_variant = product.selected_or_first_available_variant | default: product.variants.first %}
+        {% assign current_selling_plan_allocation = current_variant.selected_selling_plan_allocation %}
+        {% if current_selling_plan_allocation == nil and current_variant.requires_selling_plan %}
+          {% assign current_selling_plan_allocation = current_variant.selling_plan_allocations | first %}
+        {% endif %}
+        {% assign offer = current_selling_plan_allocation | default: current_variant %}
+        <input
+          type="hidden"
+          name="selling_plan"
+          value="{{ current_selling_plan_allocation.selling_plan.id | default: '' }}"
+        >
+        <div class="product-form__buttons">
+          {% if product.selected_or_first_available_variant.available %}
+            {% unless qb_loaded == 'true' %}
+              <div class="shappify-qty-msg">
+                {{ product.selected_or_first_available_variant.metafields.shappify_qb.pricing_html }}
+              </div>
+              {% assign qb_loaded = 'true' %}
+              <div id="ddr_embed_text"></div>
+            {% endunless %}
+            <button
+              type="submit"
+              data-add_to_cart="{{ 'products.product.add_to_cart' | t }}"
+              data-sold_out="{{ 'products.product.sold_out' | t }}"
+              metaF="{{metaF}}"
+              product_id="{{product_form_id}}"
+              id="quick-view_add"
+              class="product-form___submit button button--full-width button--primary"
+              button
+              role="button"
+              tabindex="0"
+            >
+              {{ 'products.product.add_to_cart' | t }}
+            </button>
+          {% else %}
+            <a class="add-to-cart-btn  button" disabled>
+              {{- 'products.product.sold_out' | t -}}
+            </a>
+          {% endif %}
+        </div>
+      {%- endform -%}
+    </product-form>
+
+    {%- assign pick_up_availabilities = product.selected_or_first_available_variant.store_availabilities | where: 'pick_up_enabled', true -%}
+
+    <pickup-availability
+      class="product__pickup-availabilities no-js-hidden"
+      {% if product.selected_or_first_available_variant.available and pick_up_availabilities.size > 0 %}
+        available
+      {% endif %}
+      data-root-url="{{ routes.root_url }}"
+      data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+      data-has-only-default-variant="{{ product.has_only_default_variant }}"
+    >
+      <template>
+        <pickup-availability-preview class="pickup-availability-preview">
+          {% render 'icon-unavailable' %}
+          <div class="pickup-availability-info">
+            <p class="caption-large">
+              {{ 'products.product.pickup_availability.unavailable' | t }}
+            </p>
+            <button class="pickup-availability-button link link--text underlined-link">
+              {{ 'products.product.pickup_availability.refresh' | t }}
+            </button>
+          </div>
+        </pickup-availability-preview>
+      </template>
+    </pickup-availability>
+
+    {% if pick_up_availabilities.size > 0 %}
+      {{ 'component-pickup-availability.css' | asset_url | stylesheet_tag }}
+    {% endif %}
+
+  </div>
+</div>
+{% schema %}
+{
+  "name": "t:sections.quick-view.name",
+  "settings": []
+}
+{% endschema %}

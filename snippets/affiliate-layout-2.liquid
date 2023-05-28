@@ -1,0 +1,118 @@
+{{ 'affiliate-layout-2.css'| asset_url | stylesheet_tag }}
+
+<div class="affiliate-layout-two" id="layout-two-{{ block.id }}">
+    <div class="affiliate-layout-two-wrapper">
+      <div class="bg-image desktop">
+        {%- assign img_url = block.settings.two_background_image | img_url:'1x1' | replace: '_1x1.', '_{width}x.' -%}
+              {% if block.settings.two_background_image != blank %}
+                <img class="lazyload"
+                  data-srcset="{{ img_url }}"
+                  data-aspectratio="{{ block.settings.two_background_image.aspect_ratio }}"
+                  data-sizes="auto"
+                  alt="{{ block.settings.two_background_image.alt | escape }}"
+                  width="{{ block.settings.two_background_image.width }}"
+                  height="{{ block.settings.two_background_image.height }}"
+                >
+              {% endif %}
+      </div> 
+      <div class="bg-image mobile">
+        {%- assign img_url = block.settings.two_mob_background_image | img_url:'1x1' | replace: '_1x1.', '_{width}x.' -%}
+              {% if block.settings.two_mob_background_image != blank %}
+                <img class="lazyload"
+                  data-srcset="{{ img_url }}"
+                  data-aspectratio="{{ block.settings.two_mob_background_image.aspect_ratio }}"
+                  data-sizes="auto"
+                  alt="{{ block.settings.two_mob_background_image.alt | escape }}"
+                  width="{{ block.settings.two_mob_background_image.width }}"
+                  height="{{ block.settings.two_mob_background_image.height }}"
+                >
+              {% elsif block.settings.two_background_image != blank %}
+              {%- assign img_url_top = block.settings.two_background_image | img_url:'1x1' | replace: '_1x1.', '_{width}x.' -%}
+                    <img class="lazyload"
+                      data-srcset="{{ img_url_top }}"
+                      data-aspectratio="{{ block.settings.two_background_image.aspect_ratio }}"
+                      data-sizes="auto"
+                      alt="{{ block.settings.two_background_image.alt | escape }}"
+                      width="{{ block.settings.two_background_image.width }}"
+                      height="{{ block.settings.two_background_image.height }}"
+                    >
+                {% else %}
+              {% endif %}
+      </div>
+      <div class="wrapper section {% if block.settings.border %}border{% endif %}">
+        <div class="left affiliate-content-upper-wrapper data-aos data-aos--fade-up data-aos--delay-300">
+          <div class="left-contents affiliate-contents ">
+            <div class="content-wrapper">
+              {% if block.settings.left_title != blank %}
+                <h2 class="title  text-color">{{ block.settings.left_title }}</h2>
+              {% endif %}
+              {% if block.settings.left_text != blank %}
+                <div class="text text-color">{{ block.settings.left_text }}</div>
+              {% endif %}
+              {% if block.settings.left_button_text != blank %}
+              <a href="{{ block.settings.left_button_url }}" class="button">{{ block.settings.left_button_text }}
+                {% if block.settings.left_button_arrow %}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="14" viewBox="0 0 15 14" fill="none">
+                    <path d="M7.4987 7.83325H0.832031V6.16658H7.4987V0.333252L14.1654 6.99992L7.4987 13.6666V7.83325Z" fill="white"/>
+                  </svg>
+                {% endif %}
+              </a>
+            </div>
+            <div class="left_image card-image left-object-position-{{block.settings.left_object_position}} left-object-size-{{block.settings.left_object_size}}">
+              {%- assign img_url = block.settings.left_image | img_url:'1x1' | replace: '_1x1.', '_{width}x.' -%}
+              {% if block.settings.left_image != blank %}
+                <img class="lazyload"
+                  data-srcset="{{ img_url }}"
+                  data-aspectratio="{{ block.settings.left_image.aspect_ratio }}"
+                  data-sizes="auto"
+                  alt="{{ block.settings.left_image.alt | escape }}"
+                  width="{{ block.settings.left_image.width }}"
+                  height="{{ block.settings.left_image.height }}"
+                >
+                {% else %}
+                  {{ 'image' | placeholder_svg_tag }}
+              {% endif %}
+            </div>
+            {% endif %}
+          </div>
+        </div>  
+        <div class="right affiliate-content-upper-wrapper data-aos data-aos--fade-up data-aos--delay-400">
+          <div class="right-contents affiliate-contents">
+            <div class="content-wrapper">
+              {% if block.settings.right_title != blank %}
+                <h2 class="title  text-color">{{ block.settings.right_title }}</h2>
+              {% endif %}
+              {% if block.settings.right_text != blank %}
+                <div class="text text-color">{{ block.settings.right_text }}</div>
+              {% endif %}
+              {% if block.settings.right_button_text != blank %}
+              <a href="{{ block.settings.right_button_url }}" class="button">{{ block.settings.right_button_text }}
+                {% if block.settings.right_button_arrow %}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="14" viewBox="0 0 15 14" fill="none">
+                    <path d="M7.4987 7.83325H0.832031V6.16658H7.4987V0.333252L14.1654 6.99992L7.4987 13.6666V7.83325Z" fill="white"/>
+                  </svg>
+                {% endif %}
+              </a>
+            </div> 
+            <div class="right_image card-image right-object-size-{{block.settings.right_object_size}}">
+              {%- assign img_url = block.settings.right_image | img_url:'1x1' | replace: '_1x1.', '_{width}x.' -%}
+              {% if block.settings.right_image != blank %}
+                <img class="lazyload"
+                  data-srcset="{{ img_url }}"
+                  data-aspectratio="{{ block.settings.right_image.aspect_ratio }}"
+                  data-sizes="auto"
+                  alt="{{ block.settings.right_image.alt | escape }}"
+                  width="{{ block.settings.right_image.width }}"
+                  height="{{ block.settings.right_image.height }}"
+                >
+                {% else %}
+                  {{ 'image' | placeholder_svg_tag }}
+              {% endif %}
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

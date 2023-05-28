@@ -1,0 +1,30 @@
+{{ 'custom-html.css' | asset_url | stylesheet_tag }}
+
+<div class="section custom__html">
+	<div class="{% if section.settings.full_width %}section--full-width {%- else -%} container {% endif %} ">
+  		{{ section.settings.text }}
+  	</div>
+</div>
+{% schema %}
+{
+  "name": "t:sections.html.name",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": false,
+      "label": "t:sections.html.settings.full_width.label"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "t:sections.html.settings.text.label"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.html.presets.name"
+    }
+  ]
+}
+{% endschema %}

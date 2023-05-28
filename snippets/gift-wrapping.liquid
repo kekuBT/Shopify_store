@@ -1,0 +1,46 @@
+
+{% capture wrapping_content %}
+{%- assign product_id = settings.gift_product.selected_or_first_available_variant.id -%}
+<div class="product__wrapping" data-gift-wrapping data-gift-id="{{product_id}}" data-gift-product="{{ product.selected_or_first_available_variant.id }}">
+    <input type="checkbox" name="add_gift_wrapping" id="add_gift_wrapping" class="screen-reader-only">
+    <div class="product__wrapping-header">
+        <label for="add_gift_wrapping">
+            <span class="tag__checkbox"></span>
+            {{ settings.gift_text }}
+        </label>
+    </div>
+    <div class="product__wrapping-content">
+        <div class="product__wrapping-inner">
+            {%- if settings.gift_image != blank -%}
+            <img
+                class="data-aos data-aos--fade-in"
+                src="{{ settings.gift_image | img_url: '200x' }}"
+                srcset="{%- if settings.gift_image.width >= 200 -%}{{ settings.gift_image | img_url: '200x' }} 200w,{%- endif -%}
+                {%- if settings.gift_image.width >= 320 -%}{{ settings.gift_image | img_url: '320x' }} 320w,{%- endif -%}"
+                sizes="auto"
+                height="{{ settings.gift_image.height }}"
+                width="{{ settings.gift_image.width }}"
+                alt="{{ settings.gift_image.alt }}"              
+                style="object-position:{{settings.gift_image.presentation.focal_point}}"
+                loading="lazy" >
+            {%- else -%}
+            <img src="{{ 'placeholder-product.svg' | asset_url }}" alt="Product placeholder" />
+            {%- endif -%}
+            <textarea placeholder="{{ settings.gift_message }}"></textarea> 
+        </div>
+    </div>
+</div>
+{% endcapture %}
+{%- if settings.enable_gift_wrapping -%}
+    {%- if settings.apply_all_products -%}
+            {{wrapping_content}}
+    {%- elsif settings.specific_products_only -%}
+            {%- if product.tags contains 'gift_wrapping' -%}
+                {{wrapping_content}}
+            {%- endif -%}
+    {%- elsif settings.exclude_products -%}
+        {%- unless product.tags contains 'no-gift_wrapping' -%}
+            {{wrapping_content}}
+        {%- endunless -%}
+    {%- endif -%}
+{%- endif -%}

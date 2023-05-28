@@ -1,0 +1,90 @@
+{{ "section-featured-collection-grid.css" | asset_url | stylesheet_tag }}
+
+<style>
+  .featured-collection-grid-wrapper .featured-collection-items-wrapper {
+    grid-template-columns: repeat(3, 1fr);
+  }
+</style>
+
+{% assign all_collection_empty = false %}
+{% if section.settings.collection_1 == blank and section.settings.collection_2 == blank and section.settings.collection_3 == blank and section.settings.collection_4 == blank %}
+  {% assign all_collection_empty = true %}
+{% endif %}
+
+{% if all_collection_empty == true %}
+  <div class="featured-collection-grid-wrapper">
+ 
+    <div class="featured-collection-image-wrapper">
+      <div class="collection_name">
+        <a href="javascript:void(0);" id="all_collection_empty" class="collection_link active_tab">collection</a>
+      </div>
+      <div class="collection_name">
+        <a href="javascript:void(0);" id="all_collection_empty" class="collection_link">collection</a>
+      </div>
+      <div class="collection_name">
+        <a href="javascript:void(0);" id="all_collection_empty" class="collection_link">collection</a>
+      </div>
+    </div>
+  
+  <div class="featured-collection-items-wrapper collection-grid all_collection_empty">
+    {% for i in (1..3) %}
+            <div class="collection_slide">  
+                <div class="grid-view-item grid-view-item--sold-out product-card">
+                    <div class="product-card__image-with-placeholder-wrapper" data-image-with-placeholder-wrapper>
+                        <div class="grid-view-item__image-wrapper product-card__image-wrapper js">
+                            <div class="">
+                                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-details text-center">
+                      <div class="card-details__wrapper">
+                        <a class="" href="#" class="is-inline-block card-details__link">
+                            <span class="card-details__text h4">{{ 'onboarding.product_title' | t }}</span>
+                        </a>
+                        {% render 'price', price_class: 'is-justify-content-center' %}
+                      </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+  </div>
+</div>
+
+ {% else %} 
+<div class="featured-collection-grid-wrapper">
+ 
+    <div class="featured-collection-image-wrapper">
+       {% for i in (1..4) %}
+        {% capture var_collection %}collection_{{i}}{% endcapture %}
+        {% if section.settings[var_collection] != blank %}
+        <div class="collection_name">
+        <a href="javascript:void(0);" id="{{ section.settings[var_collection].handle }}" class="collection_link {% if forloop.first %}active_tab{% endif %}" data-url="{{ section.settings[var_collection].url }}">{{ section.settings[var_collection].title }}</a>
+        </div>
+      {% endif %}
+       {% endfor %}
+    </div>
+  
+    {% for i in (1..4) %}
+    {% capture var_collection %}collection_{{i}}{% endcapture %}
+    {% assign collection = section.settings[var_collection] %}
+  <div class="featured-collection-items-wrapper collection-grid {{ collection.handle }} {% unless forloop.first %}is-hidden{% endunless %}">
+    {% unless collection == blank or collections[collection].empty? or collections[collection].products_count == 0 %}
+        {% for productItem in collection.products limit: 3 %}
+            {% unless productItem.id == product.id %}
+              {%- unless productItem.tags contains 'is-hidden' -%}
+                <div class="collection_slide collection-slide--{{ productItem.id }}">
+                {% render 'jewel-product-card', 
+                    media_size: settings.image_ratio,
+                    product_card_product: productItem
+                %}
+                </div>  
+              {% endunless %}          
+            {% endunless %}          
+        {% endfor %}    
+      {% endunless %}
+  </div>
+{% endfor %}
+
+</div>
+{% endif %}

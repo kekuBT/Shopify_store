@@ -1,0 +1,377 @@
+{{ 'section-testimonial.css' | asset_url | stylesheet_tag }}
+<style>
+  .testimonialSlider-{{ section.id }} .flickity-page-dots .dot {
+    background: {{settings.colors_accent_1}};
+  }
+  .testimonialSlider-{{ section.id }} .review__image svg g{
+      fill: {{section.settings.color_review_stars}};
+  }
+   
+  .slider-wrapper.style_food .testimonial__slider .flickity-prev-next-button {
+    background-color: {{ settings.color_input_border }}50;
+  }
+</style>
+
+<div class="testimonialSlider-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="testimonial-section">
+  <div class="slider-wrapper style_{{settings.style}}">
+    <div class="testimonial color-{{ section.settings.bg_color }} section">
+<div class="{% if settings.style == 'fashion' or settings.style == 'electronic' %}page-width{% else %}page-width--small{% endif %}">
+        {% if section.settings.title != blank %}
+            <h2 class="has-text-centered data-aos data-aos--fade-in data-aos--delay-200">{{ section.settings.title }}</h2>
+          {% endif %}
+        <div class="testimonial__slider" id="TestimonialSlider-{{ section.id }}" 
+          data-natural="true"
+          data-autoplay="{{ section.settings.slide_autoplay }}"
+          data-speed="{{ section.settings.autoplay_time | times: 1000 }}"
+          {% if settings.navigation_type == 'arrows' %}
+            data-arrows="true"
+          {% endif %}
+          {% if settings.navigation_type == 'dots' %}
+            data-dots="true"
+          {% endif %} >
+           
+            {%- for block in section.blocks -%}
+              <div class="slideshow__slide testimonial-slide--{{ block.id }}">
+             
+                <div class="testimonial__inner">
+                  {% unless settings.style == 'fashion' or  settings.style == 'electronic' %}
+                    <div class="testimonial__quote">
+                      {% if settings.style == 'food' or settings.style == 'jewel' %}
+                          <svg width="36" height="28" viewBox="0 0 36 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M3.166 25.6405C1.106 23.4525 0 20.9985 0 17.0205C0 10.0205 4.914 3.74653 12.06 0.644531L13.846 3.40053C7.176 7.00853 5.872 11.6905 5.352 14.6425C6.426 14.0865 7.832 13.8925 9.21 14.0205C12.818 14.3545 15.662 17.3165 15.662 20.9985C15.662 22.855 14.9245 24.6355 13.6117 25.9483C12.299 27.261 10.5185 27.9985 8.662 27.9985C6.516 27.9985 4.464 27.0185 3.166 25.6405V25.6405ZM23.166 25.6405C21.106 23.4525 20 20.9985 20 17.0205C20 10.0205 24.914 3.74653 32.06 0.644531L33.846 3.40053C27.176 7.00853 25.872 11.6905 25.352 14.6425C26.426 14.0865 27.832 13.8925 29.21 14.0205C32.818 14.3545 35.662 17.3165 35.662 20.9985C35.662 22.855 34.9245 24.6355 33.6117 25.9483C32.299 27.261 30.5185 27.9985 28.662 27.9985C26.516 27.9985 24.464 27.0185 23.166 25.6405V25.6405Z" fill="black"/>
+                          </svg>
+                      {%  else %}
+                          <span class="">“</span>
+                      {% endif %}
+                    </div>
+                    {% endunless %}
+           
+                  {% unless settings.style == 'food' or settings.style == 'jewel' %}
+                
+                  <a href="{{ block.settings.link }}" class="testimonial__author-link">
+                    <div class="testimonial__author" >
+                        {%- if block.settings.image != blank -%}
+                            <img
+                            src="{{ block.settings.image | img_url: 'master' }}"
+                            srcset="{%- if block.settings.image.width >= 200 -%}{{ block.settings.image | img_url: '200x' }} 200w,{%- endif -%}
+                            {%- if block.settings.image.width >= 320 -%}{{ block.settings.image | img_url: '320x' }} 320w,{%- endif -%}
+                            {%- if block.settings.image.width >= 480 -%}{{ block.settings.image | img_url: '480x' }} 480w,{%- endif -%}
+                            {%- if block.settings.image.width >= 768 -%}{{ block.settings.image | img_url: '768x' }} 768w,{%- endif -%}
+                            {%- if block.settings.image.width >= 1024 -%}{{ block.settings.image | img_url: '1024x' }} 1024w,{%- endif -%}
+                            {%- if block.settings.image.width >= 1400 -%}{{ block.settings.image | img_url: '1400x' }} 1400w{%- endif -%}"
+                            width="{{ block.settings.image.width }}"
+                            height="{{ block.settings.image.height }}"
+                            alt="{{ block.settings.image.alt | escape }}"
+                            loading="lazy"
+                            class="" />
+                      {%- else -%}
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="100" height="100" x="0" y="0" viewBox="0 0 64 64" xml:space="preserve" class=""><g><g xmlns="http://www.w3.org/2000/svg" id="User"><path d="m32 1a31 31 0 1 0 31 31 31.0351 31.0351 0 0 0 -31-31zm0 60a29 29 0 1 1 29-29 29.0331 29.0331 0 0 1 -29 29z" fill="#a5a5a5" data-original="#000000" class=""></path><path d="m53.5874 46.7529a30.9971 30.9971 0 0 0 -43.1748 0 1 1 0 0 0 1.3945 1.4336 28.9973 28.9973 0 0 1 40.3858 0 1 1 0 0 0 1.3945-1.4336z" fill="#a5a5a5" data-original="#000000" class=""></path><path d="m32 34a12 12 0 1 0 -12-12 12.0134 12.0134 0 0 0 12 12zm0-22a10 10 0 1 1 -10 10 10.0114 10.0114 0 0 1 10-10z" fill="#a5a5a5" data-original="#000000" class=""></path></g></g></svg>
+                      {%- endif -%}
+                    </div>
+                  </a>
+         
+                  {% endunless %}
+                  <div class="testimonial__body">
+
+                  {% if  settings.style == 'electronic' %}
+                  <div class="testimonial__quote">
+                        <svg width="35" height="24" viewBox="0 0 35 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M0.1 23.5L9.7 -4.76837e-06H17.1L11.5 23.5H0.1ZM17.6 23.5L27.2 -4.76837e-06H34.6L29 23.5H17.6Z" fill="black"/>
+                        </svg>                  
+                  </div>
+                {% endif %} 
+
+                    {% if settings.style == 'food' or settings.style == 'jewel' %}
+                    {% unless block.settings.star_count == blank %}
+                    <div class="review__image">
+                      {% case block.settings.star_count %}
+                      {% when '1' %}
+                        {% render 'icon-star-1' %}
+                      {% when '1.5' %}
+                        {% render 'icon-star-1-5' %}
+                      {% when '2' %}
+                        {% render 'icon-star-2' %}
+                      {% when '2.5' %}
+                        {% render 'icon-star-2-5' %}
+                      {% when '3' %}
+                        {% render 'icon-star-3' %}
+                      {% when '3.5' %}
+                        {% render 'icon-star-3-5' %}
+                      {% when '4' %}
+                        {% render 'icon-star-4' %}
+                      {% when '4.5' %}
+                        {% render 'icon-star-4-5' %}
+                      {% when '5' %}
+                        {% render 'icon-star-5' %}
+                      {%endcase%}
+                    </div>
+                    {% endunless %}
+                  {% endif %}
+                  {%- if block.settings.text != blank -%}
+                    <div class="testimonial__content">{{ block.settings.text }}</div>
+                  {%- endif -%}
+                  {% unless settings.style == 'food' or settings.style == 'jewel' %}
+                  {% unless block.settings.star_count == blank %}
+                    <div class="review__image">
+                      {% case block.settings.star_count %}
+                      {% when '1' %}
+                        {% render 'icon-star-1' %}
+                      {% when '1.5' %}
+                        {% render 'icon-star-1-5' %}
+                      {% when '2' %}
+                        {% render 'icon-star-2' %}
+                      {% when '2.5' %}
+                        {% render 'icon-star-2-5' %}
+                      {% when '3' %}
+                        {% render 'icon-star-3' %}
+                      {% when '3.5' %}
+                        {% render 'icon-star-3-5' %}
+                      {% when '4' %}
+                        {% render 'icon-star-4' %}
+                      {% when '4.5' %}
+                        {% render 'icon-star-4-5' %}
+                      {% when '5' %}
+                        {% render 'icon-star-5' %}
+                      {%endcase%}
+                    </div>
+                    {% endunless %}
+                  {% endunless %}
+                  <div class="author-info-wrapper{% if settings.style == 'food' or settings.style == 'jewel' %} food_jewel_author{% endif %}">
+                    {% if settings.style == 'default' or settings.style == 'fashion' %}
+                    {% if block.settings.quote_by_image !=blank %}
+                      <a  class="testimonial__author-link author_img">
+                        <div class="testimonial__author small-size" >
+                                <img
+                                src="{{ block.settings.quote_by_image | img_url: 'master' }}"
+                                srcset="{%- if block.settings.quote_by_image.width >= 200 -%}{{ block.settings.quote_by_image | img_url: '200x' }} 200w,{%- endif -%}
+                                {%- if block.settings.quote_by_image.width >= 320 -%}{{ block.settings.quote_by_image | img_url: '320x' }} 320w,{%- endif -%}
+                                {%- if block.settings.quote_by_image.width >= 480 -%}{{ block.settings.quote_by_image | img_url: '480x' }} 480w,{%- endif -%}
+                                {%- if block.settings.quote_by_image.width >= 768 -%}{{ block.settings.quote_by_image | img_url: '768x' }} 768w,{%- endif -%}
+                                {%- if block.settings.quote_by_image.width >= 1024 -%}{{ block.settings.quote_by_image | img_url: '1024x' }} 1024w,{%- endif -%}
+                                {%- if block.settings.quote_by_image.width >= 1400 -%}{{ block.settings.quote_by_image | img_url: '1400x' }} 1400w{%- endif -%}"
+                                width="{{ block.settings.quote_by_image.width }}"
+                                height="{{ block.settings.quote_by_image.height }}"
+                                alt="{{ block.settings.quote_by_image.alt | escape }}"
+                                loading="lazy"
+                                class="" />
+                       
+                        </div>
+                      </a>
+                    {% endif %}
+                  {% endif %}
+                    {% if settings.style == 'food' or settings.style == 'jewel' %}
+                    <a href="{{ block.settings.link }}" class="testimonial__author-link">
+                      <div class="testimonial__author" >
+                          {%- if block.settings.image != blank -%}
+                              <img
+                              src="{{ block.settings.image | img_url: 'master' }}"
+                              srcset="{%- if block.settings.image.width >= 200 -%}{{ block.settings.image | img_url: '200x' }} 200w,{%- endif -%}
+                              {%- if block.settings.image.width >= 320 -%}{{ block.settings.image | img_url: '320x' }} 320w,{%- endif -%}
+                              {%- if block.settings.image.width >= 480 -%}{{ block.settings.image | img_url: '480x' }} 480w,{%- endif -%}
+                              {%- if block.settings.image.width >= 768 -%}{{ block.settings.image | img_url: '768x' }} 768w,{%- endif -%}
+                              {%- if block.settings.image.width >= 1024 -%}{{ block.settings.image | img_url: '1024x' }} 1024w,{%- endif -%}
+                              {%- if block.settings.image.width >= 1400 -%}{{ block.settings.image | img_url: '1400x' }} 1400w{%- endif -%}"
+                              width="{{ block.settings.image.width }}"
+                              height="{{ block.settings.image.height }}"
+                              alt="{{ block.settings.image.alt | escape }}"
+                              loading="lazy"
+                              class="" />
+                        {%- else -%}
+                          <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="100" height="100" x="0" y="0" viewBox="0 0 64 64" xml:space="preserve" class=""><g><g xmlns="http://www.w3.org/2000/svg" id="User"><path d="m32 1a31 31 0 1 0 31 31 31.0351 31.0351 0 0 0 -31-31zm0 60a29 29 0 1 1 29-29 29.0331 29.0331 0 0 1 -29 29z" fill="#a5a5a5" data-original="#000000" class=""></path><path d="m53.5874 46.7529a30.9971 30.9971 0 0 0 -43.1748 0 1 1 0 0 0 1.3945 1.4336 28.9973 28.9973 0 0 1 40.3858 0 1 1 0 0 0 1.3945-1.4336z" fill="#a5a5a5" data-original="#000000" class=""></path><path d="m32 34a12 12 0 1 0 -12-12 12.0134 12.0134 0 0 0 12 12zm0-22a10 10 0 1 1 -10 10 10.0114 10.0114 0 0 1 10-10z" fill="#a5a5a5" data-original="#000000" class=""></path></g></g></svg>
+                        {%- endif -%}
+                      </div>
+                    </a>
+               
+                  {% endif %}
+
+                <div class="">                 
+                    {%- if block.settings.heading != blank -%}
+                      <h2 class="h3 has-text-weight-bold" >{{ block.settings.heading | escape }}</h2>
+                    {%- endif -%}
+                  </div>
+
+                  </div>
+                  </div>
+                </div>
+              </div>
+            {%- endfor -%}
+            
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.featured-testimonial.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:sections.featured-testimonial.settings.title.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "slide_autoplay",
+      "default": false,
+      "label": "t:sections.reviews.settings.slide_autoplay.label"
+    },
+    
+    {
+      "type": "color",
+      "id": "color_review_stars",
+      "default": "#f5ba05",
+      "label": "t:sections.reviews.settings.color_review_stars.label"
+    },
+    {
+      "type": "color",
+      "id": "color_review_empty_star",
+      "default": "#000",
+      "label": "t:sections.reviews.settings.color_review_empty_star.label"
+    },
+    {
+      "type": "range",
+      "id": "autoplay_time",
+      "min":5,
+      "max":10,
+      "default": 6,
+      "step": 1,
+      "unit": "s",
+      "label": "t:sections.reviews.settings.autoplay_time.label"
+    },
+    {
+      "type": "select",
+      "id": "bg_color",
+      "options": [
+        {
+          "value": "accent-1",
+          "label": "t:sections.featured-testimonial.settings.bg_color.options__1.label"
+        },
+        {
+          "value": "accent-2",
+          "label": "t:sections.featured-testimonial.settings.bg_color.options__2.label"
+        },
+        {
+          "value": "background-1",
+          "label": "t:sections.featured-testimonial.settings.bg_color.options__3.label"
+        },
+        {
+          "value": "background-2",
+          "label": "t:sections.featured-testimonial.settings.bg_color.options__4.label"
+        }
+     
+      ],
+      "default": "background-1",
+      "label": "t:sections.featured-testimonial.settings.bg_color.label"
+    }
+  ], 
+  "blocks": [
+      {
+        "type": "testimonial",
+        "name": "testimonial",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "t:sections.featured-testimonial.settings.image.label",
+            "info": "250 x 250px .jpeg recommended"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "t:sections.featured-testimonial.settings.link.label"
+          },
+          {
+            "type": "select",
+            "id": "star_count",
+            "options": [
+              {
+                "value": "none_",
+                "label": "none"
+              },
+              {
+              "value": "1",
+              "label": "1"
+              },
+              {
+              "value": "1.5",
+              "label": "1.5"
+              },
+              {
+              "value": "2",
+              "label": "2"
+              },
+              {
+              "value": "2.5",
+              "label": "2.5"
+              },
+              {
+              "value": "3",
+              "label": "3"
+              },
+              {
+              "value": "3.5",
+              "label": "3.5"
+              },
+              {
+              "value": "4",
+              "label": "4"
+              },
+              {
+              "value": "4.5",
+              "label": "4.5"
+              },
+              {
+              "value": "5",
+              "label": "5"
+              }
+            ],
+            "label": "t:sections.reviews.blocks.review.settings.star_count.label",
+            "default": "5"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "default": "Testimonial Summary",
+            "label": "t:sections.featured-testimonial.settings.heading.label"
+          },
+          {
+            "type": "richtext",
+            "id": "text",
+            "default": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "label": "t:sections.featured-testimonial.settings.text.label"
+          },
+          {
+            "type":"header",
+            "content":"t:sections.featured-testimonial.settings.default_fashion_style.label",
+            "info": "t:sections.featured-testimonial.settings.default_style_info.label"
+          },
+          {
+            "type": "image_picker",
+            "id": "quote_by_image",
+            "label": "t:sections.featured-testimonial.settings.quote_by_image.label",
+            "info": "50 x 50px .jpeg recommended"
+          }
+        ]
+      }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.featured-testimonial.presets.name",
+      "blocks": [
+          {
+            "type": "testimonial"
+          },
+          {
+            "type": "testimonial"
+          },
+          {
+            "type": "testimonial"
+          }
+      ]
+    }
+  ]
+}
+{% endschema %}

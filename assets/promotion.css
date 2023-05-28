@@ -1,0 +1,256 @@
+@media all and (max-width:480px) {
+    .promotion-section {
+        padding: 2rem;
+    }
+}
+.promotion-section .page-width.page-width--full {
+    padding-left: 0;
+    padding-right: 0;
+}
+.layout-flex-grid__item {
+    -ms-flex: 0 1 100%;
+    flex: 0 1 100%;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+}
+.promotion-section__container.horizontal-center {
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center;
+}
+.promotion-section__container.horizontal-right {
+    -ms-flex-pack: flex-end;
+    justify-content: flex-end;
+    text-align: right;
+}
+.promotion-section__container {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    position: relative;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    margin: 0.5rem;
+}
+.layout-flex-grid__item>* {
+    -ms-flex: 1 1 100%;
+    flex: 1 1 100%;
+}
+.promotion-section__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: left;
+}
+.promotion-section__container:not(.promotion-section__container--boxed) .promotion-section__bg:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    background-color: #000;
+    opacity: .1;
+}
+.promotion-section__bg-image.lazyloaded {
+    animation: fade-in 1s cubic-bezier(.26, .54, .32, 1) 0s forwards;
+    transition: none;
+}
+img[data-sizes=auto] {
+    display: block;
+    width: 100%;
+}
+.promotion-section__bg-image {
+    z-index: 1;
+    opacity: 0;
+}
+.image-fit {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    font-family: "object-fit:cover";
+    z-index: 1;
+}
+.lazyloaded {
+    opacity: 1;
+    transition: opacity .4s ease;
+}
+.type-advanced .promotion-section__content {
+    padding: 2em;
+    margin: 2rem;
+}
+.vertical-center .promotion-section__content {
+    -ms-flex-item-align: center;
+    -ms-grid-row-align: center;
+    align-self: center;
+}
+.vertical-bottom {
+    align-items: flex-end;
+}
+.vertical-bottom.horizontal-right {
+    justify-content: flex-end;
+}
+.promotion-section__content {
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+    padding: 2em 2.5em;
+    position: relative;
+    min-width: 200px;
+    z-index: 3;
+}
+.promotion-section__text {
+    position: relative;
+    z-index: 2;
+}
+.type-advanced .promotion-section__content:not(.promotion-section__content--boxed):not(.promotion-section__content--sale):after, .type-simple .promotion-section__content:not(.promotion-section__content--boxed):not(.promotion-section__content--sale):after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: radial-gradient(rgba(0, 0, 0, .2) 0, rgba(0, 0, 0, 0) 60%);
+    margin: -100px -200px -100px -200px;
+    z-index: 1;
+}
+.type-advanced .rte--em, .type-product .rte--em, .type-sale_collection .rte--em {
+    text-transform: uppercase;
+    letter-spacing: .3em;
+    font-size: .9375em;
+    line-height: 1.2;
+}
+.type-advanced .rte--strong, .type-product .rte--strong {
+    font-size: 1.6em;
+    line-height: 1.1;
+}
+.type-advanced .rte--strong, .type-product .rte--strong, .type-sale_collection .rte--strong {
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 1;
+    line-height: 1.1;
+}
+.type-advanced .button {
+    margin: 0.5rem;
+}
+.promotion-section__text .btn {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+.promotion-section__content--boxed {
+    margin: 15px;
+}
+.type-product__wrapper {
+    -ms-flex: 1 1 100%;
+    flex: 1 1 100%;
+    position: relative;
+    padding: 2em 0;
+    z-index: 3;
+}
+.layout-flex-grid__item--stretch:first-child {
+    min-width: 250px;
+}
+.type-product__images {
+    position: relative;
+    width: 100%;
+    margin: 10px 0 10px 10px;
+}
+.type-product__image:first-child {
+    width: 100%;
+    margin: 0 auto;
+    max-width: 75%;
+}
+.type-product__image {
+    position: relative;
+}
+.type-product__labels {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    z-index: 2;
+    text-align: right;
+}
+.type-product__label {
+    padding: 4px 12px;
+    background-color: #111;
+    color: #fff;
+    float: right;
+    clear: both;
+}
+.type-product__label--secondary {
+    background-color: #fff;
+    color: #000;
+}
+.image-wrap {
+    background: #fff;
+    overflow: hidden;
+}
+.image-wrap img:not([role=presentation]) {
+    display: block;
+}
+.layout-flex-grid--center {
+    -ms-flex-align: center;
+    align-items: center;
+}
+.layout-flex-grid {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex: 1 1 100%;
+    flex: 1 1 100%;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+.layout-flex-grid__item--stretch {
+    -ms-flex: 1 1 100%;
+    flex: 1 1 100%;
+}
+.promotion-section--space-bottom {
+    padding-bottom: 40px;
+}
+.promotion-section--space-top {
+    padding-top: 40px;
+}
+.promotion-section .box-opacity.color-background-1 {
+    background-color: rgba(var(--color-background-1), 0.6);
+}
+.promotion-section .box-opacity.color-background-2 {
+    background-color: rgba(var(--color-background-2), 0.6);
+}
+.promotion-section .box-opacity.color-accent-1 {
+    background-color: rgba(var(--color-accent-1), 0.6);
+}
+.promotion-section .box-opacity.color-accent-2 {
+    background-color: rgba(var(--color-accent-2), 0.6);
+}
+@media only screen and (min-width:1024px) {
+    .layout-flex-grid__item--50 {
+        flex: 0 1 50%;
+    }
+    .type-product__wrapper .layout-flex-grid__item--50 {
+        -ms-flex-preferred-size: 50%;
+        flex-basis: 50%;
+    }
+    .promotion-section--space-bottom {
+        padding-bottom: 75px;
+    }
+    .promotion-section--space-top {
+        padding-top: 75px;
+    }
+}
+@media all and (max-width:768px) {
+    .type-advanced .placeholder-svg {
+        min-height: 300px;
+        width: 100%;
+    }
+}

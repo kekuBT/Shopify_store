@@ -1,0 +1,71 @@
+<link rel="stylesheet" href="{{ 'component-card.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'section-featured-blog.css' | asset_url }}" media="print" onload="this.media='all'">
+
+{{ 'section-featured-blog.css' | asset_url | stylesheet_tag }}
+
+<div class="featured-blog blog">
+  <div class="page-width">
+      <h2 class="blog__title">{{ heading }}</h2>
+  
+{% assign show_image = true %}
+    <ul class="blog__posts-related articles-wrapper" role="list">
+         
+      {%- for article in blogs.news.articles limit: 12 -%}
+
+      <li class="blog__post grid__item article ">
+
+        <article class="article-card{% if article.image == blank or show_image == false %} article-card--no-image{% endif %}" aria-labelledby="Article-{{ article.id }}">
+          <a href="{{ article.url }}" class="article-content motion-reduce">
+            {%- if show_image == true and article.image -%}
+            <div class="article-card__image-wrapper">
+              <div class="article-card__image media media--landscape">
+                <img 
+                     src="{{ article.image.src | img_url: '700x' }}"
+                     alt="{{ article.image.src.alt | escape }}"
+                     loading="lazy"
+                     >
+              </div>
+            </div>
+            {%- endif -%}
+
+            <div class="article-card__content">
+              <header class="article-card__header article_related">
+                <h3 class="article-card__title" id="Article-{{ article.id }}">
+                  <a href="{{ article.url }}" class="link--text">{{ article.title | escape }}</a>
+                </h3>
+
+                <span class="circle-divider caption-with-letter-spacing article_related_time">
+                  {{- article.published_at | time_tag: format: 'date' -}}
+                </span>
+
+                <span class="caption-with-letter-spacing">{{ article.author -}}</span>
+
+              </header>
+              <p class="article-card__excerpt rte-width">
+                {%- if article.excerpt.size > 0 -%}
+                {{ article.excerpt | strip_html | truncatewords: 20 }}
+                {%- else -%}
+                {{ article.content | strip_html | truncatewords: 20 }}
+                {%- endif -%}
+              </p>
+              <div class="article-card__footer">
+                <span class="link article-card__link link-line" aria-label="{{ 'blogs.article.read_more_title' | t: title: article.title | escape }}">
+                  {{ 'blogs.article.read_more_title' | t }}
+                </span>
+
+                {%- if article.comments_count > 0 and blog.comments_enabled? -%}
+                <span>{{ 'blogs.article.comments' | t: count: article.comments_count }}</span>
+                {%- endif -%}
+              </div>
+
+            </div>
+          </a>
+        </article>
+
+      </li>
+      {%- endfor -%}
+    </ul>
+
+  </div>
+</div>
+

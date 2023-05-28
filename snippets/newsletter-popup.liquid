@@ -1,0 +1,63 @@
+<link rel="stylesheet" data-href="{{ 'modal.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'modal.css' | asset_url | stylesheet_tag }}</noscript>
+
+<div id="modal-container" class="email-modal">
+    <div class="modal-background" >
+      <div class="modal bg-pattern">
+        <div class="modal-popup-wrapper">
+          <div>
+              <div class="is-block modal-text">   
+                <div class="modal-body">
+                    <div class="modal__inner">
+                      <div class="modal__inner_left">
+                        {% if section.settings.popup_img != blank %}
+                          <img
+                              class="img-fw-100"
+                              srcset="{%- if section.settings.popup_img.width >= 200 -%}{{ section.settings.popup_img | img_url: '200x' }} 200w,{%- endif -%}
+                                      {%- if section.settings.popup_img.width >= 400 -%}{{ section.settings.popup_img | img_url: '400x' }} 400w,{%- endif -%}
+                                      {%- if section.settings.popup_img.width >= 600 -%}{{ section.settings.popup_img | img_url: '600x' }} 600w{%- endif -%}"
+                              sizes="(min-width: 750px) calc(33vw), 400px"
+                              src="{{ section.settings.popup_img | img_url: '400x' }}"
+                              alt="{{ section.settings.popup_img.alt | escape }}"
+                              loading="lazy"
+                              width="400"
+                              height="{{ 400 | divided_by: section.settings.popup_img.aspect_ratio | ceil }}"
+                              style="object-position:{{section.settings.popup_img.presentation.focal_point}}"
+                            >
+                        {% else %}
+                          <img
+                            class="img-fw-100"
+                            src="{{ 'placeholder-image.svg' | asset_url }}"
+                            alt="Entry popup image"
+                          />
+                        {% endif %}
+                      </div>
+                      <div class="modal__inner_right">
+                          <button type="button" role="button" tabindex="0" class="btn btn-secondary js-modal-close btn-close" aria-label="Close Icon">&#x2715</button>
+                          <div class="modal-text-inner">
+                              {% if section.settings.popup_title != blank %}
+                                  <h2 class="title has-text-centered">{{section.settings.popup_title}}</h2>
+                              {%endif%}
+                              {% if section.settings.popup_text != blank %}
+                                  <div class="text-center mb-4">
+                                  {{section.settings.popup_text}}
+                                  </div>
+                              {%endif%}
+                              {% if section.settings.modalLinkText != blank and section.settings.modalLinkUrl != blank %}
+                              <div class="btns-wrapper mt-5">
+                                <a href="{{section.settings.modalLinkUrl}}" class="link--text is-underlined" aria-label="Modal Link">{{section.settings.modalLinkText}}</a>
+                              </div>
+                              {% endif %}
+                              {%- if section.settings.enable_newsletter -%}
+                                {%- render 'newsletter-form', section_id: section_id, snippet_context: 'popup' -%}
+                              {%- endif -%}
+                          </div>
+                      </div>
+                    </div>
+               </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

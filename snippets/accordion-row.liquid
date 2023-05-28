@@ -1,0 +1,19 @@
+{{ 'component-accordion-row.css' | asset_url | stylesheet_tag }}
+
+<div class="accordion {% if first_accordion %} first-accordion {% endif %} data-aos data-aos--fade-in">
+  {% if block.settings.heading != blank %} 
+  <summary class="accordion__header">
+    <div class="accordion__title {% if block.settings.text_bold %} has-text-weight-bold {% endif %}">
+      <div class="accordion__title-content">{{ block.settings.heading | escape }} </div>
+      <div class="icon-wrapper">
+        <span>{% render 'icon-caret-basic' %}</span>
+      </div>
+    </div>
+  </summary>
+  {% endif %}
+  <div class="accordion__content">
+    {% if block.settings.content %}
+    <p>{{ block.settings.content | escape }}</p>
+    {% endif %}
+  </div>
+</div>

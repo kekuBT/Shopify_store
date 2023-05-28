@@ -1,0 +1,42 @@
+.accordion .accordion__title {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--colorFooterBorder);
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.accordion.first-accordion .accordion__title {
+  border-top: 1px solid var(--colorFooterBorder);
+}
+
+.product__tabs .first-accordion {
+  padding-top: 20px;
+}
+
+.accordion.active .accordion__title {
+  padding-bottom: 0.75rem;
+  border-bottom: unset;
+}
+
+.accordion__content {
+  display: none;
+  font-size: 0.875rem;
+}
+
+.accordion summary .icon-caret{
+  position: static;
+}
+
+.accordion.active {
+  border-bottom: 1px solid var(--colorFooterBorder);
+  padding-bottom: 1.5rem;
+}
+
+.accordion.active .accordion__content {
+  display: block;
+}
+
+.accordion.active .icon-caret {
+  transform: rotate(180deg);
+}

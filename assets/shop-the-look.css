@@ -1,0 +1,213 @@
+.shop-the-look .swatch-item {
+  width: 100%;
+  max-width: 10px;
+  height: 10px;
+  display: block;
+  border-radius: 50%;
+  margin: 0 3px;
+}
+.shop-the-look .color-swatch {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 13px;
+}
+.shop-the-look .prices {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1;
+  text-align: center;
+}
+.shop-the-look .prices.compare {
+  opacity: 0.5;
+  margin-right: 8px;
+}
+.shop-the-look .background-image.mobile {
+  display: none;
+}
+.shop-the-look .product-title {
+  margin-bottom: 7px;
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: initial;
+  text-align: center;
+}
+.shop-the-look .product-caption {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+.shop-the-look .price {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 6px;
+}
+.shop-the-look .button {
+  text-transform: capitalize;
+  font-weight: 700;
+  font-size: 14px;
+  max-width: 270px;
+  border-radius: 0;
+  height: 52px;
+  display: flex;
+}
+.shop-the-look .product-card {
+  width: 100%;
+  max-width: 400px;
+  min-width: 400px;
+  padding: 24px;
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  transition: all ease-in-out 0.3s;
+  z-index: 9;
+}
+.shop-the-look .product-card.top {
+  bottom: 34px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.shop-the-look .product-card.left {
+  bottom: unset;
+  right: 34px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.shop-the-look .product-card.right {
+  bottom: unset;
+  right: unset;
+  left: 34px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.shop-the-look .product-card.bottom {
+  bottom: unset;
+  right: unset;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 34px;
+}
+.shop-the-look .product-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+.shop-the-look {
+  position: relative;
+}
+.shop-the-look .circle {
+  display: flex;
+  max-width: 24px;
+  min-width: 24px;
+  width: 100%;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 4px solid;
+  cursor: pointer;
+}
+.shop-the-look .pulse {
+  box-shadow: 0px 0px 1px 1px #0000001a;
+  animation: pulse-animation 1.5s infinite;
+}
+
+@keyframes pulse-animation {
+  0% {
+    box-shadow: 0 0 0 0px rgb(277, 277, 277);
+  }
+  100% {
+    box-shadow: 0 0 0 15px rgba(0, 0, 0, 0);
+  }
+}
+
+.shop-the-look .plus-icon {
+  max-width: 7px;
+  width: 100%;
+  height: 7px;
+}
+.shop-the-look .product-image {
+  margin-bottom: 13px;
+  display: block;
+}
+.shop-the-look svg,
+.shop-the-look img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+.shop-the-look .plus-icon svg {
+  object-fit: contain;
+}
+.shop-the-look .product-item.active .product-card {
+  visibility: visible;
+  opacity: 1;
+}
+.shop-the-look .hover-class:hover .product-card {
+  visibility: visible;
+  opacity: 1;
+}
+.shop-the-look .product-card.no-img-border {
+  padding: 0;
+}
+.shop-the-look .product-card.no-img-border .product-card__content {
+  padding: 0 24px 24px 24px;
+}
+
+@media screen and (max-width: 1359px) {
+  .shop-the-look .product-card {
+    max-width: 300px;
+    min-width: 300px;
+  }
+}
+@media screen and (max-width: 1279px) {
+  .shop-the-look .product-card {
+    max-width: 230px;
+    min-width: 230px;
+  }
+  .shop-the-look .button {
+    height: 40px;
+  }
+}
+@media screen and (max-width: 990px) {
+  .shop-the-look .product-card {
+    max-width: 175px;
+    min-width: 175px;
+    padding: 15px;
+  }
+  .shop-the-look .product-title {
+    margin-bottom: 5px;
+    font-size: 11px;
+  }
+  .shop-the-look .prices {
+    font-size: 11px;
+  }
+  .shop-the-look .button {
+    font-size: 12px;
+    max-width: 100%;
+    height: 30px;
+  }
+  .shop-the-look .product-image {
+    margin-bottom: 10px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .shop-the-look .background-image.mobile {
+    display: block;
+  }
+  .shop-the-look .background-image.desktop {
+    display: none;
+  }
+  .shop-the-look .pulse {
+    animation: mobile-pulse-animation 1.5s infinite;
+  }
+  @keyframes mobile-pulse-animation {
+    0% {
+      box-shadow: 0 0 0 0px rgb(277, 277, 277);
+    }
+    100% {
+      box-shadow: 0 0 0 8px rgba(0, 0, 0, 0);
+    }
+  }
+}

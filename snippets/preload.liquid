@@ -1,0 +1,3 @@
+{% if request.page_type == "product" %}
+<link rel="preload" fetchpriority="high" as="image" href="{{ product.featured_image | image_url }}" type="image/jpeg">
+{% endif %}

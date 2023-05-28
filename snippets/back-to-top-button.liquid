@@ -1,0 +1,140 @@
+<style>
+  .back-to-top-button.js-show-btn {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .back-to-top-button {
+    position: fixed;
+    bottom: 5%;
+    right: 1%;
+    min-width: 68px;
+    min-height: 68px;
+    text-align: center;
+    font-size: 1rem;
+    line-height: 1.2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 700;
+    background-color: {{ settings.back_to_top_background_color | default: '#2D2D2D' }};
+    color: {{ settings.back_to_top_color | default: '#FFFFFF' }};
+    z-index: 1;
+    opacity: 0;
+    transform: translateY(calc(100% + 5vh));
+    transition: opacity .5s ease, transform .5s ease;
+    padding: 4px;
+  }
+
+  .back-to-top-button:hover {
+    transform: scale(1.1);
+    color: #fff;
+  }
+
+  .back-to-top-button:active {
+    transform: translateY(2px);
+  } 
+
+  .back-to-top-button > span {
+    max-width: 60px;
+    word-break: break-word;
+  }
+
+  .back-to-top-button > .icon {
+    width: 44px;
+    height: auto;
+    transform: rotate(180deg);
+    padding: 4px;
+  }
+</style>
+<a href="#top" id="js-back-to-top-button" class="back-to-top-button">
+  {%- if settings.back_to_top_enable_icon -%}
+    {% render 'icon-caret-basic' %}
+  {%- endif -%}
+  {%- if settings.back_to_top_text != blank %}
+    <span>{{ settings.back_to_top_text }}</span>
+  {%- else -%}
+    <span class="screen-reader-only">Scroll to top</span>
+  {%- endif -%}
+</a>
+
+
+
+<script>
+  /**
+   * The link that triggers the
+   * back to top behaviour.
+   * @type {HTMLElement}
+   */
+  const backToTopButton = document.getElementById('js-back-to-top-button');
+
+  /**
+   * A list of all focusable elements
+   * on the page.
+   * @type {NodeList}
+   */
+  const focusableElements = document.querySelectorAll('button, a, input, select, textarea, [tabindex]:not([tabindex="-1"])');
+
+  /**
+   * The options used in the native
+   * scrollTo method.
+   * @type {Object}
+   */
+  const scrollOptions = {
+    top: 0,
+    left: 0,
+    behavior: 'smooth'
+  };
+
+  /**
+   * Whether the device supports
+   * smooth scroll, or not.
+   * @type {Boolean}
+   */
+  const supportsNativeSmoothScroll = 'scrollBehavior' in document.documentElement.style;
+
+  /**
+   * Handles moving the user back to the
+   * top of the document.
+   * @param event the event object passed in when
+   * clicking on the button / link.
+   */
+  function moveToTop(event) {
+    event.preventDefault();
+
+    // Scroll to top.
+    supportsNativeSmoothScroll ? window.scrollTo(scrollOptions) : window.scrollTo(scrollOptions.left, scrollOptions.top);
+
+    // Focus the first focusable element.
+    focusableElements[0].focus({
+      preventScroll: true,
+    })
+  }
+
+  backToTopButton.addEventListener('click', moveToTop);
+
+  /**
+   * Listens to page scroll to
+   * figure out when to show/hide
+   * the back to top button.
+   */
+  var rootElement = document.documentElement;
+   
+  function handleBackToTopBtnScroll() {
+    // Do something on scroll
+    var scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
+
+    if ((rootElement.scrollTop / scrollTotal ) > 0.7) {
+      backToTopButton.classList.add("js-show-btn");
+    } else {
+      backToTopButton.classList.remove("js-show-btn");
+    }
+  }
+   
+  document.addEventListener("scroll", handleBackToTopBtnScroll);
+</script>

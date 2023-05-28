@@ -1,0 +1,134 @@
+{{ "affiliate-layout-3.css" | asset_url | stylesheet_tag }}
+
+<div class="affiliate-layout-3">
+    <div class="page-width">
+        <div class="affiliate-layout-wrapper">
+          <div class="affiliate-layout-main">
+              <style>
+                  .affiliate-layout-3 .img-wrap::before {
+                      background-color: {{ block.settings.img_bg_color }};
+                  }
+              </style>
+              <div class="affiliate-top-assets">
+                  <div class="alpha">
+                      <div class="img-wrap data-aos data-aos--fade-up data-aos--delay-200">
+                          {% if block.settings.img_1 != blank %}
+                              <img class="img lazyload"
+                              data-srcset="{{ block.settings.img_1 | img_url: 'master' }}"
+                              data-aspectratio="{{ block.settings.img_1.aspect_ratio }}"
+                              data-sizes="auto"
+                              alt="{{ block.settings.img_1.alt | escape }}"
+                              width="{{ block.settings.img_1.width }}"
+                              height="{{ block.settings.img_1.height }}"
+                              >
+                          {%- else -%}
+                              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                          {% endif %}
+                      </div>
+                  </div>
+                  <div class="beta">
+                      <div class="contents-wrap">
+                          {% if block.settings.title_1 != blank %}
+                              <h2 class="title data-aos data-aos--fade-up data-aos--delay-200">{{ block.settings.title_1 }}</h2>
+                          {%- else -%}
+                              <h2 class="title data-aos data-aos--fade-up data-aos--delay-200">Heading</h2>
+                          {% endif %}
+                          {% if block.settings.text_1 != blank %}
+                              <div class="text-wrap data-aos data-aos--fade-up data-aos--delay-300">{{ block.settings.text_1 }}</div>
+                          {%- else -%}
+                              <div class="text-wrap data-aos data-aos--fade-up data-aos--delay-300">
+                                <p>
+                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                </p>
+                                </div>
+                          {% endif %}
+                          {% if block.settings.btn_label_1 != blank %}
+                              <a href="{{ block.settings.btn_link_1 }}" class="button data-aos data-aos--fade-up data-aos--delay-400">
+                                  <span></span>{{ block.settings.btn_label_1 }}
+                                    {% if block.settings.button_arrow_1 %}
+                                        <div class="arrow-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                                <path d="M6.99967 7.83325H0.333008V6.16658H6.99967V0.333252L13.6663 6.99992L6.99967 13.6666V7.83325Z" fill="white"/>
+                                            </svg>
+                                        </div>  
+                                    {% endif %}
+                              </a>
+                          {%- else -%}
+                              <a href="#" class="button data-aos data-aos--fade-up data-aos--delay-400">
+                                  <span>shop now</span>
+                                  {% if block.settings.button_arrow_1 %}
+                                    <div class="arrow-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                            <path d="M6.99967 7.83325H0.333008V6.16658H6.99967V0.333252L13.6663 6.99992L6.99967 13.6666V7.83325Z" fill="white"/>
+                                        </svg>
+                                    </div>
+                                  {% endif %}
+                              </a>
+                          {% endif %}
+                      </div>
+                  </div>
+              </div>
+              <div class="affiliate-bottom-assets">
+                  <div class="alpha">
+                      <div class="contents-wrap">
+                          {% if block.settings.title_2 != blank %}
+                              <h2 class="title data-aos data-aos--fade-up data-aos--delay-200">{{ block.settings.title_2 }}</h2>
+                          {%- else -%}
+                              <h2 class="title data-aos data-aos--fade-up data-aos--delay-200">Heading</h2>
+                          {% endif %}
+                          {% if block.settings.text_2 != blank %}
+                              <div class="text-wrap data-aos data-aos--fade-up data-aos--delay-300">{{ block.settings.text_2 }}</div>
+                          {%- else -%}
+                              <div class="text-wrap data-aos data-aos--fade-up data-aos--delay-300">
+                                <p>
+                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                </p>
+                                </div>
+                          {% endif %}
+                          {% if block.settings.btn_label_2 != blank %}
+                              <a href="{{ block.settings.btn_link_2 }}" class="button data-aos data-aos--fade-up data-aos--delay-400">
+                                  <span></span>{{ block.settings.btn_label_2 }}
+                                  {% if block.settings.button_arrow_2 %}
+                                    <div class="arrow-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                            <path d="M6.99967 7.83325H0.333008V6.16658H6.99967V0.333252L13.6663 6.99992L6.99967 13.6666V7.83325Z" fill="white"/>
+                                        </svg>
+                                    </div>  
+                                  {% endif %}  
+                              </a>
+                          {%- else -%}
+                              <a href="#" class="button data-aos data-aos--fade-up data-aos--delay-400">
+                                  <span>shop now</span>
+                                  {% if block.settings.button_arrow_2 %}
+                                    <div class="arrow-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                            <path d="M6.99967 7.83325H0.333008V6.16658H6.99967V0.333252L13.6663 6.99992L6.99967 13.6666V7.83325Z" fill="white"/>
+                                        </svg>
+                                    </div>
+                                  {% endif %}  
+                              </a>
+                          {% endif %}
+                      </div>
+                  </div>
+                  <div class="beta">
+                      <div class="img-wrap data-aos data-aos--fade-up data-aos--delay-200">
+                          {% if block.settings.img_2 != blank %}
+                              <img class="img lazyload"
+                              data-srcset="{{ block.settings.img_2 | img_url: 'master' }}"
+                              data-aspectratio="{{ block.settings.img_2.aspect_ratio }}"
+                              data-sizes="auto"
+                              alt="{{ block.settings.img_2.alt | escape }}"
+                              width="{{ block.settings.img_2.width }}"
+                              height="{{ block.settings.img_2.height }}"
+                              >
+                          {%- else -%}
+                              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                          {% endif %}
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+    </div>
+</div>
+

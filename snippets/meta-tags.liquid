@@ -1,0 +1,68 @@
+{%- liquid
+  assign og_title = page_title | default: shop.name
+  assign og_url = canonical_url | default: request.origin
+  assign og_type = 'website'
+  assign og_description = page_description | default: shop.description | default: shop.name
+
+  if request.page_type == 'product'
+    assign og_type = 'product'
+  elsif request.page_type == 'article'
+    assign og_type = 'article'
+  elsif request.page_type == 'password'
+    assign og_url = request.origin
+  endif
+%}
+
+{%- capture og_image_tags -%}<meta property="og:image" content="https:{{ page_image | img_url: '1200x1200' }}">{%- endcapture -%}
+{%- capture og_image_secure_url_tags -%}<meta property="og:image:secure_url" content="https:{{ page_image | img_url: '1200x1200' }}">{%- endcapture -%}
+
+{% if request.page_type == 'product' %}
+  {%- assign og_type = 'product' -%}
+  {% if product.media.size > 0 %}
+    {%- capture og_image_tags -%}{% for media in product.media limit:3 -%}<meta property="og:image" content="https:{{ media | img_url: '1200x600', crop: 'top' }}">{% endfor -%}{% endcapture -%}
+    {%- capture og_image_secure_url_tags -%}{% for media in product.media limit:3 -%}<meta property="og:image:secure_url" content="https:{{ media | img_url: '1200x600', crop: 'top' }}">{% endfor -%}{% endcapture -%}
+  {% endif %}  
+
+{% elsif request.page_type == 'article' %}
+  {%- assign og_type = 'article' -%}
+  {% if article.image %}
+    {%- capture og_image_tags -%}<meta property="og:image" content="https:{{ article.image | img_url: '1200x1200' }}">{%- endcapture -%}
+    {%- capture og_image_secure_url_tags -%}<meta property="og:image:secure_url" content="https:{{ article.image | img_url: '1200x1200' }}">{%- endcapture -%}
+  {% endif %}
+
+{% elsif request.page_type == 'collection' %}
+  {%- assign og_type = 'product.group' -%}
+  {% if collection.image %}
+    {%- capture og_image_tags -%}<meta property="og:image" content="https:{{ collection.image | img_url: '1200x1200' }}">{%- endcapture -%}
+    {%- capture og_image_secure_url_tags -%}<meta property="og:image:secure_url" content="https:{{ collection.image | img_url: '1200x1200' }}">{%- endcapture -%}
+  {% endif %}
+
+{% elsif request.page_type == 'page' %}
+  {%- assign og_type = 'page' -%}
+  {%- capture og_image_tags -%}<meta property="og:image" content="{{ page_image | image_url }}">{%- endcapture -%}
+  {%- capture og_image_secure_url_tags -%}<meta property="og:image:secure_url" content="https:{{ page_image | image_url }}">{%- endcapture -%}
+
+{% elsif request.page_type == 'password' %}
+  {%- assign og_url = shop.url -%}
+{% endif %}
+
+<meta property="og:site_name" content="{{ og_title | escape }}">
+<meta property="og:url" content="{{ og_url }}">
+<meta property="og:title" content="{{ og_title | escape }}">
+<meta property="og:type" content="{{ og_type }}">
+<meta property="og:description" content="{{ og_description | escape }}">
+
+{%- if request.page_type == 'product' -%}
+  <meta property="og:price:amount" content="{{ product.price | money_without_currency | strip_html }}">
+  <meta property="og:price:currency" content="{{ cart.currency.iso_code }}">
+{%- endif -%}
+
+{{ og_image_tags }}
+{{ og_image_secure_url_tags }}
+
+{%- if settings.social_twitter_link != blank -%}
+  <meta name="twitter:site" content="{{ settings.social_twitter_link | split: 'twitter.com/' | last | prepend: '@' }}">
+{%- endif -%}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ og_title | escape }}">
+<meta name="twitter:description" content="{{ og_description | escape }}">

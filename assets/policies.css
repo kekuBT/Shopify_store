@@ -1,0 +1,15 @@
+.policies_inner-row {
+    max-width: 1022px;
+    margin: 0 auto !important;
+}
+.policies_inner-row .social_media-inner a span {
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.125rem;
+    color: #2D2D2D;
+}
+@media only screen and (max-width:600px) {
+    .social-sec .policies_inner-row .column {
+        width: 100%;
+    }
+}

@@ -1,0 +1,36 @@
+.social-section .social-list {
+  justify-content: center;
+}
+.social-list .social-link:not(:last-child) {
+  margin-right: 20px;
+}
+.social-section h2.h2 {
+  margin-bottom: 30px;
+}
+.social-section.color-accent a {
+  transition: all 0.2s ease-in-out;
+  display: block;
+}
+.social-section.color-accent a:hover {
+  transform: scale(1.1);
+  transition: all 0.2s ease-in-out;
+}
+.social-section.color-accent svg path {
+  fill: rgba(var(--color-accent-1));
+}
+@media only screen and (max-width:990px) {
+  .social-section h2.h2 {
+    font-size: calc(var(--font-heading-scale) * 2rem);
+  }
+}
+@media only screen and (max-width:600px) {
+  .social-section h2.h2 {
+    font-size: calc(var(--font-heading-scale) * 1.875rem);
+    margin-bottom: 20px;
+  }
+}
+@media only screen and (max-width:480px) {
+  .social-section h2.h2 {
+    font-size: calc(var(--font-heading-scale) * 1.75rem);
+  }
+}

@@ -1,0 +1,547 @@
+.is-relative {
+  position: relative !important
+}
+.pagination-wrapper--main{
+  display:block;
+}
+.collection-list-section h1.title {
+  margin-bottom: 50px;
+} 
+.collection-list.small-contents .collection-title {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 5px;
+  text-align: center;
+}
+.collection-list.small-contents .padding {
+  padding: 20px;
+}
+.collection-list-section .collection__info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  text-decoration: none;
+  width: 100%;
+}
+.collection-list-section .collection__info .collection-title {
+  font-size: 24px;
+}
+.collection-list-section .collection-title {
+  font-weight: 500;
+  margin-bottom: 5px;
+  text-align: center;
+}
+.collection-list-section .padding {
+  padding: 35px;
+}
+.collection-list-section .flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.collection-list-section .narrow-width {
+  max-width: 950px !important;
+}
+.collection-list-section .collection-size {
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
+  margin: 0;
+}
+.collection-list-section .collection-info-wrapper {
+  padding: 16px 0;
+  display: block;
+  text-decoration: none;
+}
+
+.collection-list-section .strip {
+  max-width: 32px;
+  margin: 0 auto;
+  height: 4px;
+  margin-bottom: 8px;
+}
+.collection-list-section .strip svg {
+ width: 100%;
+ height: 100%;
+ object-fit: contain;
+ display: block;
+}
+.heading {
+  margin-bottom: 50px;
+}
+.collection-list-title{
+  margin-bottom: 0px;
+  text-align: center;
+}
+.collection-list-section .collection__media img {
+  display: block;
+  width:100%;
+  height: 100%;
+  object-fit: cover;
+  min-height:350px;
+}
+.collection-list .collection__link h3 {
+  margin-bottom: 0;
+}
+.collection-list .collection__link {
+  position: absolute;
+  width: 100%;
+  height: 50px;
+  bottom: 0;
+  height: auto;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  background: #00000099;
+  transition: min-height .5s;
+  padding: 12px 15px;
+  min-height: 50px;
+}
+.collection-list-section .is-relative{
+  height: 100%;
+  cursor: pointer;
+}
+.collection-list-section .is-relative:hover .collection__link{
+  min-height: 100%;
+}
+.collection-list-section .collection__card{
+  width: 100%;
+}
+.collection-list-section .link-buttom--wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 44px;
+}
+.collection-list-section .grid-style.overlay-position .collection__info, 
+.collection-list-section .grid-style.overlay-position .collection__link {
+  position: unset;
+}
+.collection-list-section .grid-style.overlay-position .is-relative {
+  height: auto;
+}
+.collection-list.small-contents .collection__card h3 {
+  font-size: 13px;
+}
+.view_all_top .collection-list-title {
+  text-align: start;
+}
+.btn-below-title .collection-list-title,
+.view_all_top .collection-list-title {
+  margin-bottom: 5px;
+}
+.btn-below-title .collection-list-caption,
+.bottom .collection-list-caption {
+  text-align: center;
+}
+
+.collection-list-section.style_fashion .collection-info-wrapper,.collection-list-section.style_electronic .collection-info-wrapper{
+  padding: 0 !important;
+}
+.collection-list-section.style_fashion .strip{
+  margin-left: 0;
+}
+.collection-list-section.style_fashion .collection-title,.collection-list-section.style_fashion .collection-size{
+  text-align: left;
+}
+.collection-list-section.style_fashion .padding{
+  padding: 22px 20px 22px 52px
+}
+.collection-list-section.style_fashion .collection-list.grid-style{
+  column-gap: 58px;
+  display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+.fashion_list_mod{
+ margin-bottom: -24px;
+}
+.fashion_list_mod .collection-item{
+  margin-bottom: 24px;
+}
+.collection-list-section.style_fashion .collection-list-title,.collection-list-section.style_fashion .collection-list-caption{
+  text-align: left;
+}
+.collection-list-section.style_fashion .heading .strip{
+  margin-bottom:  16px;
+}
+.collection-list-section.style_fashion .link-buttom--wrapper{
+  justify-content: start;
+} 
+.collection-list-section.style_fashion .btn-below-title .link-buttom--wrapper {
+  margin-bottom: 0px;
+  margin-top: 18px;
+} 
+.collection-list-section.style_fashion .collection__media{
+  position: relative;
+}
+.collection-list-section.style_fashion .collection__media:after{
+  content: '';
+    position: absolute;
+    width: 12px;
+    height: 100%;
+    top: 0;
+    left: 32px;
+    background: #fff;
+}
+.collection-list-section.style_fashion .heading{
+  padding-left: 52px;
+}
+.fashion_title_arrow{
+  display: -webkit-box;    
+  display: -moz-box;  
+  display: -ms-flexbox;  
+  display: -webkit-flex; 
+  display: flex;  
+  justify-content: space-between;
+}
+.fashion_title_arrow .inner_span{
+  width: 40px;
+  height: 40px;
+  background: #fff;
+  box-shadow: 8px 8px 28px rgb(0 0 0 / 25%);
+  border-radius: 50%;
+  display: -webkit-box;    
+  display: -moz-box;  
+  display: -ms-flexbox;  
+  display: -webkit-flex; 
+  display: flex;  
+  align-items: center;
+  justify-content: center;
+} 
+.fashion_title_arrow .inner_span svg{
+  display: block;
+}
+.fashion_list_mod .collection__media{
+  overflow: hidden;
+}
+.fashion_list_mod .is-relative:hover  .collection__media img{
+  transform: scale(1.05);
+  transition: all .8s ease;
+  position: relative;
+}
+.collection-list-section.style_electronic .collection-list.grid-style{
+  column-gap: 20px;
+  display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
+.collection-list-section.style_electronic .padding{
+  padding: 24px
+}
+.collection-list-section.style_electronic .electronic_list_mod .strip,.collection-list-section.style_electronic .view_all_top .strip{
+  margin-left: 0;
+}
+.collection-list-section.style_electronic .collection__info .collection-title{
+    font-weight: 700;
+}
+.jewel_list_mod.more_than_six .collection-item:last-child{
+display: none;
+}
+.collection-list-section.style_jewel .collection-list.more_three.grid-style{
+  display: grid;
+  grid-template-columns: 25% 1fr 25% !important;
+  column-gap: 20px;
+}
+.collection-list-section.style_jewel .collection-list:not(.more_three).grid-style{
+  column-gap: 20px;
+  display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
+.collection-list-section.style_jewel .view_all_top .strip,.collection-list-section.style_food .view_all_top .strip{
+  margin-left: 0;
+}
+.jewel_list_mod{margin-bottom: 0 !important;}
+
+.collection-list-section.style_jewel .collection__info{
+  padding: 0 !important;
+  width: 88%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  bottom: unset;
+}
+.collection-list-section.style_jewel .collection-info-wrapper{
+  border: 1px solid;
+  padding: 4px !important;
+}
+.collection-list-section.style_jewel .collection-info-wrapper span{
+  width: 100%;
+}
+.collection-list-section .btn-below-title .heading{
+  margin-bottom: 20px;
+}
+.collection-list-section.style_food .collection-list.grid-style{
+  display: -webkit-box !important;    
+  display: -moz-box !important;  
+  display: -ms-flexbox !important;  
+  display: -webkit-flex !important; 
+  display: flex !important;  
+  flex-wrap: wrap;
+  justify-content: center;
+} 
+.collection-list-section.style_food .collection-list.grid-style .collection-item{
+   width:16.66%;
+   flex: unset;
+}
+.collection-list-section.style_food .collection__media{
+  width: 130px;
+  height: 130px;
+  margin: 0 auto;
+}
+.collection-list-section.style_food .collection__media img{
+  min-height: auto;
+  border-radius: 100%;
+} 
+.collection-list-section.style_food .placeholder-svg{
+  width: 130px;
+    height: 130px;
+    border-radius: 100%;
+}
+.collection-list-section.style_food .collection__info{
+  position: relative;
+  max-width: 150px;
+  margin: 0 auto;
+}
+.collection-list-section.style_food .collection-info-wrapper-food{
+  padding:30px 0 0;
+  display: block;
+    text-decoration: none;
+}
+.collection-list-section.style_food .is-relative{
+  height: 100%;
+  cursor: pointer;
+  padding: 18px 18px 12px;
+  border: 1px solid #D6D8DC;
+  box-shadow: 8px 8px 80px rgba(0, 0, 0, 0.04);
+  border-radius: 16px;
+  background: #fff;
+}
+.collection-list-section.style_food .collection-list.grid-style .collection-item{
+  padding: 10px;
+}
+ 
+@media screen and (max-width:1359px){
+  .collection-list.grid-style .collection-item {
+    padding: 5px;
+  }
+  .collection-list-section.style_electronic .collection-list.grid-style,.collection-list-section.style_jewel .collection-list.more_three.grid-style,.collection-list-section.style_jewel .collection-list:not(.more_three).grid-style{
+    column-gap: 24px;
+  }
+}
+@media screen and (max-width:1279px){
+  .collection-list.grid-style .padding {
+    padding: 10px;
+  }
+  .collection-list-section.style_fashion .padding{
+    padding: 12px 15px 12px 52px;
+  }
+  .collection-list-section.style_electronic .padding{
+    padding: 15px;
+  }
+  .collection-list.grid-style .collection-title {
+    font-size: 18px;
+  }
+  .collection-list.grid-style .collection-info-wrapper {
+    padding: 6px 0;
+  }
+  .collection-list.grid-style .collection-size {
+    font-size: 10px;
+  }
+  .collection-list .collection__card h3 {
+    font-size: 14px;
+  }
+  .collection-list.grid-style  .collection__link {
+    padding: 4px 15px;
+    min-height: 35px;
+  }
+  .fashion_title_arrow .inner_span{
+    width: 35px;
+    height: 35px;
+  }
+  .fashion_title_arrow .inner_span svg{
+    width: 12px;
+    height: 12px;
+  } 
+  .collection-list-section.style_food .is-relative{
+    padding: 18px 12px 12px;
+  }
+  .collection-list-section.style_food .collection__media,.collection-list-section.style_food .placeholder-svg {
+    width: 110px;
+    height: 110px;
+  }
+}
+@media (max-width: 1100px){
+  .collection-list-section.style_food .collection-list.grid-style .collection-item {
+    width:20%;
+}
+}
+@media screen and (max-width:990px){
+  .collection-list-section .collection-size {
+    font-size: 10px;
+  }
+  .collection-list-section .padding {
+    padding: 25px;
+  }
+  .collection-list-section.style_fashion .collection-list.grid-style {
+    column-gap: 10px;
+}
+.fashion_list_mod .collection-item {
+  margin-bottom: 10px;
+}
+.fashion_list_mod {
+  margin-bottom: -10px;
+}
+.collection-list-section.style_fashion .collection__media:after{
+  left: 12px;
+  width: 8px;
+}
+.collection-list-section.style_fashion .heading {
+  padding-left: 20px;
+}
+.collection-list-section.style_fashion .padding {
+  padding: 12px 15px 12px 26px;
+}
+.collection-list-section.style_electronic .collection-list.grid-style{
+  grid-template-columns: repeat(1, 1fr) !important;
+}
+.electronic_list_mod:first-child{
+  margin-bottom: 12px !important;
+}
+.collection-list-section.style_jewel .collection-list.more_three.grid-style,.collection-list-section.style_jewel .collection-list:not(.more_three).grid-style{
+  grid-template-columns: 1fr !important;
+}
+.jewel_list_mod:not(:last-child){
+  padding-bottom: 12px;
+}
+.collection-list-section.style_food .collection-list.grid-style .collection-item {
+  width: 25%;
+}
+
+}
+@media (min-width: 769px){
+  .fashion_title_arrow .inner_span{
+    opacity: 0;
+    visibility: hidden;
+    transition: all .3s ease;
+  }
+  .fashion_list_mod .is-relative:hover .fashion_title_arrow .inner_span{
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@media screen and (max-width:768px){
+  .collection-list-section .grid-style.overlay-position .collection-info-wrapper {
+    padding: 12px 0;
+  }
+  .collection-list-section .collection-list.grid-style {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .fashion_title_arrow{
+    align-items: center;
+  }
+  .collection-list-section.style_jewel .view_all_top .strip,.collection-list-section.style_food .view_all_top .strip{
+    margin-left: auto;
+  }
+  .collection-list-section.style_jewel .collection-list-caption,.collection-list-section.style_food .collection-list-caption{
+    text-align: center;
+  }
+}
+
+@media (max-width:767px){
+.collection-list-section.style_electronic .view_all_top{
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 30px
+}
+.collection-list-section.style_electronic .view_all_top .collection-list-title{
+  text-align: center;
+}
+.collection-list-section.style_electronic .view_all_top .heading{
+  margin-bottom: 25px;
+    width: 100%;
+}
+.collection-list-section .flex.view_all_top{
+  flex-wrap: wrap;
+  justify-content: center;
+    margin-bottom: 40px;
+}
+.view_all_top .collection-list-title{
+  text-align: center;
+}
+.collection-list-section .flex.view_all_top .heading{
+  margin-bottom: 20px;
+  width: 100%;
+}
+.collection-list-section.style_electronic .view_all_top .strip{
+  margin-left: auto;
+}
+.collection-list-section.style_fashion .collection-list-title,.collection-list-section.style_fashion .collection-list-caption{
+  text-align: center;
+}
+
+.collection-list-section.style_fashion .heading .strip{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+}
+@media (max-width: 700px){
+  .collection-list-section.style_food .collection-list.grid-style .collection-item {
+    padding: 5px;
+}
+  .collection-list-section.style_food .collection__media, .collection-list-section.style_food .placeholder-svg{
+    width: 90px;
+    height: 90px;
+  }
+}
+@media all and (max-width: 600px){
+  .collection-list-section.style_fashion .heading{
+    padding-left: 0;
+  }
+  .collection-list-section .collection__media img {
+    min-height: 250px;
+    object-fit: cover;
+  }
+  .collection-list-section .collection-list.grid-style {
+    grid-template-columns: repeat(1, 1fr) !important;
+  }
+  .collection-list-title{
+    font-size: calc(var(--font-heading-scale) * 1.75rem);
+    margin-bottom: 30px;
+  }
+  .collection-list.grid-style .collection-title {
+    font-size: 16px;
+  }
+  .collection-list-section.style_fashion .link-buttom--wrapper{
+    justify-content: center;
+  }
+  .collection-list .fashion_list_mod:first-child{margin-bottom: 0;}
+  .fashion_list_mod .btn-below-title{padding-left: 0 !important;}
+  .collection-list-section.style_food .collection-list.grid-style .collection-item {
+    width: 33.33%;
+}
+
+}
+
+
+@media (max-width: 480px){
+  .collection-list-section.style_food .collection-list.grid-style .collection-item{
+    width: 50%;
+}
+}
+
+.collection__media{
+  height: 100%;
+}
+.collection-list-section .placeholder-svg {
+  border: 1px solid #cecece;
+  display:block;
+  height: 100%;
+  background: #fff;
+  object-fit: cover;
+  width: 100%;
+}
+.collection-list .collection__link h3 {
+  font-weight: 600;
+}

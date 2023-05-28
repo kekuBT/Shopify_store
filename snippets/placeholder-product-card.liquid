@@ -1,0 +1,24 @@
+<div class="product-drawer">
+  <div class="card-wrapper grid-view-item grid-view-item--sold-out product-card">
+      <div class="product-card__image-with-placeholder-wrapper" data-image-with-placeholder-wrapper>
+          <div class="grid-view-item__image-wrapper product-card__image-wrapper js">
+              <div class="">
+                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+          </div>
+      </div>
+      <div class="card-details">
+        <div class="card-details__wrapper">
+          <a class="" href="#" class="is-inline-block card-details__link">
+              <span class="card-details__text h4">{{ 'onboarding.product_title' | t }}</span>
+          </a>
+          {% render 'price' %}
+        </div>
+        <div class="link-wrapper mt-3">
+          <form method="post" action=""data-product-form="">
+            <button type="submit" tabindex="0" class="button button--primary" button="" role="button">{{ 'products.product.add_to_cart' | t }}</button>
+          </form>          
+        </div>
+      </div>
+  </div>
+</div>

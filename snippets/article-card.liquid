@@ -1,0 +1,108 @@
+<article class="article-card{% if article.image == blank %} article-card--no-image{% endif %}" aria-labelledby="Article-{{ article.id }}">
+  {% if settings.style == 'electronic' %}
+    <a href="{{ article.url }}" class="electronic_a">
+    {% endif %}
+    <div class="article-card__image">
+      <a href="{{ article.url }}" class="is-block">
+        <span class="screen-reader-only">Image for article: {{ article.title | escape }}</span>
+        {%- if article.image -%}
+          {%- if main_blog == true -%}
+            <img
+              src="{{ article.image.src | img_url: 'master' }}"
+              alt="{{ article.image.src.alt | escape }}"
+              loading="lazy">
+          {%- else -%}
+            <img
+              class="data-aos data-aos--fade-in"
+              src="{{ article.image.src | img_url: '420x375', crop: 'center' }}"
+              alt="{{ article.image.src.alt | escape }}"
+              width="{{ article.image.width }}"
+              height="{{ article.image.height }}">
+          {%- endif -%}
+        {%- else -%}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </a>
+    </div>
+    <div class="article-card__content">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'title' -%}
+          <header class="article-card__header">
+            {% unless settings.style == 'electronic' %}
+              <h3 class="article-card__title">
+                <a href="{{ article.url }}" class="link--text">{{ article.title | escape }}</a>
+              </h3>
+            {% endunless %}
+
+            {%- if block.settings.show_date -%}
+              {% if settings.style == 'jewel' %}
+                <span class="article-card__date jewel_date">
+                  <span class="">{{- article.published_at | date: "%d" -}}</span>
+                  {{- article.published_at | date: "%b" -}}
+                </span>
+              {% elsif settings.style == 'food' %}
+                <span class="article-card__date food_date">
+                  <span class="">{{- article.published_at | date: "%d" -}}</span>
+                  {{- article.published_at | date: "%b" -}}
+                </span>
+              {% elsif settings.style == 'electronic' %}
+                <span class="article-card__date">
+                  {{- article.published_at | date: "%d/%m/%Y" -}}
+                </span>
+                {% elsif settings.style == 'fashion' %}
+                <span class="article-card__date">
+                  {{- article.published_at | date: "%d %b %Y" -}}
+                </span>
+              {% else %}
+                <span class="article-card__date">
+                  {{- article.published_at | time_tag: format: 'date' -}}
+                </span>
+              {% endif %}
+            {%- endif -%}
+
+            {%- if block.settings.show_author -%}
+              <span class="article-card__author">{{ article.author -}}</span>
+            {%- endif -%}
+          </header>
+          {%- when 'summary' -%}
+          {% unless settings.style == 'fashion' %}
+            {%- if article.excerpt_or_content.size > 0 -%}
+              <p class="article-card__summary">
+                {{ article.excerpt_or_content | truncatewords: 25 }}
+              </p>
+            {%- endif -%}
+          {% endunless %}
+          {%- when 'link' -%}
+          {% unless settings.style == 'fashion' %}
+            <div class="article-card__footer mt-3">
+              <a
+                href="{{ article.url }}"
+                class="article-card__link{% if section.settings.add_strip and settings.style == 'default' %} strip{% endif %}{% if settings.style == 'electronic' %} button button--primary{% endif %}{% if section.settings.link_to_btn %} button button--primary{% endif %}"
+                style="{% unless section.settings.link_to_btn or settings.style == 'electronic' %}color: {{ section.settings.link_text_color }};{%endunless%}{% if settings.style == 'jewel' or settings.style == 'food' %} border-bottom: 1px solid;{%endif%}"
+                aria-label="{{ 'blogs.article.read_more_title' | t: title: article.title | escape }}">
+                {% if settings.style == 'electronic' %}
+                  Info 
+                  {% if settings.show_arrow %}
+                    <span style="margin-left: 8px;display:inline-block;"> {% render 'btn-arrow' %}</span>
+                  {% endif %}
+                {% else %}
+                  {{ 'blogs.article.read_more_title' | t }}
+                  {% if settings.style == 'food' or settings.style == 'jewel'%}
+                  {% if settings.show_arrow %}
+                    <span style="margin-left: 8px;display:inline-block;    vertical-align: middle;"> {% render 'btn-arrow' %}</span>
+                  {% endif %}
+                {% endif %}
+                {% endif %}
+               
+              </a>
+
+            </div>
+          {% endunless %}
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+    {% if settings.style == 'electronic' %}
+    </a>
+  {% endif %}
+</article>

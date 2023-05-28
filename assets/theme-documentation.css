@@ -1,0 +1,165 @@
+.section.theme__documentation {
+  padding-top: 104px;
+  padding-bottom: 64px;
+  line-height: 1.3;
+}
+.theme__documentation h2 {
+  font-style: normal;
+  font-weight: 700;
+  color: #1F262E;
+  margin-bottom: 48px;
+}
+.documentation__menu ul.parent {
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1232px;
+  margin: auto;
+  list-style: none;
+}
+.documentation__menu ul.parent .first__level-menu:not(.show) a svg {
+  transform: rotate(-180deg);
+  transition: all 0.2s;
+}
+.documentation__menu ul.parent .first__level-menu.show a svg {
+  transform: rotate(0deg);
+  transition: all 0.2s;
+}
+.documentation__menu ul.parent .first__level-menu:not(:last-child) {
+  margin-right: 24px;
+}
+.documentation__menu .site-nav--has-dropdown .icon-caret {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: block;
+  margin: auto;
+  right: 28px;
+  transition: all 0.2s;
+  width: 19px;
+  height: 9px;
+}
+.documentation__menu ul.parent .first__level-menu.show {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.documentation__menu .child li a {
+  padding: 0;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.0625rem;
+  color: #4C5258;
+}
+.documentation__menu .child li:not(:first-child) {
+  padding-top: 16px;
+}
+.documentation__menu .site-nav__item li {
+  padding-bottom: 0;
+}
+.documentation__menu .child li a:hover {
+  color: #06aaa1;
+}
+.documentation__menu .child li a, .documentation__menu .parent li a {
+  text-decoration: none !important;
+}
+.documentation__menu ul.parent .first__level-menu > a {
+  width: 100%;
+  padding: 28px;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 130%;
+  color: #2D2D2D;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.documentation__menu ul.parent .first__level-menu {
+  background: #FFFFFF;
+  box-shadow: 0px 33px 215px rgba(42, 45, 58, 0.06), 0px 4.13211px 20px rgba(42, 45, 58, 0.04);
+  border-radius: 8px;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  width: calc(33.333% - 24px);
+  padding: 0;
+  position: relative;
+}
+.documentation__menu .first__level-menu.show .child {
+  visibility: visible;
+}
+.documentation__menu .first__level-menu .child {
+  display: none;
+  list-style: none;
+  padding: 0;
+  visibility: hidden;
+  position: absolute;
+  left: 0;
+  z-index: 6;
+  background-color: #fff;
+  min-width: 100%;
+  box-shadow: 0 33px 215px #2a2d3a0f, 0 9.13211px 10px #2a2d3a0a;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  padding: 0 28px 28px;
+}
+@media only screen and (max-width:1280px) {
+  .documentation__menu ul.parent .first__level-menu>a {
+    padding: 16px 20px;
+    font-size: 0.9375rem;
+  }
+  .theme__documentation h2 {
+    font-size: calc(var(--font-heading-scale) * 2.1875rem);
+  }
+  .documentation__menu ul.parent .first__level-menu a svg {
+    width: 19px;
+  }
+  .section.theme__documentation {
+    padding-top: 80px;
+    padding-bottom: 40px;
+  }
+}
+@media only screen and (max-width:990px) {
+  .documentation__menu ul.parent {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .documentation__menu ul.parent .first__level-menu {
+    width: calc(50% - 24px);
+  }
+  .documentation__menu ul.parent .first__level-menu:last-child, .documentation__menu ul.parent .first__level-menu:not(:last-child) {
+    margin: 12px;
+  }
+  .theme__documentation h2 {
+    font-size: calc(var(--font-heading-scale) * 1.875rem);
+  }
+  .section.theme__documentation {
+    padding-top: 60px;
+    padding-bottom: 20px;
+  }
+  .theme__documentation h2 {
+    margin-bottom: 30px;
+  }
+}
+@media only screen and (max-width:600px) {
+  .documentation__menu ul.parent .first__level-menu {
+    width: 100%;
+  }
+  .documentation__menu ul.parent .first__level-menu:not(:last-child), .documentation__menu ul.parent .first__level-menu:last-child {
+    margin: 0;
+  }
+  .documentation__menu ul.parent .first__level-menu:not(:last-child) {
+    margin-bottom: 20px;
+  }
+  .documentation__menu .child li:not(:first-child) {
+    padding-top: 10px;
+  }
+  .theme__documentation h2 {
+    font-size: calc(var(--font-heading-scale) * 1.75rem);
+  }
+  .section.theme__documentation {
+    padding-top: 50px;
+  }
+}

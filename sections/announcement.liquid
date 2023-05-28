@@ -1,0 +1,178 @@
+{{ 'section-announcement.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  #AnnouncementSlider .flickity-viewport,
+  #AnnouncementSlider,
+  .announcement-slide { min-height: 32px; }
+  .announcement-slide {
+    align-items: center;
+  }
+  
+  .announcement-bar-section svg *{
+    fill: {{section.settings.color_text}} !important;
+  }
+  .announcement-bar-section .announcement__list-tel,
+  .announcement-bar-section .slider-wrapper .disclosure__button{
+    color: {{section.settings.color_text}} !important;
+  }
+  @media screen and (min-width:768px) {
+    #AnnouncementSlider .flickity-viewport,
+    #AnnouncementSlider,
+    .announcement-slide { min-height: 24px; }
+  }
+{%- endstyle -%}
+
+<div class="announcement color-{{ section.settings.color_bg }}" role="region" aria-label="{{ 'sections.header.announcement' | t }}"  data-section-id="{{ section.id }}" data-section-type="announcement-section">
+  <div class="slider-wrapper">
+    <div class="page-width">
+      <div class="announcement-wrapper columns">
+        <div class="column is-3-desktop is-3-tablet is-hidden-tablet header-social-icons">
+          {%- if section.settings.social_enable -%}
+            {% render 'social-icons', classes: 'announcement__list-social', section: section %}
+          {%- endif -%}
+          {% if section.settings.tel_number != blank %}
+          <a class="announcement__list-tel" href="tel:{{ section.settings.tel_number }}" class="is-flex">
+            {% render 'icon-phone', color: section.settings %}
+            <div class="tel_number">{{ section.settings.tel_number }}</div>
+          </a>
+          {% endif %}
+        </div>
+        <div class="column is-6-desktop is-12-tablet is-12-mobile has-text-centered">
+          <div class="announcement-slider" {%- if section.blocks.size > 1 -%}id="AnnouncementSlider"{%- endif -%}>
+            {%- for block in section.blocks -%}
+              {%- case block.type -%}
+                  {%- when 'announcement' -%}
+                  <div class="slideshow__slide announcement-slide" id="AnnouncementSlide-{{ block.id }}">
+                    {%- style -%}
+                      {% if block.settings.color_text != blank %}
+                        #AnnouncementSlider .flickity-button,
+                        #AnnouncementSlide-{{block.id}} * {
+                            color: {{block.settings.color_text}} !important;
+                        }
+                      {% endif %}
+                      {% if block.settings.color_accent != blank %}
+                        #AnnouncementSlide-{{block.id}} .announcement__link {
+                          color: {{block.settings.color_accent}};
+                          border-bottom: 1px solid {{block.settings.color_accent}};
+                        }
+                        #AnnouncementSlide-{{block.id}} .announcement__link svg path {
+                            fill: {{block.settings.color_accent}};
+                        }
+                      {% endif %}
+                    {%- endstyle -%}
+                    {%- if block.settings.message != blank -%}
+                      <p class="announcement__message">
+                        {{ block.settings.message | escape }}
+                        {%- if block.settings.message_link != blank and block.settings.message_link_text != blank -%}
+                          <a href="{{ block.settings.message_link }}" class="announcement__link">
+                            {{ block.settings.message_link_text }}
+                          </a>
+                        {%- endif -%}
+                      </p>
+                    {%- endif -%}
+                  </div>
+              {%- endcase -%}
+            {%- endfor -%}
+          </div>
+        </div>
+        <div class="column is-3-desktop is-3-tablet is-hidden-tablet currency_picker is-flex is-align-items-center is-justify-content-flex-end">
+          {% render 'localization-form', section: section %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.announcement.name",
+  "class": "announcement-bar-section",
+  "max_blocks": 12,
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "t:sections.announcement.blocks.announcement.name",
+      "settings": [
+    {
+          "type": "text",
+          "id": "message",
+          "default": "Your announcement here.",
+          "label": "t:sections.announcement.blocks.announcement.settings.message.label"
+        },
+    {
+      "type": "text",
+      "id": "message_link_text",
+      "label": "t:sections.announcement.blocks.announcement.settings.message_link_text.label",
+      "default": "Learn more"
+    },
+        {
+          "type": "url",
+          "id": "message_link",
+          "label": "t:sections.announcement.blocks.announcement.settings.message_link.label"
+        },
+    {
+            "type": "color",
+            "id": "color_text",
+            "default": "#fff",
+            "label": "t:sections.announcement.blocks.announcement.settings.color_text.label"
+        },
+    {
+            "type": "color",
+            "id": "color_accent",
+            "default": "#000",
+            "label": "t:sections.announcement.settings.color_accent.label"
+        }
+      ]
+    }
+  ],
+  "settings": [
+  {
+      "type": "select",
+      "id": "color_bg",
+      "options": [
+        {
+          "value": "accent-1",
+          "label": "t:sections.announcement.blocks.announcement.settings.color_bg.options__1.label"
+        },
+        {
+          "value": "accent-2",
+          "label": "t:sections.announcement.blocks.announcement.settings.color_bg.options__2.label"
+        },
+        {
+          "value": "background-1",
+          "label": "t:sections.announcement.blocks.announcement.settings.color_bg.options__3.label"
+        },
+        {
+          "value": "background-2",
+          "label": "t:sections.announcement.blocks.announcement.settings.color_bg.options__4.label"
+        }
+      ],
+      "default": "background-1",
+      "label": "t:sections.announcement.blocks.announcement.settings.color_bg.label"
+  },
+  {
+    "type": "color",
+    "id": "color_text",
+    "label": "t:sections.announcement.blocks.announcement.settings.color_text.label"
+  },
+  {
+      "type": "checkbox",
+      "id": "social_enable",
+      "default": false,
+      "label": "t:sections.announcement.blocks.announcement.settings.social_enable.label"
+    },
+    {
+      "type": "text",
+      "id": "tel_number",
+      "label": "t:sections.announcement.blocks.announcement.settings.tel_number.label"
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "announcement"
+      }
+    ]
+  }
+}
+{% endschema %}

@@ -1,0 +1,31 @@
+<link rel="stylesheet" href="{{ 'section-main-page.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'section-main-page.css' | asset_url | stylesheet_tag }}</noscript>
+
+<div class="content">
+  <div class="page-width {% if section.settings.page_small %}page-width-small {% endif %}">
+    <h1 class="h1 has-text-centered">
+      {{ page.title | escape }}
+    </h1>
+    <div>
+      {{ page.content }}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-page.name",
+  "class": "section main-page",
+  "settings": [
+    {
+        "type": "checkbox",
+        "id": "page_small",
+        "default": false,
+        "label": "t:sections.main-page.settings.page_small.label"
+    }
+  ]
+}
+
+
+{% endschema %}
+

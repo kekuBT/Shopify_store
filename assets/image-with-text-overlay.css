@@ -1,0 +1,176 @@
+.image-with-text-overlay img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.image-with-text-overlay .wrapper {
+  position: relative;
+}
+.image-with-text-overlay .background-image {
+  height: 100%;
+}
+.image-with-text-overlay .wrapper.small {
+  height: 55vh;
+}
+.image-with-text-overlay .wrapper.medium {
+  height: 65vh;
+}
+.image-with-text-overlay .wrapper.large {
+  height: 75vh;
+}
+.image-with-text-overlay .wrapper.original-image-ratio {
+  height: auto;
+}
+.image-with-text-overlay .wrapper.fit-screen {
+  height: 100vh;
+}
+.image-with-text-overlay .inner-wrapper {
+  max-width: var(--page-width);
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  display: flex;
+  height: 100%;
+  padding: 20px;
+}
+.image-with-text-overlay .border {
+  border: 4px solid;
+}
+.image-with-text-overlay .box-content-wrapper {
+  padding: 16px 24px;
+}
+.image-with-text-overlay .box-content {
+  padding: 24px;
+}
+.image-with-text-overlay .caption {
+  font-weight: 400;
+  font-size: 0.875rem;
+}
+.image-with-text-overlay .title {
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 32px;
+  margin-bottom: 16px !important;
+}
+.image-with-text-overlay .text p {
+  text-align: center;
+  line-height: 1.5;
+  font-size: 16px;
+  font-weight: 500;
+}
+.image-with-text-overlay .inner-wrapper.top-left {
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.image-with-text-overlay .top-left .box-content {
+  margin:0 ;
+  margin-right: auto;
+}
+.image-with-text-overlay .inner-wrapper.top-right {
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+.image-with-text-overlay .top-right .box-content {
+  margin:0 ;
+  margin-left: auto;
+}
+.image-with-text-overlay .inner-wrapper.top-center {
+  align-items: flex-start;
+  justify-content: center;
+}
+.image-with-text-overlay .top-center .box-content {
+  margin:0 auto;
+}
+
+.image-with-text-overlay .inner-wrapper.bottom-left {
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+.image-with-text-overlay .bottom-left .box-content {
+  margin:0 ;
+  margin-right:auto;
+}
+.image-with-text-overlay .inner-wrapper.bottom-right {
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+.image-with-text-overlay .bottom-right .box-content {
+  margin:0 ;
+  margin-left:auto;
+}
+.image-with-text-overlay .inner-wrapper.bottom-center {
+  align-items: flex-end;
+  justify-content: center;
+}
+.image-with-text-overlay .bottom-center .box-content {
+  margin:0 auto;
+}
+
+.image-with-text-overlay .inner-wrapper.center-left {
+  align-items: center;
+  justify-content: flex-start;
+}
+.image-with-text-overlay .center-left .box-content {
+  margin:0 ;
+  margin-right:auto;
+}
+.image-with-text-overlay .inner-wrapper.center-center {
+  align-items: center;
+  justify-content: center;
+}
+.image-with-text-overlay .center-center .box-content {
+  margin:0 auto;
+}
+.image-with-text-overlay .inner-wrapper.center-right {
+  align-items: center;
+  justify-content: flex-end;
+}
+.image-with-text-overlay .center-right .box-content {
+  margin:0 ;
+  margin-left:auto;
+}
+.image-with-text-overlay .background-image.mobile {
+  display: none;
+}
+@media screen and (max-width:768px){
+  .image-with-text-overlay .background-image.desktop {
+      display: none;
+  }
+  .image-with-text-overlay .background-image.mobile {
+      display: block;
+  }
+  .image-with-text-overlay .wrapper.mob-extra-small {
+      height: 45vh;
+  }
+  .image-with-text-overlay .wrapper.mob-small {
+      height: 55vh;
+  }
+  .image-with-text-overlay .wrapper.mob-medium {
+      height: 65vh;
+  }
+  .image-with-text-overlay .wrapper.mob-large {
+      height: 75vh;
+  }
+  .image-with-text-overlay .wrapper.mob-fit-screen {
+      height: 100vh;
+  }
+  .image-with-text-overlay .wrapper.mob-original-image-ratio {
+      height: auto;
+  }
+  .image-with-text-overlay .title {
+      font-size: 22px;
+      margin-bottom: 12px !important;
+  }
+  .image-with-text-overlay .text p {
+      font-size: 13px;
+  }
+  .image-with-text-overlay .box-content-wrapper {
+      padding: 14px 20px;
+  }
+  .image-with-text-overlay .box-content {
+      padding: 14px;
+  }
+}

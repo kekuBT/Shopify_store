@@ -1,0 +1,487 @@
+{{ 'section-featured-blog.css' | asset_url | stylesheet_tag }}
+
+<style>
+  #shopify-section-{{ section.id }}  .flickity-page-dots .dot {
+    background: {{settings.colors_accent_1}};
+  }
+
+  {% if section.settings.blog.size < 4 %}
+    #shopify-section-{{ section.id }} .flickity-page-dots {
+      display: none;
+    }
+  {% endif %}
+
+  {% if settings.style == 'electronic' %}
+    #shopify-section-{{ section.id }} .button_wrapper.top .button{
+      border: 1px solid {{ settings.colors_accent_1 }};
+      color: {{ settings.colors_accent_1 }};
+      background: transparent;
+    }
+    #shopify-section-{{ section.id }} .button_wrapper.top .button svg path{
+      fill: {{ settings.colors_accent_1 }};
+    }
+    #shopify-section-{{ section.id }} .button_wrapper.top .button:hover{
+      background: {{ settings.colors_accent_1 }};
+      border-color: {{ settings.colors_solid_button_labels }};
+      color: {{ settings.colors_solid_button_labels }};
+    }
+    #shopify-section-{{ section.id }} .button_wrapper.top .button:hover svg path{
+      fill: {{ settings.colors_solid_button_labels }};
+    }
+  {% endif %}
+
+  {% if settings.style == 'default' %}
+  #shopify-section-{{ section.id }} .article-card__link svg path{
+  fill: {{ settings.colors_accent_1 }};
+  } 
+  {% endif %}
+  {% if settings.style == 'jewel' or settings.style == 'food' %}
+    #shopify-section-{{ section.id }} .article-card__link:not(.button) svg path{
+      fill: {{ settings.colors_accent_1 }};
+      } 
+  {% endif %}
+   #shopify-section-{{ section.id }} .featured-blog-section .article-card__link.strip:after{
+      border-color:{{ settings.colors_accent_1 }};
+  } 
+  .slider-wrapper.style_food .featured-blog-section .flickity-prev-next-button {
+    background-color: {{ settings.color_input_border }}50;
+  }
+
+</style>
+
+<div class="blogSlider-{{ section.id }} {% if settings.navigation_type == 'dots' %} dots-navigation{% endif %}" data-section-id="{{ section.id }}" data-section-type="blog-section">
+  <div class="slider-wrapper style_{{settings.style}}">
+    <div class="featured-blog-section section">
+      <div class="page-width">
+      <div class="heading__wrapper{% unless settings.style == 'electronic' %} center{% endunless %}">
+          <div class="heading__content">
+            <h2 class="data-aos data-aos--fade-in data-aos--delay-200">{{ section.settings.heading | escape }}</h2>
+            {%- if section.settings.heading != blank and section.settings.caption != blank %}
+            <div class="collection-list-caption data-aos data-aos--fade-left data-aos--delay-300">{{ section.settings.caption | escape}}</div>
+            {%- endif -%}
+          </div>
+          {%- if section.settings.view_all  and settings.style == 'electronic' -%}
+          <div class="has-text-centered button_wrapper top">
+            <a href="{{ section.settings.blog.url }}" class="button button--primary">{{ section.settings.view_all_text }}
+            {% if settings.show_arrow %}
+              <span class="btn-arrow">
+                {% render 'btn-arrow' %}
+              </span>
+            {% endif %}  
+            </a>
+          </div>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.blog != blank and section.settings.blog.articles_count > 0 -%}
+        <div class="blog__posts" id="BlogSlider-{{ section.id }}" 
+            data-natural="true"
+            data-autoplay="{{ section.settings.slide_autoplay }}"
+            data-speed="{{ section.settings.autoplay_time | times: 1000 }}"
+            {% if settings.navigation_type == 'arrows' %}
+              data-arrows="true"
+            {% endif %}
+            {% if settings.navigation_type == 'dots' %}
+              data-dots="true"
+            {% endif %}
+            data-count="{{ section.settings.article_limit }}" >
+           
+            {%- for article in section.settings.blog.articles limit: section.settings.article_limit -%}
+                <div class="slideshow__slide blog__post article  blog-slide--{{ article.id }}">
+                    {% render 'article-card', blog: section.settings.blog, article: article, section: section %}
+                </div>
+            {%- endfor -%}
+          </div>
+
+          
+          {% unless settings.style == 'electronic' %}
+          {%- if section.settings.view_all -%}
+            <div class="has-text-centered mt-5 button_wrapper">
+
+              
+              {% if settings.style == 'fashion' %}
+                <a href="{{ section.settings.blog.url }}" class="link-text">{{ section.settings.view_all_text}}      
+               </a>
+            {% else %}
+              <a href="{{ section.settings.blog.url }}" class="button button--primary">{{ section.settings.view_all_text}}   
+               {% if settings.show_arrow %}<span class="view_all_right">{% render 'blog-svg'  %}</span>{% endif %}            
+              </a>
+            {% endif %}
+            </div>
+          {%- endif -%}
+
+            {% endunless %}
+
+        {%- else -%}
+            <div class="placeholder">
+                <div class="place_holder">
+                    <div class="blog__posts" id="BlogSlider-{{ section.id }}" data-natural="true"
+                        data-autoplay="{{ section.settings.slide_autoplay }}"
+                        data-speed="{{ section.settings.autoplay_time | times: 1000 }}"
+                        {% if settings.navigation_type == 'arrows' %} data-arrows="true" {% endif %}
+                        {% if settings.navigation_type == 'dots' %} data-dots="true" {% endif %}
+                        data-count="{{ section.settings.article_limit }}">
+                        <div class="slideshow__slide blog__post article">
+                            <article class="article-card">
+                                <div class="article-card__image">
+                                    <a href="" class="is-block">
+                                        <svg class="placeholder-svg placeholder" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 525.5 525.5"><path d="M324.5 212.7H203c-1.6 0-2.8 1.3-2.8 2.8V308c0 1.6 1.3 2.8 2.8 2.8h121.6c1.6 0 2.8-1.3 2.8-2.8v-92.5c0-1.6-1.3-2.8-2.9-2.8zm1.1 95.3c0 .6-.5 1.1-1.1 1.1H203c-.6 0-1.1-.5-1.1-1.1v-92.5c0-.6.5-1.1 1.1-1.1h121.6c.6 0 1.1.5 1.1 1.1V308z"></path><path d="M210.4 299.5H240v.1s.1 0 .2-.1h75.2v-76.2h-105v76.2zm1.8-7.2l20-20c1.6-1.6 3.8-2.5 6.1-2.5s4.5.9 6.1 2.5l1.5 1.5 16.8 16.8c-12.9 3.3-20.7 6.3-22.8 7.2h-27.7v-5.5zm101.5-10.1c-20.1 1.7-36.7 4.8-49.1 7.9l-16.9-16.9 26.3-26.3c1.6-1.6 3.8-2.5 6.1-2.5s4.5.9 6.1 2.5l27.5 27.5v7.8zm-68.9 15.5c9.7-3.5 33.9-10.9 68.9-13.8v13.8h-68.9zm68.9-72.7v46.8l-26.2-26.2c-1.9-1.9-4.5-3-7.3-3s-5.4 1.1-7.3 3l-26.3 26.3-.9-.9c-1.9-1.9-4.5-3-7.3-3s-5.4 1.1-7.3 3l-18.8 18.8V225h101.4z"></path><path d="M232.8 254c4.6 0 8.3-3.7 8.3-8.3s-3.7-8.3-8.3-8.3-8.3 3.7-8.3 8.3 3.7 8.3 8.3 8.3zm0-14.9c3.6 0 6.6 2.9 6.6 6.6s-2.9 6.6-6.6 6.6-6.6-2.9-6.6-6.6 3-6.6 6.6-6.6z"></path></svg>
+                                    </a>
+                                </div>
+                                <div class="article-card__content">
+                                    <header class="article-card__header">
+                                      {% unless settings.style == 'electronic' %}
+                                        <h3 class="article-card__title">
+                                            <a href="" class="link--text">Article name </a>
+                                        </h3>
+                                      {% endunless %}
+                                      <span class="article-card__date{% if settings.style == 'jewel' %} jewel_date{% endif %}{% if settings.style == 'food' %} food_date{% endif %}">
+                                        {% if settings.style == 'jewel' %}
+                                        <span>
+                                        <time datetime="2022-06-08T21:32:43Z">MM</time>
+                                        </span>
+                                        <time datetime="2022-06-08T21:32:43Z">DD</time>
+                                        {% elsif settings.style == 'food' %}
+                                          <span>
+                                        <time datetime="2022-06-08T21:32:43Z">MM</time>
+                                        </span>
+                                        <time datetime="2022-06-08T21:32:43Z">DD</time>
+                                        {% elsif settings.style == 'fashion' %}
+                                          <time datetime="2022-06-08T21:32:43Z">DD MM YYYY</time>
+                                        {%else%}
+                                        <time datetime="2022-06-08T21:32:43Z">MM DD YYYY</time>
+                                    {%endif%}
+                                        </span>
+                 
+                                    </header>
+                                    {% unless settings.style == 'fashion' %}
+                                    <p class="article-card__summary">{{ 'sections.featured_blog.onboarding_content' | t }}</p>
+                                    <div class="article-card__footer mt-3">
+                                    <a href="#" class="article-card__link {% if section.settings.add_strip and settings.style == 'default' %}strip{% endif %}{% if settings.style == 'electronic' %} button button--primary{% endif %} {% if section.settings.link_to_btn %} button button--primary{% endif %}" style="{% unless section.settings.link_to_btn or settings.style == 'electronic' %}color: {{ settings.colors_accent_1 }};{% endunless  %}{% if settings.style == 'jewel'  or settings.style == 'food'%} border-bottom: 1px solid;{%endif%}" aria-label="Read more">
+                                      {% if settings.style == 'electronic' %}
+                                             Info
+                                             {% if settings.show_arrow %}
+                                              <span style="margin-left: 8px;display:inline-block;"> {% render 'btn-arrow' %}</span>
+                                      {% endif %}
+                                     {% else %}
+                                        Read more
+                                        {% if settings.style == 'food' or settings.style == 'jewel'%}
+                                          {% if settings.show_arrow %}
+                                            <span style="margin-left: 8px;display:inline-block;"> {% render 'btn-arrow' %}</span>
+                                          {% endif %}
+                                        {% endif %}
+                                        {% endif %}
+                                        
+                                      </a>
+                                </div>
+                                  {%endunless%}
+                                </div>
+                            </article>
+                        </div>
+                        <div class="slideshow__slide blog__post article">
+                            <article class="article-card">
+                                <div class="article-card__image">
+                                    <a href="" class="is-block">
+                                        <svg class="placeholder-svg placeholder" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 525.5 525.5"><path d="M324.5 212.7H203c-1.6 0-2.8 1.3-2.8 2.8V308c0 1.6 1.3 2.8 2.8 2.8h121.6c1.6 0 2.8-1.3 2.8-2.8v-92.5c0-1.6-1.3-2.8-2.9-2.8zm1.1 95.3c0 .6-.5 1.1-1.1 1.1H203c-.6 0-1.1-.5-1.1-1.1v-92.5c0-.6.5-1.1 1.1-1.1h121.6c.6 0 1.1.5 1.1 1.1V308z"></path><path d="M210.4 299.5H240v.1s.1 0 .2-.1h75.2v-76.2h-105v76.2zm1.8-7.2l20-20c1.6-1.6 3.8-2.5 6.1-2.5s4.5.9 6.1 2.5l1.5 1.5 16.8 16.8c-12.9 3.3-20.7 6.3-22.8 7.2h-27.7v-5.5zm101.5-10.1c-20.1 1.7-36.7 4.8-49.1 7.9l-16.9-16.9 26.3-26.3c1.6-1.6 3.8-2.5 6.1-2.5s4.5.9 6.1 2.5l27.5 27.5v7.8zm-68.9 15.5c9.7-3.5 33.9-10.9 68.9-13.8v13.8h-68.9zm68.9-72.7v46.8l-26.2-26.2c-1.9-1.9-4.5-3-7.3-3s-5.4 1.1-7.3 3l-26.3 26.3-.9-.9c-1.9-1.9-4.5-3-7.3-3s-5.4 1.1-7.3 3l-18.8 18.8V225h101.4z"></path><path d="M232.8 254c4.6 0 8.3-3.7 8.3-8.3s-3.7-8.3-8.3-8.3-8.3 3.7-8.3 8.3 3.7 8.3 8.3 8.3zm0-14.9c3.6 0 6.6 2.9 6.6 6.6s-2.9 6.6-6.6 6.6-6.6-2.9-6.6-6.6 3-6.6 6.6-6.6z"></path></svg>
+                                    </a>
+                                </div>
+                                <div class="article-card__content">
+                                    <header class="article-card__header">
+                                      {% unless settings.style == 'electronic' %}
+                                        <h3 class="article-card__title">
+                                            <a href="" class="link--text">Article name </a>
+                                        </h3>
+                                      {% endunless %}
+                                      <span class="article-card__date{% if settings.style == 'jewel' %} jewel_date{% endif %}{% if settings.style == 'food' %} food_date{% endif %}">
+                                        {% if settings.style == 'jewel' %}
+                                        <span>
+                                        <time datetime="2022-06-08T21:32:43Z">MM</time>
+                                        </span>
+                                        <time datetime="2022-06-08T21:32:43Z">DD</time>
+                                        {% elsif settings.style == 'food' %}
+                                          <span>
+                                            <time datetime="2022-06-08T21:32:43Z">MM</time>
+                                            </span>
+                                            <time datetime="2022-06-08T21:32:43Z">DD</time>
+                                            {% elsif settings.style == 'fashion' %}
+                                          <time datetime="2022-06-08T21:32:43Z">DD MM YYYY</time>
+                                        {%else%}
+                                        <time datetime="2022-06-08T21:32:43Z">MM DD YYYY</time>
+                                    {%endif%}
+                                        </span>
+                                    </header>
+                                    {% unless settings.style == 'fashion' %}
+                                    <p class="article-card__summary">{{ 'sections.featured_blog.onboarding_content' | t }}</p>
+                                    <div class="article-card__footer mt-3">
+                                    <a href="#" class="article-card__link {% if settings.add_strip and settings.style == 'default' %}strip{% endif %} {% if settings.style == 'electronic' %} button button--primary{% endif %}  {% if section.settings.link_to_btn %}button button--primary{% endif %}" style="{% unless section.settings.link_to_btn or settings.style == 'electronic' %}color: {{ settings.colors_accent_1 }};{% endunless  %}{% if settings.style == 'jewel' or settings.style == 'food' %} border-bottom: 1px solid;{%endif%}" aria-label="Read more">
+                                      {% if settings.style == 'electronic' %}
+                                             Info
+                                             {% if settings.show_arrow %}
+                                              <span style="margin-left: 8px;display:inline-block;"> {% render 'btn-arrow' %}</span>
+                                      {% endif %}
+                                     {% else %}
+                                        Read more
+                                        {% if settings.style == 'food' or settings.style == 'jewel'%}
+                                          {% if settings.show_arrow %}
+                                            <span style="margin-left: 8px;display:inline-block;"> {% render 'btn-arrow' %}</span>
+                                          {% endif %}
+                                        {% endif %}
+                                        {% endif %}
+                                  
+                                      </a>
+                                </div>
+                                  {%endunless%}
+                                </div>
+                            </article>
+                        </div>
+                        <div class="slideshow__slide blog__post article">
+                          <article class="article-card">
+                              <div class="article-card__image">
+                                  <a href="" class="is-block">
+                                      <svg class="placeholder-svg placeholder" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 525.5 525.5"><path d="M324.5 212.7H203c-1.6 0-2.8 1.3-2.8 2.8V308c0 1.6 1.3 2.8 2.8 2.8h121.6c1.6 0 2.8-1.3 2.8-2.8v-92.5c0-1.6-1.3-2.8-2.9-2.8zm1.1 95.3c0 .6-.5 1.1-1.1 1.1H203c-.6 0-1.1-.5-1.1-1.1v-92.5c0-.6.5-1.1 1.1-1.1h121.6c.6 0 1.1.5 1.1 1.1V308z"></path><path d="M210.4 299.5H240v.1s.1 0 .2-.1h75.2v-76.2h-105v76.2zm1.8-7.2l20-20c1.6-1.6 3.8-2.5 6.1-2.5s4.5.9 6.1 2.5l1.5 1.5 16.8 16.8c-12.9 3.3-20.7 6.3-22.8 7.2h-27.7v-5.5zm101.5-10.1c-20.1 1.7-36.7 4.8-49.1 7.9l-16.9-16.9 26.3-26.3c1.6-1.6 3.8-2.5 6.1-2.5s4.5.9 6.1 2.5l27.5 27.5v7.8zm-68.9 15.5c9.7-3.5 33.9-10.9 68.9-13.8v13.8h-68.9zm68.9-72.7v46.8l-26.2-26.2c-1.9-1.9-4.5-3-7.3-3s-5.4 1.1-7.3 3l-26.3 26.3-.9-.9c-1.9-1.9-4.5-3-7.3-3s-5.4 1.1-7.3 3l-18.8 18.8V225h101.4z"></path><path d="M232.8 254c4.6 0 8.3-3.7 8.3-8.3s-3.7-8.3-8.3-8.3-8.3 3.7-8.3 8.3 3.7 8.3 8.3 8.3zm0-14.9c3.6 0 6.6 2.9 6.6 6.6s-2.9 6.6-6.6 6.6-6.6-2.9-6.6-6.6 3-6.6 6.6-6.6z"></path></svg>
+                                  </a>
+                              </div>
+                              <div class="article-card__content">
+                                  <header class="article-card__header">
+                                    {% unless settings.style == 'electronic' %}
+                                      <h3 class="article-card__title">
+                                          <a href="" class="link--text">Article name </a>
+                                      </h3>
+                                    {% endunless %}
+                                    <span class="article-card__date{% if settings.style == 'jewel' %} jewel_date{% endif %}{% if settings.style == 'food' %} food_date{% endif %}">
+                                      {% if settings.style == 'jewel' %}
+                                      <span>
+                                      <time datetime="2022-06-08T21:32:43Z">MM</time>
+                                      </span>
+                                      <time datetime="2022-06-08T21:32:43Z">DD</time>
+                                      {% elsif settings.style == 'food' %}
+                                        <span>
+                                      <time datetime="2022-06-08T21:32:43Z">MM</time>
+                                      </span>
+                                      <time datetime="2022-06-08T21:32:43Z">DD</time>
+                                      {% elsif settings.style == 'fashion' %}
+                                        <time datetime="2022-06-08T21:32:43Z">DD MM YYYY</time>
+                                      {%else%}
+                                      <time datetime="2022-06-08T21:32:43Z">MM DD YYYY</time>
+                                  {%endif%}
+                                      </span>
+               
+                                  </header>
+                                  {% unless settings.style == 'fashion' %}
+                                  <p class="article-card__summary">{{ 'sections.featured_blog.onboarding_content' | t }}</p>
+                                  <div class="article-card__footer mt-3">
+                                  <a href="#" class="article-card__link {% if section.settings.add_strip and settings.style == 'default' %}strip{% endif %}{% if settings.style == 'electronic' %} button button--primary{% endif %} {% if section.settings.link_to_btn %} button button--primary{% endif %}" style="{% unless section.settings.link_to_btn or settings.style == 'electronic' %}color: {{ settings.colors_accent_1 }};{% endunless  %}{% if settings.style == 'jewel'  or settings.style == 'food'%} border-bottom: 1px solid;{%endif%}" aria-label="Read more">
+                                    {% if settings.style == 'electronic' %}
+                                           Info
+                                           {% if settings.show_arrow %}
+                                            <span style="margin-left: 8px;display:inline-block;"> {% render 'btn-arrow' %}</span>
+                                    {% endif %}
+                                   {% else %}
+                                      Read more
+                                      {% if settings.style == 'food' or settings.style == 'jewel'%}
+                                        {% if settings.show_arrow %}
+                                          <span style="margin-left: 8px;display:inline-block;"> {% render 'btn-arrow' %}</span>
+                                        {% endif %}
+                                      {% endif %}
+                                      {% endif %}
+                                      
+                                    </a>
+                              </div>
+                                {%endunless%}
+                              </div>
+                          </article>
+                      </div>
+                        <div class="slideshow__slide blog__post article">
+                          <article class="article-card">
+                              <div class="article-card__image">
+                                  <a href="" class="is-block">
+                                      <svg class="placeholder-svg placeholder" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 525.5 525.5"><path d="M324.5 212.7H203c-1.6 0-2.8 1.3-2.8 2.8V308c0 1.6 1.3 2.8 2.8 2.8h121.6c1.6 0 2.8-1.3 2.8-2.8v-92.5c0-1.6-1.3-2.8-2.9-2.8zm1.1 95.3c0 .6-.5 1.1-1.1 1.1H203c-.6 0-1.1-.5-1.1-1.1v-92.5c0-.6.5-1.1 1.1-1.1h121.6c.6 0 1.1.5 1.1 1.1V308z"></path><path d="M210.4 299.5H240v.1s.1 0 .2-.1h75.2v-76.2h-105v76.2zm1.8-7.2l20-20c1.6-1.6 3.8-2.5 6.1-2.5s4.5.9 6.1 2.5l1.5 1.5 16.8 16.8c-12.9 3.3-20.7 6.3-22.8 7.2h-27.7v-5.5zm101.5-10.1c-20.1 1.7-36.7 4.8-49.1 7.9l-16.9-16.9 26.3-26.3c1.6-1.6 3.8-2.5 6.1-2.5s4.5.9 6.1 2.5l27.5 27.5v7.8zm-68.9 15.5c9.7-3.5 33.9-10.9 68.9-13.8v13.8h-68.9zm68.9-72.7v46.8l-26.2-26.2c-1.9-1.9-4.5-3-7.3-3s-5.4 1.1-7.3 3l-26.3 26.3-.9-.9c-1.9-1.9-4.5-3-7.3-3s-5.4 1.1-7.3 3l-18.8 18.8V225h101.4z"></path><path d="M232.8 254c4.6 0 8.3-3.7 8.3-8.3s-3.7-8.3-8.3-8.3-8.3 3.7-8.3 8.3 3.7 8.3 8.3 8.3zm0-14.9c3.6 0 6.6 2.9 6.6 6.6s-2.9 6.6-6.6 6.6-6.6-2.9-6.6-6.6 3-6.6 6.6-6.6z"></path></svg>
+                                  </a>
+                              </div>
+                              <div class="article-card__content">
+                                  <header class="article-card__header">
+                                    {% unless settings.style == 'electronic' %}
+                                      <h3 class="article-card__title">
+                                          <a href="" class="link--text">Article name </a>
+                                      </h3>
+                                    {% endunless %}
+                                    <span class="article-card__date{% if settings.style == 'jewel' %} jewel_date{% endif %}{% if settings.style == 'food' %} food_date{% endif %}">
+                                      {% if settings.style == 'jewel' %}
+                                      <span>
+                                      <time datetime="2022-06-08T21:32:43Z">MM</time>
+                                      </span>
+                                      <time datetime="2022-06-08T21:32:43Z">DD</time>
+                                      {% elsif settings.style == 'food' %}
+                                        <span>
+                                      <time datetime="2022-06-08T21:32:43Z">MM</time>
+                                      </span>
+                                      <time datetime="2022-06-08T21:32:43Z">DD</time>
+                                      {% elsif settings.style == 'fashion' %}
+                                        <time datetime="2022-06-08T21:32:43Z">DD MM YYYY</time>
+                                      {%else%}
+                                      <time datetime="2022-06-08T21:32:43Z">MM DD YYYY</time>
+                                  {%endif%}
+                                      </span>
+               
+                                  </header>
+                                  {% unless settings.style == 'fashion' %}
+                                  <p class="article-card__summary">{{ 'sections.featured_blog.onboarding_content' | t }}</p>
+                                  <div class="article-card__footer mt-3">
+                                  <a href="#" class="article-card__link {% if section.settings.add_strip and settings.style == 'default' %}strip{% endif %}{% if settings.style == 'electronic' %} button button--primary{% endif %} {% if section.settings.link_to_btn %} button button--primary{% endif %}" style="{% unless section.settings.link_to_btn or settings.style == 'electronic' %}color: {{ settings.colors_accent_1 }};{% endunless  %}{% if settings.style == 'jewel'  or settings.style == 'food'%} border-bottom: 1px solid;{%endif%}" aria-label="Read more">
+                                    {% if settings.style == 'electronic' %}
+                                           Info
+                                           {% if settings.show_arrow %}
+                                            <span style="margin-left: 8px;display:inline-block;"> {% render 'btn-arrow' %}</span>
+                                    {% endif %}
+                                   {% else %}
+                                      Read more
+                                      {% if settings.style == 'food' or settings.style == 'jewel'%}
+                                        {% if settings.show_arrow %}
+                                          <span style="margin-left: 8px;display:inline-block;"> {% render 'btn-arrow' %}</span>
+                                        {% endif %}
+                                      {% endif %}
+                                      {% endif %}
+                                      
+                                    </a>
+                              </div>
+                                {%endunless%}
+                              </div>
+                          </article>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "t:sections.featured-blog.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "slide_autoplay",
+      "default": false,
+      "label": "t:sections.featured-blog.settings.slide_autoplay.label"
+    },
+    {
+      "type": "range",
+      "id": "autoplay_time",
+      "min":5,
+      "max":10,
+      "default": 6,
+      "step": 1,
+      "unit": "s",
+      "label": "t:sections.featured-blog.settings.autoplay_time.label"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "Blog posts",
+      "label": "t:sections.featured-blog.settings.heading.label"
+    },
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "t:sections.featured-blog.settings.caption.label"
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "t:sections.featured-blog.settings.blog.label"
+    },
+    {
+      "type": "range",
+      "id": "article_limit",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 3,
+      "label": "t:sections.featured-blog.settings.article_limit.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "view_all",
+      "default": true,
+      "label": "t:sections.featured-blog.settings.view_all.label"
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "default": "View All",
+      "label": "t:sections.featured-blog.settings.view_all_text.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "add_strip",
+      "default": true,
+      "label": "t:sections.featured-blog.settings.add_strip.label",
+      "info": "t:sections.featured-blog.settings.strip_info.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.featured-blog.settings.label_top.label",
+      "info": "t:sections.featured-blog.settings.label_top.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "link_to_btn",
+      "label": "t:sections.featured-blog.settings.link_to_btn.label"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "title",
+      "name": "t:sections.featured-blog.blocks.title.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_date",
+          "default": true,
+          "label": "t:sections.featured-blog.blocks.title.settings.show_date.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_author",
+          "default": false,
+          "label": "t:sections.featured-blog.blocks.title.settings.show_author.label"
+        }
+      ]
+    },
+    {
+      "type": "summary",
+      "name": "t:sections.featured-blog.blocks.summary.name",
+      "limit": 1
+    },
+    {
+      "type": "link",
+      "name": "t:sections.featured-blog.blocks.link.name",
+      "limit": 1,
+      "settings": [
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.featured-blog.presets.name",
+      "settings": {
+        "blog": "News"
+      },
+      "blocks": [
+        {
+          "type": "title"
+        },
+        {
+          "type": "summary"
+        },
+        {
+          "type": "link"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

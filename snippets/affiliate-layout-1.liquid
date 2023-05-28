@@ -1,0 +1,62 @@
+{{ 'affiliate-layout-1.css'| asset_url | stylesheet_tag }}
+
+<div class="affiliate-layout-one" id="layout-one-{{ block.id }}">
+    <div class="affiliate-layout-one-wrapper">
+      <div class="container">
+        <div class="wrapper">
+          <div class="left-contents affiliate-contents data-aos data-aos--fade-up data-aos--delay-300">
+            {% if block.settings.left_title != blank %}
+              <h2 class="title">{{ block.settings.left_title }}</h2>
+            {% endif %}
+            {% if block.settings.left_text != blank %}
+              <div class="text">{{ block.settings.left_text }}</div>
+            {% endif %}
+            {% if block.settings.left_button_text != blank %}
+              <a href="{{ block.settings.left_button_url }}" class="button">{{ block.settings.left_button_text }}
+                {% if block.settings.left_button_arrow %}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="14" viewBox="0 0 15 14" fill="none">
+                    <path d="M7.4987 7.83325H0.832031V6.16658H7.4987V0.333252L14.1654 6.99992L7.4987 13.6666V7.83325Z" fill="white"/>
+                  </svg>
+                {% endif %}
+              </a>
+            {% endif %}
+          </div>
+          <div class="image-wrapper data-aos data-aos--fade-up data-aos--delay-400">
+            <div class="image">
+              {%- assign img_url = block.settings.image | img_url:'1x1' | replace: '_1x1.', '_{width}x.' -%}
+              {% if block.settings.image != blank %}
+                <img class="lazyload"
+                  data-srcset="{{ img_url }}"
+                  data-aspectratio="{{ block.settings.image.aspect_ratio }}"
+                  data-sizes="auto"
+                  alt="{{ block.settings.image.alt | escape }}"
+                  width="{{ block.settings.image.width }}"
+                  height="{{ block.settings.image.height }}"
+                >
+                {% else %}
+                  {{ 'image' | placeholder_svg_tag }}
+              {% endif %}
+            </div>
+          </div>
+          <div class="right-contents affiliate-contents data-aos data-aos--fade-up data-aos--delay-500">
+            {% if block.settings.right_title != blank %}
+              <h2 class="title">{{ block.settings.right_title }}</h2>
+            {% endif %}
+            {% if block.settings.right_text != blank %}
+              <div class="text">{{ block.settings.right_text }}</div>
+            {% endif %}
+            {% if block.settings.right_button_text != blank %}
+              <a href="{{ block.settings.right_button_url }}" class="button">{{ block.settings.right_button_text }}
+                {% if block.settings.right_button_arrow %}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="14" viewBox="0 0 15 14" fill="none">
+                    <path d="M7.4987 7.83325H0.832031V6.16658H7.4987V0.333252L14.1654 6.99992L7.4987 13.6666V7.83325Z" fill="white"/>
+                  </svg>
+                {% endif %}
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

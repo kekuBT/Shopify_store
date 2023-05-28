@@ -1,0 +1,208 @@
+{{ 'collections-column.css' | asset_url | stylesheet_tag }}
+
+<style>
+  #collections-column-{{section.id}} .alpha-wrapper {
+    background-color:{{ section.settings.box_background | hex_to_rgba: 0.1 }};
+  }
+  {% if  section.settings.box_background_image != blank  %}
+    #collections-column-{{section.id}} .alpha-wrapper {
+      background-image:url({{ section.settings.box_background_image | img_url: 'master' }});
+    }
+  {% endif %}
+  #collections-column-{{section.id}} .beta-wrapper {
+    background-color:{{ section.settings.box_background }};
+  }
+  {%- for block in section.blocks -%}
+    #beta-{{block.id}} .text-color {
+      color:{{ block.settings.box_text_color }};
+    }
+    #beta-{{block.id}} .beta-wrapper .button {
+      background-color:{{ block.settings.box_button_bg }};
+      color:{{ block.settings.box_button_color }};
+    }
+  {% endfor %}
+</style>
+
+<div class="collections-column section" id="collections-column-{{section.id}}">
+  <div class="page-width">
+    <div class="wrapper">
+      <div class="block-grid">
+        {%- for block in section.blocks -%}
+          {% assign collection = block.settings.choose_collection %}
+          {% if block.type == "collections"  %}
+            <div class="alpha-block {% if forloop.length == 2 %}with-half{% endif %} data-aos data-aos--fade-up data-aos--delay-300">
+              <div class="alpha-wrapper">
+                <div class="alpha-inner-wrapper">
+                  {% if block.settings.alpha_title != blank %}
+                    <h4 class="title">{{ block.settings.alpha_title }}</h4>
+                  {% endif %}
+                  {% if block.settings.alpha_title == blank and block.settings.choose_collection != blank %}
+                    <h4 class="title">{{ collection.title }}</h4>
+                  {% endif %}
+                  {% if block.settings.alpha_title == blank and block.settings.choose_collection == blank  %}
+                    <h4 class="title">Collection title</h4>
+                  {% endif %}
+                  <div class="image">
+                    {% if block.settings.alpha_image != blank %}
+                      <img src="{{ block.settings.alpha_image | img_url: 'master' }}" alt="">
+                    {% endif %}
+                    {% if block.settings.alpha_image == blank and block.settings.choose_collection != blank %}
+                      <img src="{{ collection.image | img_url: 'master' }}" alt="">
+                    {% endif %}
+                    {% if block.settings.choose_collection == blank and block.settings.alpha_image == blank %}
+                      {{ 'product-1' | placeholder_svg_tag }}
+                    {% endif %}
+                  </div>
+                  {% if block.settings.alpha_button_text != blank %}
+                    <div class="button-wrapper">
+                      <a href="{{ collection.url }}" class="button">{{ block.settings.alpha_button_text }}</a>
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endif %}
+          {% if block.type == "content" %}
+            <div class="beta-block {% if forloop.length == 2 %}with-half{% endif %} data-aos data-aos--fade-up data-aos--delay-400" id="beta-{{block.id}}">
+              <div class="beta-wrapper">
+                <div class="beta-inner-wrapper">
+                  {% if block.settings.caption != blank %}
+                    <div class="caption text-color">{{ block.settings.caption }}</div>
+                  {% endif %}
+                  {% if block.settings.beta_title !=blank %}
+                    <h4 class="title text-color">{{ block.settings.beta_title }}</h4>
+                  {% endif %}
+                  {% if block.settings.pre_title != blank %}
+                    <h6 class="pre-title text-color">{{ block.settings.pre_title }}</h6>
+                  {% endif %}
+                  {% if block.settings.beta_button_text != blank %}
+                    <div class="button-wrapper">
+                      <a href="{{ block.settings.beta_button_url }}" class="button beta-button">{{ block.settings.beta_button_text }}</a>
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.collections_column.name",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "color",
+      "id": "box_background",
+      "label": "t:sections.collections_column.settings.box_background.label",
+      "default": "#06AAA1"
+    },
+    {
+      "type": "image_picker",
+      "id": "box_background_image",
+      "label": "t:sections.collections_column.settings.box_background_image.label",
+      "info": "t:sections.collections_column.settings.box_background_image.info"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:sections.collections_column.blocks.collections.name",
+      "type": "collections",
+      "settings": [
+        {
+        "type": "collection",
+        "id": "choose_collection",
+        "label": "t:sections.collections_column.blocks.collections.settings.choose_collection.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "alpha_image",
+          "label": "t:sections.collections_column.blocks.collections.settings.alpha_image.label",
+          "info": "t:sections.collections_column.blocks.collections.settings.alpha_image.info"
+        },
+        {
+          "type": "text",
+          "id": "alpha_title",
+          "label": "t:sections.collections_column.blocks.collections.settings.alpha_title.label",
+          "info": "t:sections.collections_column.blocks.collections.settings.alpha_title.info"
+        },
+        {
+          "type": "text",
+          "id": "alpha_button_text",
+          "label": "t:sections.collections_column.blocks.collections.settings.alpha_button_text.label",
+          "default": "Button Label"
+        }
+      ]
+    },
+    {
+      "name": "t:sections.collections_column.blocks.content.name",
+      "type": "content",
+      "settings": [
+        {
+          "type": "color",
+          "id": "box_text_color",
+          "label": "t:sections.collections_column.blocks.content.settings.box_text_color.label"
+        },
+        {
+          "type": "color",
+          "id": "box_button_bg",
+          "label": "t:sections.collections_column.blocks.content.settings.box_button_bg.label"
+        },
+        {
+          "type": "color",
+          "id": "box_button_color",
+          "label": "t:sections.collections_column.blocks.content.settings.box_button_color.label"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "t:sections.collections_column.blocks.content.settings.caption.label",
+          "default": "Fastest Delivery"
+        },
+        {
+          "type": "text",
+          "id": "beta_title",
+          "label": "t:sections.collections_column.blocks.content.settings.beta_title.label",
+          "info": "t:sections.collections_column.blocks.content.settings.beta_title.info",
+          "default": "20% OFF"
+        },
+        {
+          "type": "text",
+          "id": "pre_title",
+          "label": "t:sections.collections_column.blocks.content.settings.pre_title.label",
+          "info": "t:sections.collections_column.blocks.content.settings.pre_title.info",
+          "default": "Free Delivery On Orders above $100"
+        },
+        {
+          "type": "text",
+          "id": "beta_button_text",
+          "label": "t:sections.collections_column.blocks.content.settings.beta_button_text.label",
+          "default": "Button Label"
+        },
+        {
+          "type": "url",
+          "id": "beta_button_url",
+          "label": "t:sections.collections_column.blocks.content.settings.beta_button_url.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.collections_column.presets.name",
+      "blocks": [
+        {
+          "type": "collections"
+        },
+        {
+          "type": "collections"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

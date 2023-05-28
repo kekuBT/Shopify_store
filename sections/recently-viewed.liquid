@@ -1,0 +1,72 @@
+{{ 'recently-view.css' | asset_url | stylesheet_tag }}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+
+<style>
+  #shopify-section-{{ section.id }} .featured-collection-electronic .card-wrapper{
+    border: 1px solid {{ settings.color_input_border}};
+  }
+  #shopify-section-{{ section.id }} .featured-collection-electronic .card-wrapper .card--product{
+    border-bottom: 1px solid {{ settings.color_input_border}};
+  }
+  #shopify-section-{{ section.id }} .featured-collection-jewel .card-wrapper .card--product{
+    border-bottom: 1px solid {{ settings.color_input_border}};
+  }
+  #shopify-section-{{ section.id }} .featured-collection-food .card-wrapper{
+    border: 1px solid {{ settings.color_input_border}};
+    border-radius: {{ settings.product_card_border_radius }}px;
+  }
+  #shopify-section-{{ section.id }} .featured-collection-food .card-wrapper .card--product{
+    border-radius: {{ settings.product_card_border_radius }}px {{ settings.product_card_border_radius }}px 0 0;
+  }
+</style>
+
+{% include 'recently-viewed-product-template' %}
+
+<div class="js-recentView-template recentView-template product-page-section" style="display:none;" data-current-product="{{product.handle}}" data-style="{{ settings.style }}">
+  <div class="recentView-contaner ">
+    <div class="recentView-template">
+      <div class="page-width">
+        <header class="section-header">
+          <h2 class="h2">
+            {{section.settings.title}}
+          </h2>
+        </header>
+      </div>
+      <div class="recentView-template-content position-relative page-width">
+        <div class="collection-grid__wrapper">
+          <div class="">
+             <div id="recentView-template-grid" class="recentView-items featured-collection-{{ settings.style }}" ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 
+<script src="{{ 'handlebars.min.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'recentView.js' | asset_url }}" defer="defer"></script>
+<script>
+  function recentlyViewedDocumentReady(fn) {
+    if (document.readyState !== 'loading') {
+      recentlyViewed.init();
+    } else {
+      document.addEventListener('DOMContentLoaded', function() {
+        recentlyViewed.init();
+      });
+    }
+  }
+  recentlyViewedDocumentReady();
+</script>
+
+{% schema %}
+{
+    "name": "t:sections.recently-viewed.name",
+    "settings": [
+        {
+            "type":"text",
+            "id":"title",
+            "label":"t:sections.recently-viewed.settings.title.label"
+        }
+    ]
+}
+{% endschema %}

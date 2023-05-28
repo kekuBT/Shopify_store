@@ -1,0 +1,193 @@
+.affiliate-layout-3 {
+  padding-bottom: 80px;
+  padding-top: 80px;
+  overflow: hidden;
+}
+.affiliate-layout-3 .affiliate-layout-wrapper {
+  padding: 0 80px;
+}
+.affiliate-layout-3 .affiliate-top-assets {
+  display: flex;
+  justify-content: center;
+}
+.affiliate-layout-3 .affiliate-bottom-assets {
+  display: flex;
+  align-items: flex-end;
+  margin-top: -200px;
+  justify-content: center;
+}
+.affiliate-layout-3 .alpha,
+.affiliate-layout-3 .beta {
+  max-width: 480px;
+  flex: 480px;
+}
+.affiliate-layout-3 .img-wrap {
+  height: 500px;
+  max-width: 380px;
+  position: relative;
+}
+.affiliate-layout-3 .img-wrap img {
+  width: 100%;
+  display: block;
+  height: 100%;
+  position: relative;
+  object-fit: cover;
+}
+.affiliate-layout-3 .img-wrap svg {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #eeeaea;
+  background-color: #fff;
+}
+.affiliate-layout-3 .title {
+  font-size: 32px;
+  font-weight: 400;
+  letter-spacing: 0.4px;
+  margin-bottom: 26px;
+}
+.affiliate-layout-3 .contents-wrap {
+  max-width: 380px;
+  padding: 0 50px;
+}
+.affiliate-layout-3 .affiliate-bottom-assets .contents-wrap {
+  margin: 0 auto;
+}
+.affiliate-layout-3 .text-wrap {
+  margin-bottom: 18px;
+}
+.affiliate-layout-3 .affiliate-bottom-assets .text-wrap {
+  max-width: 250px;
+}
+.affiliate-layout-3 .text-wrap p {
+  margin-bottom: 0;
+  color: #69707E;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+.affiliate-layout-3 .button {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: capitalize;
+  max-width: 164px;
+  height: 52px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.affiliate-layout-3 .arrow-icon {
+  max-width: 13px;
+  flex: 13px;
+  height: 13px;
+  margin-left: 15px;
+}
+.affiliate-layout-3 .arrow-icon svg {
+  width: 100%;
+  height: 100%;
+}
+.affiliate-layout-3 .alpha .img-wrap {
+  margin-left: auto;
+}
+.affiliate-layout-3 .img-wrap::before {
+  content: "";
+  width: 121%;
+  height: 85%;
+  position: absolute;
+}
+.affiliate-layout-3 .affiliate-top-assets .img-wrap::before {
+  bottom: -55px;
+  left: -80px;
+}
+.affiliate-layout-3 .affiliate-bottom-assets .img-wrap::before {
+  top: -55px;
+  right: -80px;
+}
+.affiliate-layout-3 .affiliate-layout-main {
+  padding-bottom: 90px;
+}
+.affiliate-layout-3 .affiliate-layout-main:last-child {
+  padding-bottom: 0;
+}
+
+
+@media screen and (max-width: 1279px) {
+  .affiliate-layout-3 .affiliate-layout-wrapper {
+      padding: 0 40px;
+  }
+}
+@media screen and (max-width: 990px) {
+  .affiliate-layout-3 .img-wrap::before {
+      content: unset;
+  }
+  .affiliate-layout-3 .affiliate-top-assets {
+      align-items: center;
+  }
+  .affiliate-layout-3 .affiliate-bottom-assets {
+      align-items: center;
+      margin-top: 0;
+  }
+  .affiliate-layout-3 .alpha,
+  .affiliate-layout-3 .beta {
+      max-width: 100%;
+      flex: 100%;
+  }
+  .affiliate-layout-3 .img-wrap {
+      height: auto;
+      max-width: 100%;
+  }
+  .affiliate-layout-3 .contents-wrap {
+      max-width: 280px;
+      padding: 0;
+      margin: 0 auto;
+      text-align: center;
+  }
+  .affiliate-layout-3 .button {
+      margin: 0 auto;
+  }
+  .affiliate-layout-3 .affiliate-top-assets .img-wrap::before {
+      top: -55px;
+      bottom: -80px;
+  }
+  .affiliate-layout-3 .affiliate-bottom-assets .text-wrap {
+      margin-left: auto;
+      margin-right: auto;
+  }
+  .affiliate-layout-3 .affiliate-layout-wrapper {
+      padding: 0 5rem;
+  }
+  .affiliate-layout-3 .title {
+      font-size: 30px;
+      margin-bottom: 20px;
+  }
+  .affiliate-layout-3 .affiliate-layout-main {
+      padding-bottom: 60px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .affiliate-layout-3 .affiliate-layout-wrapper {
+      padding: 0 3rem;
+  }
+}
+@media screen and (max-width: 767px) {
+  .affiliate-layout-3 .affiliate-top-assets {
+      flex-wrap: wrap;
+      margin-bottom: 60px;
+  }
+  .affiliate-layout-3 .affiliate-bottom-assets {
+      flex-wrap: wrap;
+  }
+  .affiliate-layout-3 .affiliate-bottom-assets .alpha {
+      order: 2;
+  }
+  .affiliate-layout-3 .img-wrap {
+      margin-bottom: 24px;
+  }
+  .affiliate-layout-3 .affiliate-layout-wrapper {
+      padding: 0 2rem;
+  }
+  .affiliate-layout-3 .title {
+      font-size: 28px;
+      margin-bottom: 12px;
+  }
+}

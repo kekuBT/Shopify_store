@@ -1,0 +1,13 @@
+{% if settings.style == 'default' or section.settings.style == 'default' or settings.style == 'electronic' or section.settings.style == 'electronic' %}
+<svg title="Quick View" class="icon--mrparker-search vib-center" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" height="18px" xml:space="preserve">
+  <g class="hover-fill" fill="var(--button-text)">
+  <path d="M19.875 9.625c-.125-.25-4.5-5.875-9.875-5.875S.25 9.375.125 9.625a.797.797 0 0 0 0 .75c.125.25 4.5 5.875 9.875 5.875s9.75-5.625 9.875-5.875a.797.797 0 0 0 0-.75ZM10 15c-4 0-7.5-3.75-8.625-5C2.5 8.75 6 5 10 5s7.5 3.75 8.625 5C17.5 11.25 14 15 10 15Z"/>
+    <path d="M10 6.875A3.095 3.095 0 0 0 6.875 10 3.095 3.095 0 0 0 10 13.125 3.095 3.095 0 0 0 13.125 10 3.095 3.095 0 0 0 10 6.875Zm0 5C9 11.875 8.125 11 8.125 10S9 8.125 10 8.125 11.875 9 11.875 10 11 11.875 10 11.875Z"/>
+  </g>
+</svg>
+{% else %}
+<svg title="Quick View" class="icon--mrparker-search vib-center quick_view_zoom" width="16" height="16" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M9.0155 8.3085L11.157 10.4495L10.4495 11.157L8.3085 9.0155C7.51187 9.65411 6.521 10.0015 5.5 10C3.016 10 1 7.984 1 5.5C1 3.016 3.016 1 5.5 1C7.984 1 10 3.016 10 5.5C10.0015 6.521 9.65411 7.51187 9.0155 8.3085ZM8.0125 7.9375C8.64706 7.28494 9.00143 6.41021 9 5.5C9 3.566 7.4335 2 5.5 2C3.566 2 2 3.566 2 5.5C2 7.4335 3.566 9 5.5 9C6.41021 9.00143 7.28494 8.64706 7.9375 8.0125L8.0125 7.9375V7.9375ZM5 5V3.5H6V5H7.5V6H6V7.5H5V6H3.5V5H5Z" fill="var(--color-base-solid-button-labels)"/>
+  </svg>
+  
+{% endif %}

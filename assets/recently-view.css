@@ -1,0 +1,161 @@
+.recentView-template .h2 {
+  margin-bottom: 0;
+}
+#recentView-template-grid button.flickity-button {
+  width: 31px;
+  height: 31px;
+}
+#recentView-template-grid .flickity-prev-next-button.previous {
+  right: 46px;
+  top: -63px;
+  left: auto;
+  border: 1px solid rgb(0, 0, 0);
+  background: transparent;
+  border-radius: 0;
+  transition: .2s;
+  transform: translateY(0);
+}
+#recentView-template-grid .flickity-prev-next-button:hover {
+  background: rgb(0, 0, 0) !important;
+}
+#recentView-template-grid .flickity-prev-next-button:hover svg {
+  fill: #fff;
+}
+#recentView-template-grid .flickity-prev-next-button .flickity-button-icon {
+  position: absolute;
+  left: 26%;
+  top: 27%;
+  width: 13px;
+  height: 13px;
+}
+#recentView-template-grid .flickity-prev-next-button.next {
+  right: 8px;
+  top: -63px;
+  border: 1px solid rgb(0, 0, 0);
+  background: transparent;
+  border-radius: 0;
+  transition: .2s;
+  transform: translateY(0);
+}
+.recentView-contaner {
+  padding: 5rem 0 6rem;
+}
+.recentView-item .grid-variant__button-label {
+  box-shadow: 0 0 0 1px #e8e8e1;
+}
+.recentView-items {
+  width: 100%;
+  flex-wrap: wrap;
+}
+.recentView-item .card-details__wrapper > a {
+  display: block;
+}
+.recentView-item .card__inner .media img {
+  height: 420px;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.recentView-item {
+  width: 25%;
+}
+.recentView-items .grid-variant-input label[value="White"].selected{
+border: 2px solid;
+border-color: #e8e8e1;
+}
+.recentView-items .card-details__wrapper .price-item.price-item--sale{
+  opacity: 1;
+}
+
+/**/
+.recentView-items.featured-collection-fashion .hover_show, 
+.recentView-items.featured-collection-electronic .hover_show, 
+.recentView-items.featured-collection-jewel .hover_show,
+.recentView-items.featured-collection-food .hover_show{
+  display: none;
+}
+.recentView-items.featured-collection-fashion .card-wrapper .price, 
+.recentView-items.featured-collection-fashion .card-wrapper .grid-options fieldset,
+.recentView-items.featured-collection-jewel .card-wrapper .price, 
+.recentView-items.featured-collection-jewel .card-wrapper .grid-options fieldset,
+.recentView-items.featured-collection-food .card-wrapper .price, 
+.recentView-items.featured-collection-food .card-wrapper .grid-options fieldset{
+  justify-content: center;
+}
+.recentView-items.featured-collection-fashion .card-wrapper .card-details{
+  padding: 8px;
+}
+
+/**/
+.recentView-items.featured-collection-jewel .card-wrapper .card-details,
+.recentView-items.featured-collection-food .card-wrapper .card-details{
+  text-align: center;
+}
+.recentView-items.featured-collection-jewel .card-wrapper{
+  background-color: rgba(var(--color-background-1));
+}
+
+@media screen and (max-width:1400px) {
+  .recentView-template .page-width {
+    max-width: 90%;
+  }
+}
+@media screen and (max-width:1024px) {
+  .recentView-contaner {
+    padding: 4rem 0 5rem;
+  }
+  .recentView-item {
+    width: 33.333%;
+  }
+  .recentView-template .h2 {
+    font-size: calc(var(--font-heading-scale) * 2.1875rem);
+  }
+}
+@media screen and (max-width:767px) {
+  .recentView-item {
+    width: 50%;
+  }
+}
+@media screen and (max-width:749px) {
+
+  /*   .recentView-template .section-header h2 {
+  margin-bottom: 2rem;
+  font-size: 2.3rem;
+  } */
+  .recentView-template .h2 {
+    font-size: calc(var(--font-heading-scale) * 1.875rem);
+  }
+}
+@media screen and (max-width:600px) {
+  .recentView-item {
+    width: 100%;
+  }
+  .recentView-template .h2 {
+    font-size: calc(var(--font-heading-scale) * 1.75rem);
+  }
+  .recentView-item .card-wrapper {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  #recentView-template-grid .flickity-prev-next-button.previous {
+    right: 42px;
+  }
+  #recentView-template-grid .flickity-prev-next-button .flickity-button-icon {
+    left: 27%;
+    top: 30%;
+    width: 11px;
+    height: 11px;
+  }
+  #recentView-template-grid button.flickity-button {
+    width: 27px;
+    height: 27px;
+  }
+  .recentView-contaner {
+    padding: 2rem 0 3.3rem;
+  }
+}
+@media screen and (max-width:420px) {
+  .recentView-template .h2 {
+    font-size: calc(var(--font-heading-scale) * 1.625rem);
+  }
+}

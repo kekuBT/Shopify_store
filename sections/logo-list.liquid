@@ -1,0 +1,206 @@
+{{ 'section-logos-list.css' | asset_url | stylesheet_tag }}
+<style>
+  #shopify-section-{{section.id}} .logos-wrapper h2 {
+    color: {{section.settings.color_text}};
+  }
+  #shopify-section-{{section.id}} .logos__slider .flickity-page-dots .dot {
+    background: {{settings.colors_accent_1}};
+    opacity:0.4;
+  }
+  #shopify-section-{{section.id}} .logos__slider .flickity-page-dots .dot.is-selected{
+    opacity:1;
+  }
+  #shopify-section-{{section.id}} .logos-wrapper{
+    padding-top: {{ section.settings.top_bottom_padding }}px;
+    padding-bottom: {{ section.settings.top_bottom_padding }}px; 
+  }
+
+  @media (max-width: 768px){
+    #shopify-section-{{section.id}} .logos-wrapper{
+      padding-top: {{ section.settings.top_bottom_padding | divided_by: 2 }}px;
+      padding-bottom: {{ section.settings.top_bottom_padding | divided_by: 2 }}px; 
+    }
+  }
+</style>
+
+{%- assign grid_class = "is-4-tablet" -%}
+{% case section.settings.columns %} 
+  {% when 2 %}
+    {%- assign grid_class = "is-6-tablet" -%}
+  {% when 3 %}
+    {%- assign grid_class = "is-4-tablet" -%}
+  {% when 4 %}
+    {%- assign grid_class = "is-3-tablet" -%}
+  {% when 5 %}
+      {%- assign grid_class = "logo-col-5" -%}
+  {% when 6 %}
+      {%- assign grid_class = "logo-col-6" -%}
+{% endcase %}
+
+
+<div class="logosSlider-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="logos-section">
+  <div class="slider-wrapper">
+    <div class="logos-wrapper section {{ settings.style }}" {% if section.settings.color_bg != blank %}style="background-color:{{section.settings.color_bg}};"{% endif %}>
+      <div class="page-width">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="h2 has-text-centered data-aos data-aos--fade-in data-aos--delay-200">{{ section.settings.heading | escape }}</h2>
+        {%- endif -%}
+        <div class="logos-list logos__slider {{settings.navigation_type}}" id="LogosSlider-{{ section.id }}" 
+            data-natural="true"
+            data-autoplay="{{ section.settings.slide_autoplay }}"
+            data-speed="{{ section.settings.autoplay_time | times: 1000 }}"
+            {% if settings.navigation_type == 'arrows' %}
+              data-arrows="true"
+            {% endif %}
+            {% if settings.navigation_type == 'dots' %}
+              data-dots="true"
+            {% endif %}
+            data-count="{{ section.blocks.size }}"
+          >
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              {%- when 'image' -%}
+                {%- if block.settings.image != blank -%}
+                  <div class="slideshow__slide logo-slide--{{ block.id }} column {{ grid_class }} is-6-mobile has-text-centered">
+                    {%- if block.settings.image_link != blank -%}
+                      <a href="{{block.settings.image_link}}" >
+                    {%- endif -%}
+                      <img
+                        class="data-aos data-aos--fade-in"
+                        src="{{ block.settings.image | img_url: '720x' }}"
+                        srcset="{%- if block.settings.image.width >= 200 -%}{{ block.settings.image | img_url: '200x' }} 200w,{%- endif -%}
+                        {%- if block.settings.image.width >= 320 -%}{{ block.settings.image | img_url: '320x' }} 320w,{%- endif -%}
+                        {%- if block.settings.image.width >= 480 -%}{{ block.settings.image | img_url: '480x' }} 480w,{%- endif -%}
+                        {%- if block.settings.image.width >= 768 -%}{{ block.settings.image | img_url: '768x' }} 768w,{%- endif -%}
+                        {%- if block.settings.image.width >= 1024 -%}{{ block.settings.image | img_url: '1024x' }} 1024w,{%- endif -%}
+                        {%- if block.settings.image.width >= 1400 -%}{{ block.settings.image | img_url: '1400x' }} 1400w,{%- endif -%}
+                        {%- if block.settings.image.width >= 1920 -%}{{ block.settings.image | img_url: '1920x' }} 1920w{%- endif -%}"
+                        sizes="(min-width: 1100px){% if section.blocks.size > 1 %}535px{% else %}940px{% endif %}, (min-width: 750px) {% if section.blocks.size > 1 %}calc((100vw - 10rem) / 2){% else %}calc(100vw - 10rem){% endif %}, calc(100vw - 3rem)"
+                        height="{{ block.settings.image.height }}"
+                        width="{{ block.settings.image.width }}"
+                        alt="{{ block.settings.image.alt }}"
+                        style="object-position:{{block.settings.image.presentation.focal_point}}"
+                        loading="lazy" >
+                      {%- if block.settings.image_link != blank -%}
+                        </a>
+                      {%- endif -%}
+                    </div>
+                  {%- else -%}
+                    <div class="slideshow__slide logo-slide--{{ block.id }} column {{ grid_class }} is-6-mobile has-text-centered">
+                      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                    </div>
+                  {%- endif -%}
+              {%- endcase -%}
+            {%- endfor -%}
+          </div>
+      </div>
+      
+  </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.logos-list.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "slide_autoplay",
+      "default": false,
+      "label": "t:sections.reviews.settings.slide_autoplay.label"
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "default": "3",
+      "min":2,
+      "max":6,
+      "default": 3,
+      "step": 1,
+      "label": "t:sections.logos-list.settings.columns.label"
+    },
+    {
+      "type": "range",
+      "id": "autoplay_time",
+      "min":5,
+      "max":10,
+      "default": 6,
+      "step": 1,
+      "unit": "s",
+      "label": "t:sections.reviews.settings.autoplay_time.label"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "Featured In:",
+      "label": "t:sections.logos-list.settings.heading.label"
+    },
+    {
+      "type": "color",
+      "id": "color_bg",
+      "default": "#2d2d2d",
+      "label": "t:sections.logos-list.settings.color_bg.label"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "default": "#fff",
+      "label": "t:sections.logos-list.settings.color_text.label"
+    },
+    {
+      "type": "range",
+      "id": "top_bottom_padding",
+      "min":20,
+      "max":80,
+      "default": 40,
+      "step": 1,
+      "label": "t:sections.logos-list.settings.top_bottom_padding.label"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "t:sections.logos-list.blocks.image.name",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.logos-list.blocks.image.settings.image.label",
+          "info": "200 x 70px .png recommended"
+        },
+        {
+          "type": "url",
+          "id": "image_link",
+          "label": "t:sections.logos-list.blocks.image.settings.image_link.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.logos-list.presets.name",
+      "blocks": [
+          {
+            "type": "image"
+          },
+          {
+            "type": "image"
+          },
+          {
+            "type": "image"
+          },
+          {
+            "type": "image"
+          },
+          {
+            "type": "image"
+          },
+          {
+            "type": "image"
+          }
+      ]
+    }
+  ]
+}
+{% endschema %}

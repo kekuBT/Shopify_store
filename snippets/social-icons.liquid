@@ -1,0 +1,85 @@
+<ul class="{{ classes }} social-icons-list" role="list">
+    {%- if settings.social_facebook_link != blank -%}
+    <li class="social-link">
+      <a href="{{ settings.social_facebook_link }}" class="data-aos data-aos--fade-in" title="{{ 'general.social.links.facebook' | t }}" aria-label="{{ 'general.social.links.facebook' | t }}">
+        {%- render 'icon-facebook' -%}
+        <span class="screen-reader-only">{{ 'general.social.links.facebook' | t }}</span>
+      </a>
+    </li>
+    {%- endif -%}
+    {%- if settings.social_twitter_link != blank -%}
+      <li class="social-link">
+          <a href="{{ settings.social_twitter_link }}" class="data-aos data-aos--fade-in" title="{{ 'general.social.links.twitter' | t }}" aria-label="{{ 'general.social.links.twitter' | t }}">
+          {%- render 'icon-twitter' -%}
+          <span class="screen-reader-only">{{ 'general.social.links.twitter' | t }}</span>
+          </a>
+      </li>
+      {%- endif -%}
+      {%- if settings.social_instagram_link != blank -%}
+      <li class="social-link">
+          <a href="{{ settings.social_instagram_link }}" class="data-aos data-aos--fade-in" title="{{ 'general.social.links.instagram' | t }}" aria-label="{{ 'general.social.links.instagram' | t }}">
+          {%- render 'icon-instagram' -%}
+          <span class="screen-reader-only">{{ 'general.social.links.instagram' | t }}</span>
+          </a>
+      </li>
+      {%- endif -%}
+      {%- if settings.social_linkedin_link != blank -%}
+      <li class="social-link">
+        <a href="{{ settings.social_linkedin_link }}" class="data-aos data-aos--fade-in" title="{{ 'general.social.links.linkedin' | t }}" aria-label="{{ 'general.social.links.linkedin' | t }}">
+          {%- render 'icon-linkedin' -%}
+          <span class="screen-reader-only">{{ 'general.social.links.linkedin' | t }}</span>
+        </a>
+      </li>
+      {%- endif -%}
+      {%- if settings.social_pinterest_link != blank -%}
+        <li class="social-link">
+            <a href="{{ settings.social_pinterest_link }}" class="data-aos data-aos--fade-in" title="{{ 'general.social.links.pinterest' | t }}" aria-label="{{ 'general.social.links.pinterest' | t }}">
+            {%- render 'icon-pinterest' -%}
+            <span class="screen-reader-only">{{ 'general.social.links.pinterest' | t }}</span>
+            </a>
+        </li>
+      {%- endif -%}
+      {%- if settings.social_tiktok_link != blank -%}
+      <li class="social-link">
+        <a href="{{ settings.social_tiktok_link }}" class="data-aos data-aos--fade-in" title="{{ 'general.social.links.tiktok' | t }}" aria-label="{{ 'general.social.links.tiktok' | t }}">
+          {%- render 'icon-tiktok' -%}
+          <span class="screen-reader-only">{{ 'general.social.links.tiktok' | t }}</span>
+        </a>
+      </li>
+      {%- endif -%}
+      
+      
+      {%- if settings.social_tumblr_link != blank -%}
+      <li class="social-link">
+          <a href="{{ settings.social_tumblr_link }}" class="data-aos data-aos--fade-in" title="{{ 'general.social.links.tumblr' | t }}" aria-label="{{ 'general.social.links.tumblr' | t }}">
+          {%- render 'icon-tumblr' -%}
+          <span class="screen-reader-only">{{ 'general.social.links.tumblr' | t }}</span>
+          </a>
+      </li>
+      {%- endif -%}
+      {%- if settings.social_snapchat_link != blank -%}
+      <li class="social-link">
+          <a href="{{ settings.social_snapchat_link }}" class="data-aos data-aos--fade-in" title="{{ 'general.social.links.snapchat' | t }}" aria-label="{{ 'general.social.links.snapchat' | t }}">
+          {%- render 'icon-snapchat' -%}
+          <span class="screen-reader-only">{{ 'general.social.links.snapchat' | t }}</span>
+          </a>
+      </li>
+      {%- endif -%}
+      {%- if settings.social_youtube_link != blank -%}
+      <li class="social-link">
+          <a href="{{ settings.social_youtube_link }}" class="data-aos data-aos--fade-in" title="{{ 'general.social.links.youtube' | t }}" aria-label="Youtube">
+          {%- render 'icon-youtube' -%}
+          <span class="screen-reader-only">{{ 'general.social.links.youtube' | t }}</span>
+          </a>
+      </li>
+      {%- endif -%}
+      {%- if settings.social_vimeo_link != blank -%}
+      <li class="social-link">
+          <a href="{{ settings.social_vimeo_link }}" class="data-aos data-aos--fade-in" title="{{ 'general.social.links.vimeo' | t }}" aria-label="{{ 'general.social.links.vimeo' | t }}">
+          {%- render 'icon-vimeo' -%}
+          <span class="screen-reader-only">{{ 'general.social.links.vimeo' | t }}</span>
+          </a>
+      </li>
+      {%- endif -%}
+
+  </ul>

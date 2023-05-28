@@ -1,0 +1,117 @@
+{% case media.media_type %}
+  {% when 'image' %}
+    {% if thumbnail == true %}
+      <div class="product-single__media" image-index="{{indexx}}" image-id="{%-for image in product.images-%}{%-if image == media-%} {{image.id}}{%-endif-%}{%-endfor-%}" data-src="{{ media | img_url: '2048x2048' }}">
+        <img src="{{ media.preview_image | image_url: width: 150 }}" srcset="{{ media.preview_image | image_url: width: 150 }} 1x, {{ media.preview_image | image_url: width: 300 }} 2x" loading="lazy" height="{{ media.preview_image.height }}" width="{{ media.preview_image.width }}" alt="{{ media.alt | escape | default: product.title }}">
+      </div>
+    {% else %}
+      <div class="product-single__media" image-index="{{indexx}}" image-id="{%-for image in product.images-%}{%-if image == media-%} {{image.id}}{%-endif-%}{%-endfor-%}" data-src="{{ media | img_url: '2048x2048' }}">
+        <img
+          class="carousel-image"
+          srcset="{%- if media.preview_image.width >= 550 -%}{{ media.preview_image | image_url: width: 550 }} 550w,{%- endif -%}
+                  {%- if media.preview_image.width >= 1100 -%}{{ media.preview_image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                  {%- if media.preview_image.width >= 1445 -%}{{ media.preview_image | image_url: width: 1445 }} 1445w,{%- endif -%}
+                  {%- if media.preview_image.width >= 1680 -%}{{ media.preview_image | image_url: width: 1680 }} 1680w,{%- endif -%}
+                  {%- if media.preview_image.width >= 2048 -%}{{ media.preview_image | image_url: width: 2048 }} 2048w,{%- endif -%}
+                  {%- if media.preview_image.width >= 2200 -%}{{ media.preview_image | image_url: width: 2200 }} 2200w,{%- endif -%}
+                  {%- if media.preview_image.width >= 2890 -%}{{ media.preview_image | image_url: width: 2890 }} 2890w{%- endif -%}
+                  {{ media.preview_image | image_url }} {{ media.preview_image.width }}w"
+          sizes="(min-width: 750px) calc(100vw - 22rem), 1100px"
+          src="{{ media.preview_image | image_url: width: 1445 }}"
+          alt="{{ media.alt | escape | default: product.title }}"
+          {% unless indexx == 0 %}
+          loading="lazy"
+          {% endunless %}
+          width="1100"
+          height="{{ 1100 | divided_by: media.preview_image.aspect_ratio | ceil }}"
+          data-media-id="{{ media.id }}"
+        >
+      </div>
+    {% endif %}
+  {% when 'external_video' %}
+    {% if thumbnail == true %}
+      <div class="product-single__media video" data-media-id="{{ media.id }}" data-src="https://www.youtube.com/embed/{{media.external_id}}?controls=1">
+        <div class="play__icon">
+          {% render 'icon-play' %}
+        </div>
+        <img src="{{ media.preview_image | image_url: width: 150 }}" srcset="{{ media.preview_image | image_url: width: 150 }} 1x, {{ media.preview_image | image_url: width: 300 }} 2x" loading="lazy" height="{{ media.preview_image.height }}" width="{{ media.preview_image.width }}" alt="{{ media.alt | escape }}">
+      </div>
+    {% else %}
+      <div class="product-single__media video" data-media-id="{{ media.id }}" data-src="https://www.youtube.com/embed/{{media.external_id}}?controls=1">
+        {% if media.host == "youtube" %}
+          <lite-youtube class="lazy-youtube lazyload" videoid="{{media.external_id}}" params="controls=1&autoplay=1&enablejsapi=1&modestbranding=1&playsinline=1&rel=0" data-bgset="https://i.ytimg.com/vi_webp/{{media.external_id}}/maxresdefault.webp" style="background-image:none;">
+            <a href="https://youtube.com/watch?v={{media.external_id}}" class="lty-playbtn" title="Play Video">
+              <span class="lyt-visually-hidden">Play Video</span>
+            </a>
+          </lite-youtube>
+        {% else %}
+          <div class="lite-vimeo-container">
+            <lite-vimeo videoid="{{media.external_id}}" autoplay></lite-vimeo>
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+    
+  {% when 'video' %}
+    <div class="product-single__media video" data-media-id="{{ media.id }}">
+      {% if thumbnail == true %}
+        <div class="play__icon">
+          {% render 'icon-play' %}
+        </div>
+        {% assign controls = false %}
+        <img src="{{ media.preview_image | image_url: width: 150 }}" srcset="{{ media.preview_image | image_url: width: 150 }} 1x, {{ media.preview_image | image_url: width: 300 }} 2x" loading="lazy" height="{{ media.preview_image.height }}" width="{{ media.preview_image.width }}" alt="{{ media.alt | escape }}">
+      {% else %}
+        <video playsinline="playsinline" controls="controls" loading="lazy" preload="none" aria-label="{{ media.alt | escape }}" poster="{{ media.preview_image | image_url: width: 800 }}">
+          {% for video_source in media.sources %}
+            <source src="{{ video_source.url }}" type="{{ video_source.mime_type }}">
+          {% endfor %}
+          <img src="{{ media.preview_image | image_url: width: 800 }}" loading="lazy" alt="{{ media.alt | escape }}">
+        </video>
+      {% endif %}
+    </div>
+  {% when 'model' %}
+    {% if thumbnail == true %}
+      <div class="product-single__media model" data-media-id="{{ media.id }}">
+        <div class="play__icon">
+          {% render 'icon-3d-model' %}
+        </div>
+        <img src="{{ media.preview_image | image_url: width: 150 }}" srcset="{{ media.preview_image | image_url: width: 150 }} 1x, {{ media.preview_image | image_url: width: 300 }} 2x" loading="lazy" height="{{ media.preview_image.height }}" width="{{ media.preview_image.width }}" alt="{{ media.alt | escape }}">
+      </div>
+    {% else %}
+
+      <model-viewer
+          id="model-viewer-{{ media.id }}"
+          src="{{ media.sources[0].url }}"
+          poster="{{ media.preview_image | image_url: width: 300 }}"
+          camera-orbit="1.2195rad 1.362rad 100%"
+          interaction-prompt-threshold="0"
+          shadow-intensity="1"
+          ar
+          ar-modes="webxr scene-viewer quick-look"
+          camera-controls
+          alt="{{ media.alt | default: product.title }}"
+        >
+
+        <div class="poster" slot="poster" style="background-image: url('{{ media.preview_image | image_url: width: 300 }}');">
+          <img class="pre-prompt" src="{{ 'prompt.svg' | asset_url }}" width="25" height="36" loading="lazy" alt="Drag to view 3d model">
+        </div>
+
+        <div class="progress-bar" slot="progress-bar">
+          <div class="update-bar"></div>
+        </div>
+
+        <button slot="ar-button" class="ar-button">
+          View in your space
+        </button>
+      
+        <div class="ar-prompt">
+          <img src="{{ 'hand.png' | asset_img_url: width: 50 }}" width="50" height="54" loading="lazy" alt="Hand icon 3d model">
+        </div>
+      </model-viewer>
+    {% endif %}
+    
+  {% else %}
+    <div class="product-single__media" data-media-id="{{ media.id }}">
+      {{ media | media_tag }}
+    </div>
+{% endcase %}
